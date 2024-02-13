@@ -78,7 +78,38 @@ position: fixed;
 p{
 	
 }
-
+.boite{
+	border: solid 0.1rem black;
+	margin: 2%;
+	background-color: whitesmoke;
+	position: fixed;
+	height: 75%;
+	width: 96%;
+	border-radius: 25px;
+}
+.topBar{
+	margin-bottom: 1%;
+	display: flex;
+	text-align: center;
+}
+#search{
+	margin-top: 1%;
+	width: 90%;
+	border-radius: 15px;
+	padding-left: 2%;
+}
+.dropdown{
+	margin-left: 2%;
+	margin-right: 2%;
+	margin-top: 1.5%;
+	height: 10%;
+	display: inline-block;
+}
+.contenu{
+	display: block;
+	height: 77%;
+	margin: 1%;
+}
 
 
 
