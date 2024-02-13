@@ -1,15 +1,10 @@
-* {
-    border: solid 1px red;
-}
-
-
-
 html{
 	background-color: #FFF9E4;
 	border: solid 1.5px black;
 }
 
 h1{
+	
 	border: solid 1px black;
 	margin-bottom: 10px;
 	margin-top: 10px;
@@ -25,7 +20,7 @@ h1{
 	font-family: sans-serif;
 	position: fixed;
     top: 0;
-    width: 100%;
+    width: 99.7%;
     z-index: 1;
 }
 
@@ -37,12 +32,13 @@ body{
 
 
 .menu {
+	margin-left: -100px;
    list-style-type: none; 
    margin: 0;
    padding: 0;
    display: flex; 
    justify-content: space-around; 
-   align-items: center; /* Centrer verticalement les éléments */
+   align-items: center; 
    height: 5vh; 
 	border: solid 1px black;
 	background-color: #E7E7E7;
@@ -50,7 +46,7 @@ body{
 	font-weight: bold;
 position: fixed;
     top: calc(88px); 
-    width: 100%;
+    width: 99.7%;
     z-index: 1;
 }
 
@@ -68,13 +64,19 @@ position: fixed;
    text-decoration: underline; 
 }
 
-#entete{
-background-color: white;
-
+#entete {
+   
+    background-color: white;
+    padding-top: 120px;
+    position: sticky;
+    top: 0;
+    height: 0px; 
+    z-index: 1; 
 }
 
+
 p{
-	margin-top:-10px;
+	
 }
 
 
