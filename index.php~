@@ -18,7 +18,7 @@
         </ol>
     </div>
     <div class="boite_index">
-        <div class="contenu_index">
+        <div class="contenu">
             <div class="slider-container">
                 <button class="prev">&#10094;</button>
                 <div id="images-container">
