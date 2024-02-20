@@ -1,0 +1,49 @@
+$(document).ready(function() {
+    let currentImage = 0;
+    const totalImages = $(".slide").length;
+    const slideWidth = $(".slide").width();
+
+    updateImage();
+    updateSelectorDots();
+
+    $(".next").click(function() {
+        currentImage = (currentImage + 1) % totalImages;
+        updateImage("next");
+        updateSelectorDots();
+    });
+
+    $(".prev").click(function() {
+        currentImage = (currentImage - 1 + totalImages) % totalImages;
+        updateImage("prev");
+        updateSelectorDots();
+    });
+
+    $(".selector-dot").click(function() {
+        const newIndex = $(this).data("index");
+        const direction = newIndex > currentImage ? "next" : "prev";
+        currentImage = newIndex;
+        updateImage(direction);
+        updateSelectorDots();
+    });
+
+    function updateImage(direction) {
+        const $imagesContainer = $("#images-container");
+        const newPosition = direction === "next" ? "-=" + slideWidth : "+=" + slideWidth;
+        
+        $imagesContainer.animate({
+            marginLeft: newPosition
+        }, 500, function() {
+            if (direction === "next") {
+                $(".slide:first-child").appendTo($imagesContainer);
+            } else {
+                $(".slide:last-child").prependTo($imagesContainer);
+            }
+            $imagesContainer.css("marginLeft", 0);
+        });
+    }
+
+    function updateSelectorDots() {
+        $(".selector-dot").css("background-color", "white");
+        $(".selector-dot").eq(currentImage).css("background-color", "black");
+    }
+});
