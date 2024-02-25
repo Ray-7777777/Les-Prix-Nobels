@@ -13,8 +13,10 @@
         <ol class="menu" id="menu">
             <li><a id="accueil" href="index.php">Accueil</a></li>
             <li><a id="recherche" href="recherche.php">Recherche</a></li>
-            <li><a id="graphique" href="graphique.php">Graphique</a></li>
+            <li><a id="graphique" href="./real.php">Graphique 1</a></li>
+            <li><a id="graphique" href="./page_graphique copy.php">Graphique 2</a></li>
             <li><a id="connexion" href="connexion.php">Connexion</a></li>
+
         </ol>
     </div>
     <div class="boite_index">

@@ -238,6 +238,22 @@ p{
 	text-align: justify;
 }
 
+.contenu_graphe{
+	display: block;
+	justify-content: center;
+	height: 50%;
+	margin: 1%;
+}
+
+#graphs{
+	display: block;
+	justify-content: center;
+	width: 80%;
+	height: 400px !important;
+	
+	
+}
+
 
 
 
