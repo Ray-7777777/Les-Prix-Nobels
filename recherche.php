@@ -12,11 +12,11 @@
 
 		<ol class="menu" id="menu">
 
-		<li><a id="accueil" href="index.php">Accueil</a></li>
-            <li><a id="recherche" href="recherche.php">Recherche</a></li>
-            <li><a id="graphique" href="./real.php">Graphique 1</a></li>
-            <li><a id="graphique" href="./page_graphique copy.php">Graphique 2</a></li>
-            <li><a id="connexion" href="connexion.php">Connexion</a></li>
+        <li><a id = "accueil" href="index.php">Accueil</a></li>
+        <li><a id = "recherche" href="recherche.php">Recherche</a></li>
+        <li><a id="graphique" href="./real.php">Graphique 1</a></li>
+        <li><a id="graphique" href="./page_graphique copy.php">Graphique 2</a></li>
+        <li><a id="connexion" href="connexion.php">Connexion</a></li>
 
 		</ol>
 	</div>
@@ -25,9 +25,9 @@
 			<div id="search">
 				<nav class="navbar navbar-light bg-light rounded-pill col-lg-12">
   					<div class="container-fluid">
-    					<form class="d-flex">
-      					<input class="form-control me-2 col-lg-12" type="search" placeholder="Rechercher" aria-label="Rechercher" id="bar">
-      					<button class="btn btn-outline-success" type="submit">Recherche</button>
+    					<form class="d-flex" action="rechercher.php" method="post">
+      						<input class="form-control me-2 col-lg-12" type="search" placeholder="Rechercher" aria-label="Rechercher" id="bar" name="recherche">
+      						<button class="btn btn-outline-success" type="submit">Recherche</button>
     					</form>
   					</div>
 				</nav>
@@ -45,11 +45,9 @@
 			</div>
 		</div>
 		<div class="contenu">
-			<ul>
-				
-			</ul>
 		</div>
 	</div>
-	 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="recherche.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
