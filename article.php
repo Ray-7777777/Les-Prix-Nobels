@@ -69,9 +69,23 @@
                 // affiche les information du prix Nobel
                 echo "<p>Année : " . $result['Année'] . "</p>";
                 echo "<p>Motivation : " . $result['Motivation'] . "</p>";
+
                 echo "<p>Catégorie : " . $categorie["Nom_catégorie"] . "</p>";
-                echo "<p>Nominé : " . $nomine["Prénom"] ." ". $nomine["Nom"] . "</p>";
+                
+                echo "people:";
+                echo "<p> " . $nomine["Prénom"] ." ". $nomine["Nom"] . "</p>";
+                echo "<p>Gender: " . $nomine["Gender"] . "</p>";
+                echo "<p>Date of birth: " . $nomine["Date_de_naissance"] . "</p>";
+                echo "<p>Born City: " . $nomine["Born city"] . "</p>";
+                echo "<p>Born Country: " . $nomine["Born country"] . "</p>";
+                echo "<p>Date of death: " . $nomine["Date_de_mort"] . "</p>";
+                echo "<p>Died City: " . $nomine["Died city"] . "</p>";
+                echo "<p>Died Country: " . $nomine["Died country"] . "</p>";
+
+                echo "organisation:";
                 echo "<p>Organisation : " . $organisation["nom_organisation"] . "</p>";
+                echo "<p>Organisation's city : " . $organisation["ville_organisation"] . "</p>";             
+                echo "<p>Organisation's Country : " . $organisation["pays_organisation"] . "</p>";
             } else {
                 echo "Aucun résultat trouvé pour cet ID.";
             }
