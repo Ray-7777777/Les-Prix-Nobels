@@ -16,16 +16,14 @@
             <li><a id="graphique" href="./real.php">Graphique 1</a></li>
             <li><a id="graphique" href="./page_graphique copy.php">Graphique 2</a></li>
             <li><a id="connexion" href="connexion.php">Connexion</a></li>
-
         </ol>
     </div>
     <div class="boite_index">
-        <div class="contenu_index">
+        <div class="contenu">
             <div class="slider-container">
                 <button class="prev">&#10094;</button>
                 <div id="images-container">
                     <?php
-                 
                     $servername = "localhost";
                     $username = "root";
                     $password = "";
@@ -41,9 +39,11 @@
                     $result = $conn->query($sql);
 
                     if ($result->num_rows > 0) {
+                        $index = 1;
                         while ($row = $result->fetch_assoc()) {
                             echo '<div class="image-title">' . $row["titre"] . '</div>';
-                            echo '<a href="article1.php"><img class="slide" src="' . $row["image"] . '" style="margin-left:-1.4px;border: solid 0.1rem black; width: 100%; height: 100%; display: none;"></a>';
+                            echo '<a href="article' . $index . '.php"><img class="slide" src="' . $row["image"] . '" style="margin-left:-1.4px;border: solid 0.1rem black; width: 100%; height: 100%; display: none;"></a>';
+                            $index++;
                         }
                     } else {
                         echo "0 résultats";
@@ -52,7 +52,6 @@
                     ?>
                 </div>
                 <div class="image-selector">
-                  
                     <?php
                     for ($i = 0; $i < $result->num_rows; $i++) {
                         echo '<div class="selector-dot" data-index="' . $i . '"></div>';
@@ -107,6 +106,6 @@
     	<a href="commentaires.php" style="color: black">Page des commentaires</a>
     	<img src="Images/icone_commentaires.png" style="vertical-align: middle; margin-left: 5px; width: 20px; height: 20px;">
     </footer>
+    <script src="script_index.js"></script>
 </body>
-
 </html>

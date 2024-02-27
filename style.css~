@@ -189,24 +189,24 @@ p{
 }
 
 .image-selector {
-            text-align: center;
-            position: absolute;
-            bottom: 10px; 
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 2; 
-        }
+    text-align: center;
+    position: absolute;
+    bottom: 10px; 
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2; 
+}
 
-        .selector-dot {
-            display: inline-block;
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            margin: 0 5px; 
-            background-color: white;
-            border: 1px solid black; 
-            cursor: pointer;
-        }
+.selector-dot {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    margin: 0 5px; 
+    background-color: white;
+    border: 1px solid black; 
+    cursor: pointer;
+}
         
 .boite_article {
     border: solid 0.1rem black;
@@ -235,7 +235,23 @@ p{
 }
 
 .p_article{
+	text-align: justify;
+}
 
+.contenu_graphe{
+	display: block;
+	justify-content: center;
+	height: 50%;
+	margin: 1%;
+}
+
+#graphs{
+	display: block;
+	justify-content: center;
+	width: 80%;
+	height: 400px !important;
+	
+	
 }
 
 
