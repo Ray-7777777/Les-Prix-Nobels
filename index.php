@@ -1,3 +1,11 @@
+<?php
+    session_start();
+
+    require_once 'connexion_bd.php';
+
+
+    $est_connecte = isset($_SESSION['user_id']);
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -15,7 +23,14 @@
             <li><a id="recherche" href="recherche.php">Recherche</a></li>
             <li><a id="graphique" href="./real.php">Graphique 1</a></li>
             <li><a id="graphique" href="./page_graphique copy.php">Graphique 2</a></li>
-            <li><a id="connexion" href="connexion.php">Connexion</a></li>
+            <li><?php
+            if ($est_connecte) {
+                echo '<li><a id="connexion" href="connexion.php">Connecté</a></li>';
+            } else {
+                echo '<li><a id="connexion" href="connexion.php">Connexion</a></li>';
+            }
+            ?>
+            </li>
         </ol>
     </div>
     <div class="boite_index">
