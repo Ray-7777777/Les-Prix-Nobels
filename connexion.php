@@ -12,8 +12,8 @@ $est_connecte = isset($_SESSION['user_id']);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulaire de Connexion</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-	<link rel="stylesheet" href="style.css?v=1.1" type="text/css" media="screen" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<link rel="stylesheet" href="style.css?v=<?php echo filemtime('style.css'); ?>" type="text/css" media="screen" />
 </head>
 <body>
 <div id="entete">
@@ -39,21 +39,36 @@ $est_connecte = isset($_SESSION['user_id']);
     
  
 ?>
-    <form action="traitement.php" method="post">
-        <h2>Formulaire de Connexion</h2>
-        <label for="email">Email :</label>
-        <input type="email" id="email" name="email" required>
+<div class="boite_connexion">
+        <div class="contenu_connexion">
+  <form action="traitement.php" method="post" class="text-center">
+    <h2 class="titre-connexion">Formulaire de Connexion</h2>
 
-        <label for="pseudo">Pseudo :</label>
-        <input type="text" id="pseudo" name="pseudo" required>
+    <div class="form-group row justify-content-center">
+        <label for="email" class="col-auto form-label">Email :</label>
+        <input type="email" id="email" name="email" class="form-control form-control-sm col-auto custom-input" required>
+    </div>
 
-        <label for="password">Mot de passe :</label>
-        <input type="password" id="password" name="password" required>
+    <div class="form-group row justify-content-center">
+        <label for="pseudo" class="col-auto form-label">Pseudo :</label>
+        <input type="text" id="pseudo" name="pseudo" class="form-control form-control-sm col-auto custom-input" required>
+    </div>
 
-        <input type="submit" value="Se Connecter">
-    </form>
+    <div class="form-group row justify-content-center">
+        <label for="password" class="col-auto form-label">Mot de passe :</label>
+        <input type="password" id="password" name="password" class="form-control form-control-sm col-auto custom-input" required>
+    </div>
+
+    <input type="submit" value="Se Connecter" class="btn btn-primary">
+</form>
+
+
+
+
     <?php } ?>
     <li><a id ="inscription" href="inscription.php">inscription</a></li>
+     </div>
+    </div>
     
 
 </div>
