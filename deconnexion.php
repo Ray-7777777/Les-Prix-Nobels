@@ -1,11 +1,7 @@
 <?php
-// Démarrer la session
 session_start();
-
-// Détruire toutes les données de la session
 session_destroy();
-
-// Rediriger vers la page d'accueil ou toute autre page de votre choix
-header("Location: connexion.php");
+echo "<div>Vous venez de vous déconnecter. Vous serez redirigé vers la page d'accueil dans 5 secondes.</div>";
+header("refresh:5;url=index.php");
 exit();
 ?>

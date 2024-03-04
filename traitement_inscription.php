@@ -1,33 +1,39 @@
 <?php
+
 require_once 'connexion_bd.php';
+
+session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
-    $username = $_POST['username'];
     $password = $_POST['password'];
 
-    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-
-    $sql = "INSERT INTO utilisateurs (mail, pseudo, mot_de_passe) VALUES (?, ?, ?)";
-
-    // Connexion à la base de données
+    // Vérifier si l'email existe déjà dans la base de données
+    $sql_check_email = "SELECT COUNT(*) AS count FROM utilisateurs WHERE mail = ?";
     $bdd = getBD();
-    
-    $stmt = $bdd->prepare($sql);
+    $stmt_check_email = $bdd->prepare($sql_check_email);
+    $stmt_check_email->execute([$email]);
+    $result = $stmt_check_email->fetch(PDO::FETCH_ASSOC);
+    $email_exists = $result['count'] > 0;
 
-    $stmt->bindParam(1, $email);
-    $stmt->bindParam(2, $username);
-    $stmt->bindParam(3, $hashed_password);
-
-    if ($stmt->execute()) {
-        echo "Inscription réussie !";
-        header("Location: index.php"); 
-        exit(); 
+    if ($email_exists) {
+        // Si l'email est déjà utilisé, afficher un message d'erreur et rediriger après 5 secondes
+        echo "<p>Email déjà utilisé. Vous serez redirigé vers la page de connexion dans 5 secondes.</p>";
+        header("refresh:5;url=connexion.php");
+        exit();
     } else {
-        echo "Erreur lors de l'inscription : " . $stmt->errorInfo()[2]; 
-    }
+        // Si l'email n'est pas utilisé, procéder à l'inscription
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        $sql = "INSERT INTO utilisateurs (mail, mot_de_passe) VALUES (?, ?)";
+        $stmt = $bdd->prepare($sql);
+        $stmt->execute([$email, $hashed_password]);
 
-    $stmt->close();
-    $bdd = null; 
+        // Enregistrement de l'utilisateur dans la session
+        $_SESSION['user_id'] = $bdd->lastInsertId();
+
+        // Redirection vers la page d'accueil ou une autre page
+        header("Location: index.php");
+        exit();
+    }
 }
 ?>

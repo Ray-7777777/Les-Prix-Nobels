@@ -288,10 +288,6 @@ p{
     transform: translate(-50%, -50%); 
 }
 
-.contenu-index {
-   
-}
-
 .titre-connexion{
 	text-align: center;
 	padding-top: 70px;
@@ -302,8 +298,40 @@ p{
     max-width: 300px; 
 }
 
+#inscription{
+	text-align: center;
+}
 #formu{
 	padding-top: 20px;
+}
+
+.nav-link .status-indicator {
+	margin-left: 5px;
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	display: inline-block;
+}
+.status-indicator.connected {
+	background-color: green;
+}
+.status-indicator.disconnected {
+	background-color: red;
+}
+
+#titre-co{
+	padding-top: 120px;
+	text-align: center;
+	font-weight: bold;
+	font-size: 36px;
+	
+}
+#deja-connecte{
+	text-align: center;
+	padding-top: 20px;
+}
+#se-deconnecter{
+	text-align: center;
 }
 
 

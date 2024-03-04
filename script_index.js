@@ -19,7 +19,7 @@ $(document).ready(function() {
 
     function updateImage() {
         $(".slide").hide();
-        $(".slide").eq(currentImage).fadeIn(500); // Utilisation de fadeIn() pour une transition en fondu
+        $(".slide").eq(currentImage).fadeIn(500); 
         $(".image-title").hide(); 
         $(".image-title").eq(currentImage).show(); 
     }
