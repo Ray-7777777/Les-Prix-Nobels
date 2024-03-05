@@ -335,4 +335,34 @@ p{
 }
 
 
+/* CSS pour les pages d'articles */
+.contenu-nobel {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+.contenu-nobel p {
+    margin: 10px 0;
+    font-size: 16px;
+    line-height: 1.6;
+}
+.contenu-nobel .titre {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #333;
+}
+.contenu-nobel .sous-titre {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 15px;
+    color: #555;
+}
+.contenu-nobel .organisation {
+    font-style: italic;
+    color: #888;
+}
+
 
