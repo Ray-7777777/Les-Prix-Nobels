@@ -1,5 +1,5 @@
 <?php
-    require "connexion_bd.php";
+    require "bd.php";
     $bdd = getBD();
 
     if(isset($_POST["recherche"]) && $_POST["recherche"] != ""){
@@ -12,6 +12,25 @@
         $mots_parasites = "avec|pour|dans|de|à";
         $mots_exclus= explode("|", $mots_parasites);
         $requete_and = "SELECT * FROM articles ";
+        $filtres = $_POST["filtres"];
+
+        $compteur = 0;
+        foreach ($data as $category => $values) {
+            foreach ($values as $value) {
+                if($compteur == 0){
+                    $requete_and .= "WHERE ";
+                    $compteur = 1;
+                }
+                else{
+                    $requete_and .= " AND ";
+                }
+                $requete_and .= $category;
+                $requete_and .= "=";
+                $requete_and .= $value;
+            }
+        }
+        $compteur = 0;
+
         $requete_or = $requete_and;
 
         for($i=0;$i<sizeof($mots_exclus);$i++){

@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Page d'accueil</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -16,12 +16,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-    <div id="entete">
-        <a href="index.php" style="text-decoration: none;">
+	<div id="entete">
+		<a href="index.php" style="text-decoration: none;">
             <h1><span class="text-stroke" style="color : black;">PRIX NOBEL</span></h1>
         </a>
     </div>
-    <div class="menu" style="width: 100%; background-color: white;">
+	<div class="menu" style="width: 100%; background-color: white;">
         <nav class="navbar navbar-expand-lg navbar-light justify-content-start px-0">
             <div class="container-fluid">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,9 +52,9 @@
                         </li>
                     </ul>
                 </div>
-            </div>
-        </nav>
-    </div>
+        </div>
+    </nav>
+</div>
 	<div class="boite">
 		<div class="topBar">
 			<div id="search">
@@ -62,9 +62,13 @@
   					<div class="container-fluid">
     					<form class="d-flex" action="rechercher.php" method="post">
       						<input class="form-control me-2 col-lg-12" type="search" placeholder="Rechercher" aria-label="Rechercher" id="bar" name="recherche">
-      						<button class="btn btn-outline-success" type="submit">Recherche</button>
+      						<button class="btn btn-outline-success" type="submit" id="boutonRecherche">Recherche</button>
     					</form>
   					</div>
+				<div class="filters">
+				</div>
+				<div id="activeFilters">
+				</div>
 				</nav>
 			</div>
 			<div class="dropdown">
@@ -73,15 +77,15 @@
  				</a>
 
   				<div class="dropdown-menu">
-    				<a class="dropdown-item" href="#">Filtre1</a>
-   				<a class="dropdown-item" href="#">Filtre2</a>
-    				<a class="dropdown-item" href="#">Filtre3</a>
+    				<button class="dropdown-item BFiltre" type="button" id="Bnationalite" name="Born country">Nationalité</button>
+   					<button class="dropdown-item BFiltre" type="button" id="Bgenre" name="Gender">Genre</button>
   				</div>
 			</div>
 		</div>
 		<div class="contenu">
 		</div>
 	</div>
+	<script src="filtres.js"></script>
 	<script src="recherche.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
