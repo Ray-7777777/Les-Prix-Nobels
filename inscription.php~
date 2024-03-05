@@ -55,28 +55,29 @@
             </div>
         </nav>
     </div>
-    <div class="boite_article">
-        <div class="contenu_article">
-            <h2 class="titre_article">L'impact historique et social des Prix Nobel de la Paix</h2>
-
-            <h3 class="sous_titre_article">Origine des Prix Nobel de la Paix :</h3>
-            <p class="p_article">Le Prix Nobel de la Paix a été créé par Alfred Nobel en 1895, en même temps que les autres Prix Nobel, dans le but de récompenser les individus ou les organisations qui ont œuvré pour la promotion de la paix et de la réconciliation.</p>
-
-            <h3 class="sous_titre_article">Lauréats emblématiques :</h3>
-            <p class="p_article">Parmi les lauréats les plus emblématiques du Prix Nobel de la Paix figurent des personnalités telles que Martin Luther King Jr., Nelson Mandela, Malala Yousafzai et le Dalaï Lama. Leurs actions et leur engagement ont eu un impact profond sur la société et ont contribué à promouvoir la paix dans le monde.</p>
-
-            <h3 class="sous_titre_article">Influence sur l'histoire contemporaine :</h3>
-            <p class="p_article">Les lauréats du Prix Nobel de la Paix ont souvent joué un rôle crucial dans des événements historiques majeurs, tels que la lutte pour les droits civils aux États-Unis, la fin de l'apartheid en Afrique du Sud et la lutte pour l'éducation des filles dans le monde entier.</p>
-
-            <h3 class="sous_titre_article">Défis et controverses :</h3>
-            <p class="p_article">Bien que le Prix Nobel de la Paix soit généralement salué comme une reconnaissance méritée du travail de pacification, il a également été critiqué pour ses choix controversés et politiquement motivés. Certains lauréats ont été accusés de ne pas avoir répondu aux critères stricts de Nobel en matière de promotion de la paix.</p>
-
-            <h3 class="sous_titre_article">Impact sur la société contemporaine :</h3>
-            <p class="p_article">Les lauréats du Prix Nobel de la Paix continuent d'inspirer des générations entières à s'engager pour la paix, la justice sociale et les droits de l'homme. Leurs actions démontrent le pouvoir de l'individu à apporter des changements significatifs dans le monde et à construire un avenir meilleur pour tous.</p>
-
-            <h3 class="sous_titre_article">Conclusion :</h3>
-            <p class="p_article">Les Prix Nobel de la Paix ont joué un rôle crucial dans la reconnaissance et la promotion de la paix dans le monde. À travers les actions et les réalisations des lauréats, ils ont façonné l'histoire contemporaine et continuent d'inspirer des efforts pour un monde plus pacifique et plus juste.</p>
+<div class="boite_connexion">
+        <div class="contenu_connexion">
+    <form action="traitement_inscription.php" method="post" class="text-center">
+        <h2 class="titre-connexion">Formulaire d'Inscription</h2>
+         <div id="formu">
+         <div id="email" class="form-group row justify-content-center">
+        <label for="email" class="form-group col-form-label">Email :</label>
+        <div class="col-auto">
+        <input type="email" id="email" name="email" class="form-control form-control-sm custom-input" required>
         </div>
+        </div> 
+
+        <div id="motdepasse"class="form-group row justify-content-center">
+        <label for="password" class="form-group col-form-label">Mot de passe :</label>
+        <div class="col-auto">
+        <input type="password" id="password" class="form-control form-control-sm custom-input" name="password" required>
+        </div>
+        </div>
+        <div class="text-center">
+        <input type="submit" value="S'inscrire" class="btn btn-primary mt-3">
+        </div>
+        </div>
+    </form>
     </div>
 </body>
 </html>

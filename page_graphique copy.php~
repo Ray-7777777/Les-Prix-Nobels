@@ -29,11 +29,6 @@ while ($row = $resultCat->fetch_assoc()) {
 $jsonCatData = json_encode($catData);
 
 ?>
-<?php
-    session_start();
-    require_once 'connexion_bd.php';
-    $est_connecte = isset($_SESSION['user_id']);
-?>
 
 <!DOCTYPE html>
 <html>
@@ -172,7 +167,7 @@ $jsonCatData = json_encode($catData);
         function changerTypeGraphe(type) {
             config.type = type;
             myChart.destroy();
-            myChart = new Chart(ctx, config);
+            myChart = new Chart(ctx, config); // nouveau type
         }
 
         //  couleur aléatoire
