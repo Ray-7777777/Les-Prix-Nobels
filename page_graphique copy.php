@@ -138,7 +138,7 @@ $jsonCatData = json_encode($catData);
         function changerTypeGraphe(type) {
             config.type = type;
             myChart.destroy();
-            myChart = new Chart(ctx, config); // nouveau type
+            myChart = new Chart(ctx, config);
         }
 
         //  couleur aléatoire

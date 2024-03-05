@@ -81,7 +81,7 @@ while ($row = $resultCategories->fetch_assoc()) {
             </div>
 
 
-            <div class="dropdown">
+            <!-- <div class="dropdown">
                 <label for="selectLimit">Limite:</label>
                 <select id="selectLimit">
                     <option value="50">0-50</option>
@@ -90,7 +90,7 @@ while ($row = $resultCategories->fetch_assoc()) {
                     <option value="200">150-200</option>
                     <option value="250">200-250</option>
                 </select>
-            </div>
+            </div> -->
 
             <button onclick="afficherDonnees()">Afficher</button>
         </div>
@@ -132,7 +132,7 @@ while ($row = $resultCategories->fetch_assoc()) {
 
                     console.log(response)
         var jsonData = JSON.parse(response);
-        updateChart(jsonData, selectedChartType);// Appel de la fonction pour mettre à jour le graphique
+        updateChart(jsonData, selectedChartType);// mis à jour du graphique
             } catch (e) {
         console.error("Erreur lors de l'analyse JSON:", e);
     }},
@@ -146,7 +146,7 @@ while ($row = $resultCategories->fetch_assoc()) {
     function updateChart(data, chartType) {
     console.log(data);
 
-   // detruis le graphe 
+   // Suppression du graphe 
     if (myChart) {
         myChart.destroy();
     }
@@ -166,19 +166,19 @@ while ($row = $resultCategories->fetch_assoc()) {
             });
             break;
         case 'doughnut':
-            //  à personnaliser si tu veux 
+            //  à personnaliser
             break;
         case 'polarArea':
-               //  à personnaliser si tu veux 
+               //  à personnaliser
             break;
         case 'line':
-          //  à personnaliser si tu veux 
+          //  à personnaliser
             break;
         case 'bubble':
-               //  à personnaliser si tu veux 
+               //  à personnaliser 
             break;
         case 'box-plot':
-            //  à personnaliser si tu veux 
+            //  à personnaliser  
             break;
         default:
             myChart = new Chart(ctx, {
