@@ -117,7 +117,7 @@ while ($row = $resultCategories->fetch_assoc()) {
             </div>
 
 
-            <!-- <div class="dropdown">
+            <div class="dropdown">
                 <label for="selectLimit">Limite:</label>
                 <select id="selectLimit">
                     <option value="50">0-50</option>
@@ -126,7 +126,7 @@ while ($row = $resultCategories->fetch_assoc()) {
                     <option value="200">150-200</option>
                     <option value="250">200-250</option>
                 </select>
-            </div> -->
+            </div>
 
             <button onclick="afficherDonnees()">Afficher</button>
         </div>

@@ -35,11 +35,9 @@ $est_connecte = isset($_SESSION['user_id']);
                         <li class="nav-item">
                             <a class="nav-link mx-5" id="recherche" href="recherche.php" style="color: black;">Recherche</a>
                         </li>
+            
                         <li class="nav-item">
-                            <a class="nav-link mx-5" id="graphique" href="./real.php" style="color: black;">Graphique 1</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link mx-5" id="graphique" href="./page_graphique copy.php" style="color: black;">Graphique 2</a>
+                            <a class="nav-link mx-5" id="graphique" href="./page_graphique copy.php" style="color: black;">Graphique</a>
                         </li>
                         <li class="nav-item">
                             <?php
