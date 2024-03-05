@@ -56,8 +56,8 @@
         </nav>
     </div>
     <div class="boite">
+    <div class="contenu-nobel">
     <?php
-        include "bd.php";
         $conn = getBD();
 
         if (!$conn) {
@@ -101,28 +101,30 @@
 
 
             if ($result) {
-                // affiche les information du prix Nobel
-                echo "<p>Année : " . $result['Année'] . "</p>";
-                echo "<p>Motivation : " . $result['Motivation'] . "</p>";
-
-                echo "<p>Catégorie : " . $categorie["Nom_catégorie"] . "</p>";
+                echo "<p class='titre'>Année : " . $result['Année'] . "</p>";
+                echo "<p class='titre'>Motivation : " . $result['Motivation'] . "</p>";
+        
+                echo "<p class='sous-titre'>Catégorie : " . $categorie["Nom_catégorie"] . "</p>";
                 
-                echo "people:";
-                echo "<p> " . $nomine["Prénom"] ." ". $nomine["Nom"] . "</p>";
-                echo "<p>Gender: " . $nomine["Gender"] . "</p>";
-                echo "<p>Date of birth: " . $nomine["Date_de_naissance"] . "</p>";
-                echo "<p>Born City: " . $nomine["Born city"] . "</p>";
-                echo "<p>Born Country: " . $nomine["Born country"] . "</p>";
-                echo "<p>Date of death: " . $nomine["Date_de_mort"] . "</p>";
-                echo "<p>Died City: " . $nomine["Died city"] . "</p>";
-                echo "<p>Died Country: " . $nomine["Died country"] . "</p>";
-
-                echo "organisation:";
-                echo "<p>Organisation : " . $organisation["nom_organisation"] . "</p>";
-                echo "<p>Organisation's city : " . $organisation["ville_organisation"] . "</p>";             
-                echo "<p>Organisation's Country : " . $organisation["pays_organisation"] . "</p>";
+                echo "<p>Personne :</p>";
+                echo "<p>Nom : " . $nomine["Prénom"] ." ". $nomine["Nom"] . "</p>";
+                echo "<p>Genre : " . $nomine["Gender"] . "</p>";
+                echo "<p>Date de naissance : " . $nomine["Date_de_naissance"] . "</p>";
+                echo "<p>Ville de naissance : " . $nomine["Born city"] . "</p>";
+                echo "<p>Pays de naissance : " . $nomine["Born country"] . "</p>";
+                echo "<p>Date de décès : " . $nomine["Date_de_mort"] . "</p>";
+                echo "<p>Ville de décès : " . $nomine["Died city"] . "</p>";
+                echo "<p>Pays de décès : " . $nomine["Died country"] . "</p>";
+        
+                if ($organisation["id_organisation"] != 0){
+                    echo "<p class='organisation'>Organisation : " . $organisation["nom_organisation"] . "</p>";
+                    echo "<p class='organisation'>Ville de l'organisation : " . $organisation["ville_organisation"] . "</p>";             
+                    echo "<p class='organisation'>Pays de l'organisation : " . $organisation["pays_organisation"] . "</p>";
+                } else {
+                    echo "<p class='organisation'>N'appartient à aucune organisation lors de la réception de ce prix.</p>";
+                }
             } else {
-                echo "Aucun résultat trouvé pour cet ID.";
+                echo "<p>Aucun résultat trouvé pour cet ID.</p>";
             }
 
             $conn = null;
@@ -130,7 +132,7 @@
             echo "Ce prix Nobel n'est pas présent dans notre base de données";
         }
         ?>
-
+    </div>
     </div>
 </body>
 </html>
