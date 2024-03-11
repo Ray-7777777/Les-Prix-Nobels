@@ -58,6 +58,15 @@
     <div class="boite">
     <div class="contenu-nobel">
     <?php
+    // Récupérer l'ID de l'URL actuelle
+    $id_personne = $_GET['id'];
+
+    // Construire le lien avec le même ID
+    $lien_article = "article_wikipedia.php?id=" . $id_personne;
+?>
+
+<a href="<?php echo $lien_article; ?>">Lien vers l'article Wikipedia</a>
+    <?php
         $conn = getBD();
 
         if (!$conn) {
@@ -84,10 +93,10 @@
             $categorie = $stmt_categorie->fetch(PDO::FETCH_ASSOC);
 
             //requête SQL pour récupérer celui qui a remporté ce prix nobel
-            $nomine_sql = "SELECT * FROM nomine WHERE Id_nominé = :id_nomine";
-            $stmt_nomine = $conn->prepare($nomine_sql);
-            $stmt_nomine->bindParam(':id_nomine', $result['id_nominé'], PDO::PARAM_INT);
-            $stmt_nomine->execute();
+            $nomine_sql = "SELECT * FROM nomine WHERE `Id-nominé` = :id_nomine";
+$stmt_nomine = $conn->prepare($nomine_sql);
+$stmt_nomine->bindParam(':id_nomine', $result['id_nominé'], PDO::PARAM_INT);
+$stmt_nomine->execute();
     
             $nomine = $stmt_nomine->fetch(PDO::FETCH_ASSOC);
             
@@ -132,6 +141,7 @@
             echo "Ce prix Nobel n'est pas présent dans notre base de données";
         }
         ?>
+        
     </div>
     </div>
 </body>
