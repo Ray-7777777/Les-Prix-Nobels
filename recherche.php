@@ -59,8 +59,8 @@
 		<div class="topBar">
 			<div id="search">
 				<nav class="navbar navbar-light bg-light rounded-pill col-lg-12">
-  					<div class="container-fluid">
-    					<form class="d-flex" action="rechercher.php" method="post">
+  					<div class="container-fluid recherche">
+    					<form class="d-flex recherche" action="rechercher.php" method="post">
       						<input class="form-control me-2 col-lg-12" type="search" placeholder="Rechercher" aria-label="Rechercher" id="bar" name="recherche">
       						<button class="btn btn-outline-success" type="submit" id="boutonRecherche">Recherche</button>
     					</form>
@@ -77,7 +77,7 @@
  				</a>
 
   				<div class="dropdown-menu">
-    				<button class="dropdown-item BFiltre" type="button" id="Bnationalite" name="Born country">Nationalité</button>
+    				<button class="dropdown-item BFiltre" type="button" id="Bnationalite" name="Born_country">Nationalité</button>
    					<button class="dropdown-item BFiltre" type="button" id="Bgenre" name="Gender">Genre</button>
   				</div>
 			</div>
