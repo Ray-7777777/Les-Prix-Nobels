@@ -1,6 +1,25 @@
 <?php
 
 include("./connexion_base_donnee.php");
+// requete post générique  pour n'importe quelle requ^ete
+if(isset($_POST['query'])) {
+    $query = $_POST['query'];
+    $result = $mysqli->query($query);
+    $data = array();
+    while ($row = $result->fetch_assoc()) {
+        $data[] = $row;
+    }
+    echo json_encode($data);
+}
+
+//==================
+
+
+
+
+
+
+
 
 // Récupération des années 
 $queryYears = "SELECT DISTINCT Année FROM prix_nobel";
@@ -41,6 +60,16 @@ while ($row = $resultCat->fetch_assoc()) {
 // données de catégorie en format JSON
 $jsonCatData = json_encode($catData);
 
+
+
+// recuperation des sexes 
+$maleGenderQuery = "SELECT * FROM  nomine WHERE Gender='male'";
+$femaleGenderQuery = "SELECT * FROM nomine WHERE Gender='female'";
+$maleGenderQueryRes = $mysqli->query($maleGenderQuery);
+$maleGenderQueryResArr = array();
+while ($row = $maleGenderQueryRes->fetch_assoc()) {
+    $maleGenderQueryResArr[] = $row;
+}
 ?>
 <?php
     session_start();
@@ -119,8 +148,8 @@ $jsonCatData = json_encode($catData);
                   Sexe
                </a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Masculin</a>
-                    <a class="dropdown-item" href="#">Feminin</a>
+                    <a class="dropdown-item" href="#" id="SelectedMaleGender">Masculin</a>
+                    <a class="dropdown-item" href="#" id="SelectedFemaleGender" onclick="displayMaleData()">Feminin</a>
                 </div>
             </div>
             <!-- Année -->
@@ -141,6 +170,21 @@ $jsonCatData = json_encode($catData);
               <div class="dropdown">
                 <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Catégorie
+                </a>
+                <select id="selectCategorie">
+                    <?php
+                    foreach ($catData as $cat) {
+                        echo "<option value=\"" . $cat['Nom_catégorie'] . "\">" . $cat['Nom_catégorie'] . "</option>";
+                      
+                    }
+                    ?>
+                </select>
+            </div>
+            <!-- fin div catégorie -->
+
+            <div class="dropdown">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Pays
                 </a>
                 <select id="selectCategorie">
                     <?php
@@ -224,6 +268,47 @@ $jsonCatData = json_encode($catData);
             }
             return color;
         }
+
+
+
+        var test = [<?php foreach ($years as $year) { echo $year . ','; } ?>];
+        console.log(test);
+        console.log("delimiter");
+
+        function displayMaleData() {
+    var selectElement = document.createElement('select');
+    selectElement.setAttribute('id', 'maleSelect');
+
+
+
+    <?php 
+    foreach ($maleGenderQueryResArr as $item) {
+        $prenomNom = addslashes($item['Prénom'] . ' ' . $item['Nom']);
+        echo "var option = document.createElement('option');";
+        echo "option.value = \"$prenomNom\";";
+        echo "option.textContent = \"$prenomNom\";";
+        echo "selectElement.appendChild(option);";
+    }
+    ?>
+
+    return selectElement;
+}
+document.getElementById('SelectedMaleGender').addEventListener('click', function() {
+    var selectElement = displayMaleData();
+    document.body.appendChild(selectElement);
+});
+
+// à faire la meme pour les pays
+function displayFemaleData(){
+
+}
+document.getElementById('SelectedFemaleGender').addEventListener('click', function(){
+    var selectElement = displayFemaleData();
+    document.body.appendChild(selectElement);
+})
+
+
+
     </script>
 </body>
 </html>
