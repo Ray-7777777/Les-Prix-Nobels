@@ -101,6 +101,12 @@ p{
 	border-radius: 15px;
 	padding-left: 2%;
 }
+.navbar.navbar-light.bg-light.rounded-pill.col-lg-12{
+    height: auto;
+}
+.container-fluid.recherche{
+    padding-left: 5%;
+}
 .dropdown{
 	margin-left: 2%;
 	margin-right: 2%;
@@ -123,6 +129,48 @@ p{
     justify-content: space-between;
     align-items: center;
     width: 100.22%; 
+}
+.filters{
+    padding-left: 5%;
+    display: inline-block;
+}
+#activeFilters{
+    width: 50%;
+    text-align: left;
+    margin-right: 5%;
+}
+.FiltreCroix{
+    display: inline-block;
+    margin-right: 2%;
+}
+.FiltreCroix p, .FiltreCroix span{
+    display: inline-block;
+}
+#sousFiltre{
+    display: inline-block;
+}
+.close-icon {
+    position: relative;
+    display: block;
+    width: 20px; 
+    height: 20px;
+    cursor: pointer;
+}
+
+.close-icon::before,
+.close-icon::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 60%;
+    height: 2px;
+    background-color: red; 
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.close-icon::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
 }
 
 

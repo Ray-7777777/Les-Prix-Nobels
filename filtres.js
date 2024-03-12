@@ -12,7 +12,7 @@ $(".dropdown-item.BFiltre").click(function(e){
         success: function(result) {
             filtres= $(".filters");
             var items = JSON.parse(result);
-            var text = "<div class='dropdown'> \n <a class='btn btn-secondary dropdown-toggle' href='#' role='button' id='dropdownMenuLink' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>"+ buttonText +"</a> \n <div class='dropdown-menu' data-category='"+buttonText+"'> ";
+            var text = "<div class='dropdown' id='sousFiltre'> \n <a class='btn btn-secondary dropdown-toggle' href='#' role='button' id='dropdownMenuLink' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>"+ buttonText +"</a> \n <div class='dropdown-menu' data-category='"+buttonText+"'> ";
             items.forEach(function(element) {
                 text += "<button class='dropdown-item SFiltre' type='button' id='Filtre"+element[name]+"'>"+element[name]+"</button>\n";
             });

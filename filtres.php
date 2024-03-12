@@ -7,7 +7,7 @@
         $req->execute();
     }
     elseif ($_POST["id"] == "Bnationalite"){
-        $req = $bdd->prepare("SELECT `Born country` FROM nomine GROUP BY `Born country`");
+        $req = $bdd->prepare("SELECT `Born_country` FROM nomine GROUP BY `Born_country`");
         $req->execute();
     }
     $resultat = $req->fetchAll();
