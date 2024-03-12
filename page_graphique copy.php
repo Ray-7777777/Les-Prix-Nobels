@@ -10,6 +10,10 @@ $years = array();
 while ($row = $resultYears->fetch_assoc()) {
     $years[] = $row['Année'];
 }
+// Récupération des catégories 
+// Récupération des pays 
+// pays de naissance 
+// pays  de décés 
 
 // récupération du nombre de prix Nobel pour chaque catégorie
 $queryCatCount = "SELECT c.Nom_catégorie, COUNT(p.id_category) as nbPrixNobel
@@ -133,6 +137,21 @@ $jsonCatData = json_encode($catData);
                 </select>
             </div>
             <!-- fin div année -->
+              <!-- Categorie -->
+              <div class="dropdown">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Catégorie
+                </a>
+                <select id="selectCategorie">
+                    <?php
+                    foreach ($catData as $cat) {
+                        echo "<option value=\"" . $cat['Nom_catégorie'] . "\">" . $cat['Nom_catégorie'] . "</option>";
+                      
+                    }
+                    ?>
+                </select>
+            </div>
+            <!-- fin div catégorie -->
             <div class="dropdown">
                 <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Nombre de prix nobel
