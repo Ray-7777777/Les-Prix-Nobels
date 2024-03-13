@@ -93,10 +93,10 @@
             $categorie = $stmt_categorie->fetch(PDO::FETCH_ASSOC);
 
             //requête SQL pour récupérer celui qui a remporté ce prix nobel
-            $nomine_sql = "SELECT * FROM nomine WHERE `Id-nominé` = :id_nomine";
-$stmt_nomine = $conn->prepare($nomine_sql);
-$stmt_nomine->bindParam(':id_nomine', $result['id_nominé'], PDO::PARAM_INT);
-$stmt_nomine->execute();
+            $nomine_sql = "SELECT * FROM nomine WHERE `Id_nominé` = :id_nomine";
+            $stmt_nomine = $conn->prepare($nomine_sql);
+            $stmt_nomine->bindParam(':id_nomine', $result['id_nominé'], PDO::PARAM_INT);
+            $stmt_nomine->execute();
     
             $nomine = $stmt_nomine->fetch(PDO::FETCH_ASSOC);
             
