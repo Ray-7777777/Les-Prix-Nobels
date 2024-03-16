@@ -53,7 +53,7 @@
         </div>
     </nav>
 </div>
-	<div class="boite">
+	<div class="boite_recherche">
 		<div class="topBar">
 			<div id="search">
 				<nav class="navbar navbar-light bg-light rounded-pill col-lg-12">
