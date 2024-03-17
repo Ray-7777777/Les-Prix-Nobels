@@ -21,10 +21,8 @@ h1{
 
 
 body{
-
     margin: 0;
-    margin-left: -1px;
-  
+    margin-left: -2px;
 }
 
 
@@ -77,18 +75,20 @@ body{
     z-index: 1; 
 }
 
-.boite_recherche{
+
+
+p{
+	
+}
+.boite{
 	border: solid 0.1rem black;
 	margin: 2%;
 	background-color: whitesmoke;
 	position: fixed;
-	height: 77%;
+	height: 75%;
 	width: 96%;
 	border-radius: 25px;
-    overflow-y: auto;
-    margin-bottom: -20%;
 }
-
 .topBar{
 	margin-bottom: 1%;
 	display: flex;
@@ -120,32 +120,6 @@ body{
     justify-content: center;
     align-items: center;
     height: calc(100%); 
-    margin-left: 2%;
-    margin-top: 2%;
-    margin-bottom: -5%;
-}
-.titre_recherhce{
-    font-size: 300px;
-}
-.minibio{
-    padding-left: 2%;
-    margin-right: 4%;
-    max-height: 15vh;
-    overflow-y: hidden;
-    position: relative;
-}
-
-.minibio:after {
-    content: '...';
-    position: absolute;
-    bottom: 0;
-    right: 0;
-}
-
-.minibio.truncated:after {
-    display: block;
-    bottom: 0;
-    right: 0;
 }
 
 .slider-container {
@@ -173,11 +147,6 @@ body{
 }
 #sousFiltre{
     display: inline-block;
-}
-.sousFiltre{
-    max-height: 200px;
-    overflow-y: auto;
-    overflow-x: hidden;
 }
 .close-icon {
     position: relative;
@@ -443,6 +412,59 @@ body{
     color: #888;
 }
 
+.boite-wikipedia{
+    border: solid 0.1rem black;
+    margin: 2%;
+    background-color: whitesmoke;
+    width: 96%;
+    border-radius: 25px;
+}
+.biography-heading:not(:first-of-type) {
+    margin-top: 20px;
+}
 
+.biography-heading{
+	text-decoration: underline;
+}
 
+.contenu-nobel-wikipedia {
+  counter-reset: titre1 titre2 titre3;
+}
 
+.biographie-titre1:before {
+  content: counter(titre1) ". ";
+  counter-increment: titre1;
+  margin-left: 10px; 
+  font-size: 22px;
+}
+
+.biographie-titre2:before {
+  content: counter(titre1) "." counter(titre2) ". ";
+  counter-increment: titre2;
+  margin-left: 20px; 
+  font-size: 20px; 
+}
+
+.biographie-titre3:before {
+  content: counter(titre1) "." counter(titre2) "." counter(titre3) ". ";
+  counter-increment: titre3;
+  margin-left: 30px; 
+  font-size: 18px; 
+}
+
+#body-wikipedia{
+	 margin: 0;
+    margin-left: -2px;
+}
+
+.menu-wiki {
+   justify-content: space-around; 
+   align-items: center; 
+	border: solid 1px black ;	
+	font-family: sans-serif;
+	font-weight: bold;
+	position: fixed;
+   top: calc(80px); 
+   width: 99%;
+   z-index: 1;
+}

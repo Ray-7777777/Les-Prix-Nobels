@@ -138,10 +138,7 @@
         });
     </script>
      
-    <footer id="footer_commentaires">
-    	<a href="commentaires.php" style="color: black">Page des commentaires</a>
-    	<img src="Images/icone_commentaires.png" style="vertical-align: middle; margin-left: 5px; width: 20px; height: 20px;">
-    </footer>
+ 
     <script src="script_index.js"></script>
 </body>
 </html>

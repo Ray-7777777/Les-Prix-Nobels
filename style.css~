@@ -21,10 +21,8 @@ h1{
 
 
 body{
-
     margin: 0;
-    margin-left: -1px;
-  
+    margin-left: -2px;
 }
 
 
@@ -78,6 +76,7 @@ body{
 }
 
 
+
 p{
 	
 }
@@ -101,6 +100,12 @@ p{
 	border-radius: 15px;
 	padding-left: 2%;
 }
+.navbar.navbar-light.bg-light.rounded-pill.col-lg-12{
+    height: auto;
+}
+.container-fluid.recherche{
+    padding-left: 5%;
+}
 .dropdown{
 	margin-left: 2%;
 	margin-right: 2%;
@@ -123,6 +128,48 @@ p{
     justify-content: space-between;
     align-items: center;
     width: 100.22%; 
+}
+.filters{
+    padding-left: 5%;
+    display: inline-block;
+}
+#activeFilters{
+    width: 50%;
+    text-align: left;
+    margin-right: 5%;
+}
+.FiltreCroix{
+    display: inline-block;
+    margin-right: 2%;
+}
+.FiltreCroix p, .FiltreCroix span{
+    display: inline-block;
+}
+#sousFiltre{
+    display: inline-block;
+}
+.close-icon {
+    position: relative;
+    display: block;
+    width: 20px; 
+    height: 20px;
+    cursor: pointer;
+}
+
+.close-icon::before,
+.close-icon::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 60%;
+    height: 2px;
+    background-color: red; 
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.close-icon::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
 }
 
 
@@ -298,6 +345,9 @@ p{
     max-width: 300px; 
 }
 
+#inscription{
+	text-align: center;
+}
 #formu{
 	padding-top: 20px;
 }
@@ -332,4 +382,89 @@ p{
 }
 
 
+/* CSS pour les pages d'articles */
+.contenu-nobel {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+.contenu-nobel p {
+    margin: 10px 0;
+    font-size: 16px;
+    line-height: 1.6;
+}
+.contenu-nobel .titre {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #333;
+}
+.contenu-nobel .sous-titre {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 15px;
+    color: #555;
+}
+.contenu-nobel .organisation {
+    font-style: italic;
+    color: #888;
+}
 
+.boite-wikipedia{
+    border: solid 0.1rem black;
+    margin: 2%;
+    background-color: whitesmoke;
+    width: 96%;
+    border-radius: 25px;
+}
+.biography-heading:not(:first-of-type) {
+    margin-top: 20px;
+}
+
+.biography-heading{
+	text-decoration: underline;
+}
+
+.contenu-nobel-wikipedia {
+  counter-reset: titre1 titre2 titre3;
+}
+
+.biographie-titre1:before {
+  content: counter(titre1) ". ";
+  counter-increment: titre1;
+  margin-left: 10px; 
+  font-size: 22px;
+}
+
+.biographie-titre2:before {
+  content: counter(titre1) "." counter(titre2) ". ";
+  counter-increment: titre2;
+  margin-left: 20px; 
+  font-size: 20px; 
+}
+
+.biographie-titre3:before {
+  content: counter(titre1) "." counter(titre2) "." counter(titre3) ". ";
+  counter-increment: titre3;
+  margin-left: 30px; 
+  font-size: 18px; 
+}
+
+#body-wikipedia{
+	 margin: 0;
+    margin-left: -2px;
+}
+
+.menu-wiki {
+   justify-content: space-around; 
+   align-items: center; 
+	border: solid 1px black ;	
+	font-family: sans-serif;
+	font-weight: bold;
+	position: fixed;
+   top: calc(80px); 
+   width: 99%;
+   z-index: 1;
+}
