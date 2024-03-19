@@ -1,5 +1,5 @@
 html{
-	background-color: ;
+	background-color: white;
 	border: solid 1.5px black;
 }
 
@@ -7,22 +7,35 @@ h1{
 	
 	border: solid 1px black;
 	margin-bottom: 8px;
-	margin-top: 7px;
-	background-color: ;
+	margin-top: 5px;
+	background-color: #FFFCE9;
 	text-align: center;
 	font-size: 54px;
 	position: fixed;
     top: 0;
     width: 100%;
     z-index: 1;
+    transition: transform 0.2s ease-in-out; 
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
 }
 
+h1:hover{
+	transform: scale(1.1);
+}
 
-
+.oswald-font {
+  font-family: "Oswald", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
 
 body{
     margin: 0;
     margin-left: -2px;
+    font-family: "PT Sans", sans-serif;
+  font-weight: 200;
+  font-style: normal;
 }
 
 
@@ -34,52 +47,62 @@ body{
 	border-bottom: solid 0px white;	
 	font-family: sans-serif;
 	font-weight: bold;
+	
 	position: fixed;
    top: calc(80px); 
    width: 100%;
    z-index: 1;
-
-   
+    font-family: "Noto Sans Lao Looped", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px; 
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
 }
 
 .menu .navbar-nav .nav-link {
         color: black;
-        
     }
+    
 .navbar {
-    height: 40px; 
+    height: 40px;  
 }
 
 
 .menu .container-fluid {
     padding-left: 0;
     padding-right: 0;
+    background-color: #FFFEF9;
+
 }
 
 
+.menu a {
+    font-size: 16px;
+    transition: transform 0.2s ease-in-out; 
+}
+
 .menu a:hover {
-   text-decoration: underline; 
+    transform: scale(1.1);
+    text-decoration: underline;
 }
 
 .navbar {
         background-color: white !important;
+        
     }
 
-#entete {
-   
+#entete {   
     background-color: white;
-    padding-top: 120px;
+    padding-top: 120px; #####
     position: sticky;
     top: 0;
     height: 0px; 
     z-index: 1; 
+    background-color: black;  
 }
 
-
-
-p{
-	
-}
 .boite_recherche{
 	border: solid 0.1rem black;
 	margin: 2%;
@@ -121,6 +144,33 @@ p{
     justify-content: center;
     align-items: center;
     height: calc(100%); 
+    margin-left: 2%;
+    margin-top: 2%;
+    margin-bottom: -5%;
+}
+
+.titre_recherhce{
+    font-size: 300px;
+}
+.minibio{
+    padding-left: 2%;
+    margin-right: 4%;
+    max-height: 15vh;
+    overflow-y: hidden;
+    position: relative;
+}
+
+.minibio:after {
+    content: '...';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.minibio.truncated:after {
+    display: block;
+    bottom: 0;
+    right: 0;
 }
 
 .slider-container {
@@ -128,8 +178,16 @@ p{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100.22%; 
+    width: 100.16%; 
+    font-family: "PT Sans", sans-serif;
+  font-weight: 200;
+  font-style: normal;
+
 }
+
+
+
+
 .filters{
     padding-left: 5%;
     display: inline-block;
@@ -148,6 +206,11 @@ p{
 }
 #sousFiltre{
     display: inline-block;
+    }
+.sousFiltre{
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 .close-icon {
     position: relative;
@@ -206,64 +269,57 @@ p{
     cursor: pointer;
     font-size: 20px;
     color: black;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.6);
     
     outline: none;
     padding: 10px;
     z-index: 1;
     border: solid 0.1rem black;
+    transition: transform 0.2s ease-in-out;
 }
 
-.prev:hover,
-.next:hover {
+.prev:hover{
+    transform: scale(1.05); 
+    transform-origin: left;
+    background-color: rgba(255, 255, 255, 0.8);
+}
 
-    background-color: rgba(255, 255, 255, 1);
+.next:hover {
+    transform: scale(1.05); 
+    transform-origin: right;
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
 .prev {
     position: absolute;
     left: -1px;
+    border-top-right-radius: 10px; 
+    border-bottom-right-radius: 10px;
 }
 
 .next {
     position: absolute;
     right: 1px;
+    border-top-left-radius: 10px; 
+    border-bottom-left-radius: 10px;
 }
 
 
 
 .boite_index {
     border: solid 0.1rem black;
-    background-color: #F0EFEE;
+    background-color: #FFFEF9;
     position: fixed;
-    height: 75%;
+    height: 77%;
     width: 80%;
     border-radius: 25px;
-    top: 58%; 
+    top: 59%; 
     left: 50%;
     transform: translate(-50%, -50%); 
-}
-
-.image-title {
-    text-align: center; 
-    font-weight: bold; 
-    font-size: 30px; 
-    margin-top: 0px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
 }
 
 
-
-#footer_commentaires {
-    text-align: center;
-    font-weight: bold;
-    font-size: 20px;
-    padding: 6px 0;
-    text-decoration: underline;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-}
 
 
 .transition-effect {
@@ -279,6 +335,8 @@ p{
     z-index: 2; 
 }
 
+
+
 .selector-dot {
     display: inline-block;
     width: 16px;
@@ -288,6 +346,13 @@ p{
     background-color: white;
     border: 1px solid black; 
     cursor: pointer;
+    transition: width 0.2s ease-in-out, height 0.2s ease-in-out; 
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+.selector-dot:hover {
+    width: 18px;
+    height: 18px;
 }
 
 .menu-article{
@@ -306,28 +371,35 @@ p{
         
 .boite_article {
     border: solid 0.1rem black;
-    background-color: whitesmoke;
-    height: 75%;
+    margin: 2%;
+    background-color: #FFFEF9;
     width: 96%;
     border-radius: 25px;
-    margin: auto; 
-    margin-top: 1%; 
-    margin-bottom: 1%;
-    padding-top: 1%;
-    padding-bottom: 1%;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+    padding-top: 10px;
 }
+
 
 .contenu_article{
 	padding-right: 3%;
 	padding-left: 3%;
+	padding-bottom: 10px;
 }
 
 .titre_article{
+	font-size: 30px;
+	text-decoration: underline;
 	text-align: center;
+	padding-top: 10px;
+	padding-bottom: 15px;
+	font-weight: bold;
 }
 
-.sous_titre_article{
 
+.sous_titre_article{
+	font-size: 24px;
+	text-align: left;
+	font-weight: bold;
 }
 
 .p_article{
@@ -388,9 +460,14 @@ p{
 }
 .status-indicator.connected {
 	background-color: green;
+	border:solid 1px black;
+	box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+	
 }
 .status-indicator.disconnected {
 	background-color: red;
+	border:solid 1px black;
+	box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
 }
 
 #titre-co{

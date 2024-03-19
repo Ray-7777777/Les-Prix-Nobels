@@ -21,7 +21,7 @@
             <h1><span class="text-stroke" style="color : black;">PRIX NOBEL</span></h1>
         </a>
     </div>
-    <div class="menu-wiki" style="width: 100%; background-color: white;">
+    <div class="menu-wiki" style="width: 100%; background-color: black;">
         <nav class="navbar navbar-expand-lg navbar-light justify-content-start px-0">
             <div class="container-fluid">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -112,7 +112,7 @@
                 echo "<div style='margin-right:2%;margin-left:2%;'>"; 
                 echo "<div style='float: right; margin-left: 10px; width: 300px;'>"; 
                 echo "<div class='image-container' style='border: 1.5px solid black; text-align: center;padding-top:2%;margin-top:1.5%;margin-right:1.5%;'>"; 
-                echo "<img src='$photo_url' alt='Aucune photo' style='max-width: 300px; max-height: 200px; margin: auto;border:1.5px solid black;'>"; 
+                echo "<img src='$photo_url' alt='Photo' style='max-width: 300px; max-height: 200px; margin: auto;border:1.5px solid black;'>"; 
                 
                 // Affichage des informations personnelles
                 if ($resultat['Prénom'] !== "NULL") {
