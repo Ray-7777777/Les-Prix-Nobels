@@ -116,11 +116,11 @@
                 echo "<p>Nom : " . $nomine["Prénom"] ." ". $nomine["Nom"] . "</p>";
                 echo "<p>Genre : " . $nomine["Gender"] . "</p>";
                 echo "<p>Date de naissance : " . $nomine["Date_de_naissance"] . "</p>";
-                echo "<p>Ville de naissance : " . $nomine["Born city"] . "</p>";
-                echo "<p>Pays de naissance : " . $nomine["Born country"] . "</p>";
+                echo "<p>Ville de naissance : " . $nomine["Born_city"] . "</p>";
+                echo "<p>Pays de naissance : " . $nomine["Born_country"] . "</p>";
                 echo "<p>Date de décès : " . $nomine["Date_de_mort"] . "</p>";
-                echo "<p>Ville de décès : " . $nomine["Died city"] . "</p>";
-                echo "<p>Pays de décès : " . $nomine["Died country"] . "</p>";
+                echo "<p>Ville de décès : " . $nomine["Died_city"] . "</p>";
+                echo "<p>Pays de décès : " . $nomine["Died_country"] . "</p>";
         
                 if ($organisation["id_organisation"] != 0){
                     echo "<p class='organisation'>Organisation : " . $organisation["nom_organisation"] . "</p>";
