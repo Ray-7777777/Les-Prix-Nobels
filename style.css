@@ -103,15 +103,16 @@ body{
     background-color: black;  
 }
 
-
-.boite{
+.boite_recherche{
 	border: solid 0.1rem black;
 	margin: 2%;
-	background-color: ;
+	background-color: whitesmoke;
 	position: fixed;
-	height: 75%;
+	height: 77%;
 	width: 96%;
 	border-radius: 25px;
+    overflow-y: auto;
+    margin-bottom: -20%;
 }
 .topBar{
 	margin-bottom: 1%;
@@ -144,6 +145,33 @@ body{
     justify-content: center;
     align-items: center;
     height: calc(100%); 
+    margin-left: 2%;
+    margin-top: 2%;
+    margin-bottom: -5%;
+}
+
+.titre_recherhce{
+    font-size: 300px;
+}
+.minibio{
+    padding-left: 2%;
+    margin-right: 4%;
+    max-height: 15vh;
+    overflow-y: hidden;
+    position: relative;
+}
+
+.minibio:after {
+    content: '...';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.minibio.truncated:after {
+    display: block;
+    bottom: 0;
+    right: 0;
 }
 
 .slider-container {
@@ -179,6 +207,11 @@ body{
 }
 #sousFiltre{
     display: inline-block;
+    }
+.sousFiltre{
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 .close-icon {
     position: relative;
