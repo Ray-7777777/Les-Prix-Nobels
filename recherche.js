@@ -34,13 +34,31 @@ $("#boutonRecherche").click(function(e){
             var items = JSON.parse(result);
             var text = "<ul> ";
             items.forEach(function(element) {
-                text += "<li><div class='titre_recherche'>"+element["Prénom"]+" "+element["Nom"]+"</div><p class='minibio'>"+element["biographie"]+"</p></li>";
+                text += "<li class='article_recherche' data-id="+element["Id_nominé"]+"><div class='titre_recherche'>"+element["Prénom"]+" "+element["Nom"]+"</div><p class='minibio'>"+element["biographie"]+"</p></li>";
             });
             text += "</ul>";
             contenu.append(text);
+            localStorage.setItem('rechercheResults', JSON.stringify(items));
         },
         error: function(xhr, status, error) {
             console.log("Erreur lors de la requête AJAX: " + status + " - " + error);
         }
     })
 })
+
+$(".contenu").on("click", ".article_recherche", function(){
+    window.location.href="article_wikipedia.php?id="+$(this).data("id");
+});
+
+$(document).ready(function() {
+    var storedResults = localStorage.getItem('rechercheResults');
+    if (storedResults) {
+        var items = JSON.parse(storedResults);
+        var text = "<ul> ";
+        items.forEach(function(element) {
+            text += "<li class='article_recherche' data-id="+element["Id_nominé"]+"><div class='titre_recherche'>"+element["Prénom"]+" "+element["Nom"]+element["Id_nominé"]+"</div><p class='minibio'>"+element["biographie"]+"</p></li>";
+        });
+        text += "</ul>";
+        $(".contenu").html(text);
+    }
+});
