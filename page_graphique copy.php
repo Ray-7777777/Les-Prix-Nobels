@@ -276,10 +276,10 @@ while ($row = $deathCountryQuery->fetch_assoc()){
                 <a class="btn btn-secondary dropdown-toggle" href="#" id="Country" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Pays
                 </a>
-                <div class="dropdown-menu">
+                <!--<div class="dropdown-menu">
                     <a class="dropdown-item" href="#" id="SelectedBornCountry" onclick="displayBornCountry()">de naissance</a>
                     <a class="dropdown-item" href="#" id="SelectedDiedCountry" onclick="displayDiedCountry()">de décés</a>
-                </div>
+                </div> -->
             </div>
             <!-- fin div catégorie -->
             <div class="dropdown">
@@ -315,15 +315,7 @@ while ($row = $deathCountryQuery->fetch_assoc()){
         var femaleData= <?php echo $jsonFemaleData; ?>;
         var years = <?php echo json_encode($years); ?>;
         var impactData = <?php echo json_encode($jsonImpactData); ?>; 
-        console.log("this is  impact data");
-        console.log(impactData)
-        console.log("this is gender data ");
-        console.log(maleData);
-        console.log(femaleData);
-        console.log("categorie");
-        console.log(categories);
-        console.log("this is the console");
-        console.log(datasets);
+      
         document.addEventListener('DOMContentLoaded', function() {
         var ctx = document.getElementById('graphs').getContext('2d');
         var currentChart;
@@ -456,7 +448,7 @@ function displayImpactGraph() {
                 },
                 y: {
                     type: 'category',
-                    labels: uniqueCountries, // Utiliser les noms des pays pour les étiquettes
+                    labels: uniqueCountries, 
                     title: {
                         display: true,
                         text: 'Pays'
