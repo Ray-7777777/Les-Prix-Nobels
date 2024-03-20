@@ -1,5 +1,5 @@
 html{
-	background-color: ;
+	background-color: white;
 	border: solid 1.5px black;
 }
 
@@ -7,24 +7,35 @@ h1{
 	
 	border: solid 1px black;
 	margin-bottom: 8px;
-	margin-top: 7px;
-	background-color: ;
+	margin-top: 5px;
+	background-color: #FFFCE9;
 	text-align: center;
 	font-size: 54px;
 	position: fixed;
     top: 0;
     width: 100%;
     z-index: 1;
+    transition: transform 0.2s ease-in-out; 
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
 }
 
+h1:hover{
+	transform: scale(1.1);
+}
 
-
+.oswald-font {
+  font-family: "Oswald", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
 
 body{
-
     margin: 0;
-    margin-left: -1px;
-  
+    margin-left: -2px;
+    font-family: "PT Sans", sans-serif;
+  font-weight: 200;
+  font-style: normal;
 }
 
 
@@ -36,60 +47,71 @@ body{
 	border-bottom: solid 0px white;	
 	font-family: sans-serif;
 	font-weight: bold;
+	
 	position: fixed;
    top: calc(80px); 
    width: 100%;
    z-index: 1;
-
-   
+    font-family: "Reem Kufi Fun", sans-serif;
+  font-weight: 600;
+  font-style: normal; 
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+    box-shadow: 4px 4px 5px rgba(0, 0, 0, 1);
 }
 
 .menu .navbar-nav .nav-link {
         color: black;
-        
     }
+    
 .navbar {
-    height: 40px; 
+    height: 34px;  
 }
 
 
 .menu .container-fluid {
     padding-left: 0;
     padding-right: 0;
+    background-color: #FFFEF9;
+
 }
 
 
+.menu a {
+    font-size: 18px;
+    transition: transform 0.2s ease-in-out; 
+}
+
 .menu a:hover {
-   text-decoration: underline; 
+    transform: scale(1.1);
+    text-decoration: underline;
 }
 
 .navbar {
         background-color: white !important;
+        
     }
 
-#entete {
-   
+#entete {   
     background-color: white;
-    padding-top: 120px;
+    padding-top: 116px;
     position: sticky;
     top: 0;
     height: 0px; 
     z-index: 1; 
+   
 }
 
-
-p{
-	
-}
-.boite{
-	border: solid 0.1rem black;
+.boite_recherche{
 	margin: 2%;
-	background-color: whitesmoke;
+	background-color: #FFFEF9;
 	position: fixed;
 	height: 75%;
 	width: 96%;
 	border-radius: 25px;
+    overflow-y: auto;
+    box-shadow: 0 0 5px rgba(1, 1, 1, 0.4);
 }
+
 .topBar{
 	margin-bottom: 1%;
 	display: flex;
@@ -100,6 +122,12 @@ p{
 	width: 90%;
 	border-radius: 15px;
 	padding-left: 2%;
+}
+.navbar.navbar-light.bg-light.rounded-pill.col-lg-12{
+    height: auto;
+}
+.container-fluid.recherche{
+    padding-left: 5%;
 }
 .dropdown{
 	margin-left: 2%;
@@ -115,6 +143,33 @@ p{
     justify-content: center;
     align-items: center;
     height: calc(100%); 
+    margin-left: 2%;
+    margin-top: 2%;
+    margin-bottom: -5%;
+}
+
+.titre_recherhce{
+    font-size: 300px;
+}
+.minibio{
+    padding-left: 2%;
+    margin-right: 4%;
+    max-height: 15vh;
+    overflow-y: hidden;
+    position: relative;
+}
+
+.minibio:after {
+    content: '...';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.minibio.truncated:after {
+    display: block;
+    bottom: 0;
+    right: 0;
 }
 
 .slider-container {
@@ -122,10 +177,91 @@ p{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100.22%; 
+    width: 100.16%; 
+    font-family: "PT Sans", sans-serif;
+  font-weight: 200;
+  font-style: normal;
+
 }
 
 
+
+
+.filters{
+    padding-left: 5%;
+    display: inline-block;
+}
+#activeFilters{
+    width: 50%;
+    text-align: left;
+    margin-right: 5%;
+}
+.FiltreCroix{
+    display: inline-block;
+    margin-right: 2%;
+}
+.FiltreCroix p, .FiltreCroix span{
+    display: inline-block;
+}
+#sousFiltre{
+    display: inline-block;
+    }
+.sousFiltre{
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.close-icon {
+    position: relative;
+    display: block;
+    width: 20px; 
+    height: 20px;
+    cursor: pointer;
+}
+
+.close-icon::before,
+.close-icon::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 60%;
+    height: 2px;
+    background-color: red; 
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.close-icon::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+.titre_recherche{
+    font-size: 2em;
+}
+.minibio{
+    padding-left: 2%;
+    margin-right: 4%;
+    max-height: 18vh;
+    overflow-y: hidden;
+    position: relative;
+}
+
+.minibio:after {
+    content: '...';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.minibio.truncated:after {
+    display: block;
+    bottom: 0;
+    right: 0;
+}
+.sousFiltre{
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
 
 .prev,
 .next {
@@ -133,63 +269,58 @@ p{
     font-size: 20px;
     color: black;
     background-color: rgba(255, 255, 255, 0.8);
-    
     outline: none;
     padding: 10px;
     z-index: 1;
-    border: solid 0.1rem black;
+    transition: transform 0.2s ease-in-out;
+    border:none;
 }
 
-.prev:hover,
-.next:hover {
+.prev:hover{
+    transform: scale(1.05); 
+    transform-origin: left;
+    background-color: rgba(255, 255, 255, 0.8);
+}
 
-    background-color: rgba(255, 255, 255, 1);
+.next:hover {
+    transform: scale(1.05); 
+    transform-origin: right;
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
 .prev {
     position: absolute;
-    left: -1px;
+    left: -2%;
+    border-top-right-radius: 10px; 
+    border-bottom-right-radius: 10px;
+    padding-right: 12px;
+    padding-left: 20px;
 }
 
 .next {
     position: absolute;
     right: 1px;
+    border-top-left-radius: 10px; 
+    border-bottom-left-radius: 10px;
+    padding-left: 12px;
+    padding-right: 20px;
 }
 
 
 
-.boite_index {
-    border: solid 0.1rem black;
-    background-color: #F0EFEE;
+.boite_index {   
+    background-color: #FFFEF9;
     position: fixed;
-    height: 75%;
-    width: 80%;
+    height: 73%;
+    width: 75%;
     border-radius: 25px;
-    top: 58%; 
+    top: 59%; 
     left: 50%;
     transform: translate(-50%, -50%); 
-}
-
-.image-title {
-    text-align: center; 
-    font-weight: bold; 
-    font-size: 30px; 
-    margin-top: 0px;
+    box-shadow: 0 0 5px rgba(1, 1, 1, 0.4);
 }
 
 
-
-#footer_commentaires {
-    text-align: center;
-    font-weight: bold;
-    font-size: 20px;
-    padding: 6px 0;
-    text-decoration: underline;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-}
 
 
 .transition-effect {
@@ -199,11 +330,13 @@ p{
 .image-selector {
     text-align: center;
     position: absolute;
-    bottom: 10px; 
+    bottom: 0px; 
     left: 51%;
     transform: translateX(-50%);
     z-index: 2; 
 }
+
+
 
 .selector-dot {
     display: inline-block;
@@ -212,8 +345,14 @@ p{
     border-radius: 50%;
     margin: 0 5px; 
     background-color: white;
-    border: 1px solid black; 
     cursor: pointer;
+    transition: width 0.2s ease-in-out, height 0.2s ease-in-out; 
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+.selector-dot:hover {
+    width: 18px;
+    height: 18px;
 }
 
 .menu-article{
@@ -231,29 +370,37 @@ p{
 }
         
 .boite_article {
-    border: solid 0.1rem black;
-    background-color: whitesmoke;
-    height: 75%;
+    margin: 2% auto; 
+    background-color: #FFFEF9;
     width: 96%;
     border-radius: 25px;
-    margin: auto; 
-    margin-top: 1%; 
-    margin-bottom: 1%;
-    padding-top: 1%;
-    padding-bottom: 1%;
+    box-shadow: 0 0 5px rgba(1, 1, 1, 0.4);
+    padding-top: 10px;
+     
 }
+
+
 
 .contenu_article{
 	padding-right: 3%;
 	padding-left: 3%;
+	padding-bottom: 10px;
 }
 
 .titre_article{
+	font-size: 30px;
+	text-decoration: underline;
 	text-align: center;
+	padding-top: 10px;
+	padding-bottom: 15px;
+	font-weight: bold;
 }
 
-.sous_titre_article{
 
+.sous_titre_article{
+	font-size: 24px;
+	text-align: left;
+	font-weight: bold;
 }
 
 .p_article{
@@ -277,8 +424,7 @@ p{
 }
 
 .boite_connexion {
-    border: solid 0.1rem black;
-    background-color: whitesmoke;
+    background-color: #FFFEF9;
     position: fixed;
     height: 65%;
     width: 40%;
@@ -286,20 +432,33 @@ p{
     top: 58%; 
     left: 50%;
     transform: translate(-50%, -50%); 
+    box-shadow: 0 0 5px rgba(1, 1, 1, 0.4);
 }
 
 .titre-connexion{
 	text-align: center;
 	padding-top: 70px;
 	font-weight: bold;
+	text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+	font-family: "PT Sans", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+	
 }
 
 .custom-input {
-    max-width: 300px; 
+    max-width: 300px;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2); 
+}
+
+#inscription{
+	text-align: center;
+	text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
 }
 
 #formu{
 	padding-top: 20px;
+	text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
 }
 
 .nav-link .status-indicator {
@@ -311,9 +470,14 @@ p{
 }
 .status-indicator.connected {
 	background-color: green;
+	border:solid 1px black;
+	box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+	
 }
 .status-indicator.disconnected {
 	background-color: red;
+	border:solid 1px black;
+	box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
 }
 
 #titre-co{
@@ -321,15 +485,110 @@ p{
 	text-align: center;
 	font-weight: bold;
 	font-size: 36px;
+	text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+	font-family: "PT Sans", sans-serif;
+  font-weight: 600;
+  font-style: normal;
 	
 }
 #deja-connecte{
 	text-align: center;
 	padding-top: 20px;
+	text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
 }
 #se-deconnecter{
 	text-align: center;
+	text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
 }
 
 
 
+
+
+
+/* CSS pour les pages d'articles */
+.contenu-nobel {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+.contenu-nobel p {
+    margin: 10px 0;
+    font-size: 16px;
+    line-height: 1.6;
+}
+.contenu-nobel .titre {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #333;
+}
+.contenu-nobel .sous-titre {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 15px;
+    color: #555;
+}
+.contenu-nobel .organisation {
+    font-style: italic;
+    color: #888;
+}
+
+.boite-wikipedia{
+    border: solid 0.1rem black;
+    margin: 2%;
+    background-color: whitesmoke;
+    width: 96%;
+    border-radius: 25px;
+}
+.biography-heading:not(:first-of-type) {
+    margin-top: 20px;
+}
+
+.biography-heading{
+	text-decoration: underline;
+}
+
+.contenu-nobel-wikipedia {
+  counter-reset: titre1 titre2 titre3;
+}
+
+.biographie-titre1:before {
+  content: counter(titre1) ". ";
+  counter-increment: titre1;
+  margin-left: 10px; 
+  font-size: 22px;
+}
+
+.biographie-titre2:before {
+  content: counter(titre1) "." counter(titre2) ". ";
+  counter-increment: titre2;
+  margin-left: 20px; 
+  font-size: 20px; 
+}
+
+.biographie-titre3:before {
+  content: counter(titre1) "." counter(titre2) "." counter(titre3) ". ";
+  counter-increment: titre3;
+  margin-left: 30px; 
+  font-size: 18px; 
+}
+
+#body-wikipedia{
+	 margin: 0;
+    margin-left: -2px;
+}
+
+.menu-wiki {
+   justify-content: space-around; 
+   align-items: center; 
+	border: solid 1px black ;	
+	font-family: sans-serif;
+	font-weight: bold;
+	position: fixed;
+   top: calc(80px); 
+   width: 99%;
+   z-index: 1;
+}

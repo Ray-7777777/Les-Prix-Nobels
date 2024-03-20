@@ -14,45 +14,52 @@
     <link rel="stylesheet" href="style.css?v=<?php echo filemtime('style.css'); ?>" type="text/css" media="screen" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+	 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	 <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
+	 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao+Looped:wght@100..900&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto+Slab:wght@100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+	 <link href="https://fonts.googleapis.com/css2?family=Reem+Kufi+Fun:wght@400..700&display=swap" rel="stylesheet">	 
+
 </head>
 <body>
     <div id="entete">
-        <a href="index.php" style="text-decoration: none;">
-            <h1><span class="text-stroke" style="color : black;">PRIX NOBEL</span></h1>
-        </a>
-    </div>
-    <div class="menu" style="width: 100%; background-color: white;">
-        <nav class="navbar navbar-expand-lg navbar-light justify-content-start px-0">
-            <div class="container-fluid">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav w-100 justify-content-between">
-                        <li class="nav-item">
-                            <a class="nav-link mx-5" id="accueil" href="index.php" style="color: black;">Accueil</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link mx-5" id="recherche" href="recherche.php" style="color: black;">Recherche</a>
-                        </li>
-                        
-                        <li class="nav-item">
-                            <a class="nav-link mx-5" id="graphique" href="./page_graphique copy.php" style="color: black;">Graphique</a>
-                        </li>
-                        <li class="nav-item">
-                            <?php
-                            if ($est_connecte) {
-                                echo '<a class="nav-link mx-5" id="connexion" href="connexion.php" style="color: black;">Connecté <span class="status-indicator connected"></span></a>';
-                            } else {
-                                echo '<a class="nav-link mx-5" id="connexion" href="connexion.php" style="color: black;">Connexion <span class="status-indicator disconnected"></span></a>';
-                            }
-                            ?>
-                        </li>
-                    </ul>
-                </div>
+    <a href="index.php" style="text-decoration: none;">
+        <h1 class="oswald-font"><span class="text-stroke" style="color : black;">PRIX NOBEL</span></h1>
+    </a>
+	</div>
+
+<div class="menu" style="width: 100%;">
+    <nav class="navbar navbar-expand-lg navbar-light justify-content-start px-0">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav w-100 justify-content-between">
+                    <li class="nav-item">
+                        <a class="nav-link mx-5" id="accueil" href="index.php" style="color: black;">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link mx-5" id="recherche" href="recherche.php" style="color: black;">Recherche</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link mx-5" id="graphique" href="./page_graphique copy.php" style="color: black;">Graphique</a>
+                    </li>
+                    <li class="nav-item">
+                        <?php
+                        if ($est_connecte) {
+                            echo '<a class="nav-link mx-5" id="connexion" href="connexion.php" style="color: black;">Connecté <span class="status-indicator connected"></span></a>';
+                        } else {
+                            echo '<a class="nav-link mx-5" id="connexion" href="connexion.php" style="color: black;">Connexion <span class="status-indicator disconnected"></span></a>';
+                        }
+                        ?>
+                    </li>
+                </ul>
             </div>
-        </nav>
-    </div>
+        </div>
+    </nav>
+</div>
+
     <div class="boite_index">
         <div class="contenu">
             <div class="slider-container">
@@ -76,8 +83,9 @@
                     if ($result->num_rows > 0) {
                         $index = 1;
                         while ($row = $result->fetch_assoc()) {
-                            echo '<div class="image-title">' . $row["titre"] . '</div>';
-                            echo '<a href="article' . $index . '.php"><img class="slide" src="' . $row["image"] . '" style="margin-left:-1.4px;border: solid 0.1rem black; width: 100%; height: 100%; display: none;"></a>';
+                            echo '<div class="image-title" style="text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);font-weight: bold; font-size: 30px; text-align:center;cursor:default;margin-top:-10px;margin-bottom:10px;">' . $row["titre"] . '</div>';
+									 echo '<a href="article' . $index . '.php"><img class="slide" src="' . $row["image"] . '" style="margin: 0 auto;box-shadow: 0 0 5px rgba(1, 1, 1, 0.4); width: 100%; height: 100%; display: none;margin-left:-1%"></a>';
+
                             $index++;
                         }
                     } else {
@@ -137,11 +145,24 @@
             }
         });
     </script>
-     
-    <footer id="footer_commentaires">
-    	<a href="commentaires.php" style="color: black">Page des commentaires</a>
-    	<img src="Images/icone_commentaires.png" style="vertical-align: middle; margin-left: 5px; width: 20px; height: 20px;">
-    </footer>
+<script>
+    $(document).ready(function() {
+       
+
+        $(".slide").hover(function() {
+            $(this).css({"transform": "scale(1.01)", "transition": "transform 0.3s"}); 
+        }, function() {
+            $(this).css({"transform": "scale(1)", "transition": "transform 0.3s"}); 
+        });
+    });
+</script>
+
+
+
+
+
+
+ 
     <script src="script_index.js"></script>
 </body>
 </html>

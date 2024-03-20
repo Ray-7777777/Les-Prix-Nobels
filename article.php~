@@ -36,10 +36,7 @@
                             <a class="nav-link mx-5" id="recherche" href="recherche.php" style="color: black;">Recherche</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link mx-5" id="graphique" href="./real.php" style="color: black;">Graphique 1</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link mx-5" id="graphique" href="./page_graphique copy.php" style="color: black;">Graphique 2</a>
+                            <a class="nav-link mx-5" id="graphique" href="./page_graphique copy.php" style="color: black;">Graphique</a>
                         </li>
                         <li class="nav-item">
                             <?php
@@ -57,7 +54,15 @@
     </div>
     <div class="boite">
     <div class="contenu-nobel">
-    <a href="article_wikipedia.php?id=<?php echo $id_prix_nobel; ?>">article Wikipedia</a>
+    <?php
+    // Récupérer l'ID de l'URL actuelle
+    $id_personne = $_GET['id'];
+
+    // Construire le lien avec le même ID
+    $lien_article = "article_wikipedia.php?id=" . $id_personne;
+?>
+
+<a href="<?php echo $lien_article; ?>">Lien vers l'article Wikipedia</a>
     <?php
         $conn = getBD();
 
@@ -85,10 +90,10 @@
             $categorie = $stmt_categorie->fetch(PDO::FETCH_ASSOC);
 
             //requête SQL pour récupérer celui qui a remporté ce prix nobel
-            $nomine_sql = "SELECT * FROM nomine WHERE `Id-nominé` = :id_nomine";
-$stmt_nomine = $conn->prepare($nomine_sql);
-$stmt_nomine->bindParam(':id_nomine', $result['id_nominé'], PDO::PARAM_INT);
-$stmt_nomine->execute();
+            $nomine_sql = "SELECT * FROM nomine WHERE `Id_nominé` = :id_nomine";
+            $stmt_nomine = $conn->prepare($nomine_sql);
+            $stmt_nomine->bindParam(':id_nomine', $result['id_nominé'], PDO::PARAM_INT);
+            $stmt_nomine->execute();
     
             $nomine = $stmt_nomine->fetch(PDO::FETCH_ASSOC);
             
