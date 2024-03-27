@@ -226,8 +226,8 @@ while ($row = $deathCountryQuery->fetch_assoc()){
                </a>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="#" onclick="changerTypeGraphe('bar')">Barre</a>
-                    <a class="dropdown-item" href="#" onclick="changerTypeGraphe('doughnut')">Circulaire</a>
-                    <a class="dropdown-item" href="#" onclick="changerTypeGraphe('polarArea')">Histogramme</a>
+                    <a class="dropdown-item" href="#" id="CircularDiagram">Circulaire</a>
+                    <a class="dropdown-item" href="#" id="selectYearCam">Histogramme</a>
                     <a class="dropdown-item" href="#" onclick="changerTypeGraphe('line')">Courbe</a>
                     <a class="dropdown-item" href="#" onclick="changerTypeGraphe('bubble')">Nuage de points</a>
                     <a class="dropdown-item" href="#" onclick="changerTypeGraphe('box-plot')">Box-plot</a>
@@ -320,30 +320,37 @@ while ($row = $deathCountryQuery->fetch_assoc()){
         var ctx = document.getElementById('graphs').getContext('2d');
         var currentChart;
         function updateBarGraph(selectedYear) {
-        var filteredData = datasets.filter(dataset => dataset.label === selectedYear);
+    var filteredData = datasets.filter(dataset => dataset.label === selectedYear);
 
-        if (currentChart) {
-            currentChart.destroy();
-        }
+    if (currentChart) {
+        currentChart.destroy();
+    }
+    filteredData.forEach(dataset => {
+        dataset.backgroundColor = dataset.data.map((_, index) => {
+            return `hsl(${index * 50 % 360}, 100%, 70%)`;
+        });
+    });
 
-        currentChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: categories,
-                datasets: filteredData
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
+    var ctx = document.getElementById('graphs').getContext('2d');
+    currentChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: categories,
+            datasets: filteredData
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
                 }
             }
-        });
-    }
+        }
+    });
+}
+
 
     // Fonction pour mettre à jour le graphique linéaire pour les données de sexe
-    function updateLineGraph(year) {
+  /*  function updateLineGraph(year) {
         if (currentChart) {
             currentChart.destroy();
         }
@@ -400,8 +407,14 @@ while ($row = $deathCountryQuery->fetch_assoc()){
             }
         }
     });
-}
-function displayImpactGraph() {
+}*/
+
+
+
+
+//======= fin fonction pour afficher le gra
+
+/*function displayImpactGraph() {
     var impactDataParsed = JSON.parse(impactData); 
     var uniqueCategories = [...new Set(impactDataParsed.map(item => item.Nom_catégorie))];
     var uniqueCountries = [...new Set(impactDataParsed.map(item => item.Pays))];
@@ -471,119 +484,164 @@ function displayImpactGraph() {
             }
         }
     });
+}*/
+
+
+
+
+
+//==== pour le graphe circulaire sur le sexe par categories et annnée 
+function updatePieGraph(year) {
+    if (currentChart) {
+        currentChart.destroy();
+    }
+    const totalByGender = { male: 0, female: 0 };
+    categories.forEach(category => {
+        if (maleData[year] && maleData[year][category]) {
+            totalByGender.male += maleData[year][category];
+        }
+        if (femaleData[year] && femaleData[year][category]) {
+            totalByGender.female += femaleData[year][category];
+        }
+    });
+
+    var total = totalByGender.male + totalByGender.female;
+
+    var ctx = document.getElementById('graphs').getContext('2d');
+    currentChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ['Hommes', 'Femmes'],
+            datasets: [{
+                label: `Nombre de Prix Nobel par Sexe en ${year}`,
+                data: [totalByGender.male, totalByGender.female],
+                backgroundColor: ['#42A5F5', '#EC407A'],
+                borderColor: ['darkblue', 'darkred'],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                datalabels: {
+                    color: '#FFF',
+                    formatter: (value, ctx) => {
+                        let sum = ctx.dataset._meta[0].total;
+                        let percentage = (value * 100 / sum).toFixed(2) + "%";
+                        return percentage;
+                    },
+                    anchor: 'end',
+                    align: 'start',
+                    offset: -10
+                },
+                legend: {
+                    display: true,
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: `Distribution des Prix Nobel par Sexe en ${year}`
+                }
+            }
+        }
+    });
 }
 
-document.getElementById('Country').addEventListener('click', displayImpactGraph);
+document.getElementById('CircularDiagram').addEventListener('click', function(){
+    var selectedYear = document.getElementById('selectYear').value;
+    updatePieGraph(selectedYear);
+});
+
+//===== fin de la fonction pour le graphe circulaire 
+
+
+
+
+/*document.getElementById('Country').addEventListener('click', displayImpactGraph);*/
 
     document.getElementById('selectYear').addEventListener('change', function() {
         var selectedYear = this.value;
         updateBarGraph(selectedYear); 
     });
 
-    document.getElementById('Gender').addEventListener('click', function() {
+    /*document.getElementById('Gender').addEventListener('click', function() {
         var selectedYear = document.getElementById('selectYear').value;
         updateLineGraph(selectedYear); 
+    });*/
+
+//=======fonction pour afficher le gra
+function grapheEnCambert(selectedYear) {
+    var yearData = datasets.find(dataset => dataset.label === selectedYear);
+    if (!yearData) return; 
+    var ctx = document.getElementById('graphs').getContext('2d');
+
+    if (currentChart) {
+        currentChart.destroy();
+    }
+
+    var total = yearData.data.reduce((acc, value) => acc + Number(value), 0);
+    currentChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: categories,
+            datasets: [{
+                label: `Distribution des prix Nobel en ${selectedYear}`,
+                data: yearData.data,
+                backgroundColor: categories.map((_, index) => `hsl(${index * 360 / categories.length}, 70%, 50%)`),
+                hoverOffset: 4
+            }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: `Distribution des Prix Nobel par Catégorie en ${selectedYear}`
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            var label = context.label || '';
+                            var value = context.raw;
+                            var percentage = ((value / total) * 100).toFixed(2) + "%";
+                            return `${label}: ${value} (${percentage})`;
+                        }
+                    }
+                }
+            },
+            responsive: true,
+        }
     });
+}
+
+document.getElementById('selectYearCam').addEventListener('click', function() {
+    var selectedYear = document.getElementById('selectYear').value;
+    grapheEnCambert(selectedYear);
+});
+
+
 
     if (years.length > 0) {
         updateBarGraph(years[0]);
     }
 });
 
-    function displayMaleData() {
-    var selectElement = document.createElement('select');
-    selectElement.setAttribute('id', 'maleSelect');
 
 
 
-    <?php 
-    foreach ($maleGenderQueryResArr as $item) {
-        $prenomNom = addslashes($item['Prénom'] . ' ' . $item['Nom']);
-        echo "var option = document.createElement('option');";
-        echo "option.value = \"$prenomNom\";";
-        echo "option.textContent = \"$prenomNom\";";
-        echo "selectElement.appendChild(option);";
-    }
-    ?>
 
-    return selectElement;
-}
-document.getElementById('SelectedMaleGender').addEventListener('click', function() {
-    var selectElement = displayMaleData();
-    document.body.appendChild(selectElement);
-});
+  
 
 
 
-function displayFemaleData(){
-    var selectedElement = document.createElement('select');
-    selectedElement.setAttribute('id', 'maleSelect');
-
-    <?php 
-    foreach ($femaleGenderQueryArr as $item) {
-        $prenomNom = addslashes($item['Prénom'] . ' ' . $item['Nom']);
-        echo "var option = document.createElement('option');";
-        echo "option.value = \"$prenomNom\";";
-        echo "option.textContent = \"$prenomNom\";";
-        echo "selectedElement.appendChild(option);";
-    }
-    ?>
-
-    return selectedElement;
-}
-document.getElementById('SelectedFemaleGender').addEventListener('click', function(){
-    var selectElement = displayFemaleData();
-    document.body.appendChild(selectElement);
-})
+ 
 
 
-// display Born Country  without duplicated value in the query
-function displayBornCountry(){
-    var selectedElement = document.createElement('select');
-    selectedElement.setAttribute('id', 'bornCountrySelect');
 
-    <?php 
-    foreach ($birthCountryArrResponseQuery as $item) {
-        $country = addslashes($item['Born country']);
-        echo "var option = document.createElement('option');";
-        echo "option.value = \"$country\";";
-        echo "option.textContent = \"$country\";";
-        echo "selectedElement.appendChild(option);";
-    }
-    ?>
-
-    return selectedElement;
-}
-
-document.getElementById('SelectedBornCountry').addEventListener('click', function(){
-    var selectElement = displayBornCountry();
-    document.body.appendChild(selectElement);
-})
-
-// displaying Died Country without duplicated Value in the query 
-
-function displayDiedCountry(){
-    var selectedElement = document.createElement('select');
-    selectedElement.setAttribute('id', 'deathCountrySelect');
-
-<?php 
-foreach ($deathCountryArrResponseQuery as $item) {
-    $country = addslashes($item['Died country']);
-    echo "var option = document.createElement('option');";
-    echo "option.value = \"$country\";";
-    echo "option.textContent = \"$country\";";
-    echo "selectedElement.appendChild(option);";
-}
-?>
-
-return selectedElement;
-
-}
-
-document.getElementById('SelectedDiedCountry').addEventListener('click', function(){
-    var selectElement = displayDiedCountry();
-    document.body.appendChild(selectElement);
-})
+ 
     </script>
 </body>
 </html>
