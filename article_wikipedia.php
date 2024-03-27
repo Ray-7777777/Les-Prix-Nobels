@@ -106,19 +106,14 @@
                     return "<br><p class='biography-heading'><strong class='biographie-texte biographie-titre1'>" . trim($matches[1]) . "</strong></p>";
                 }, $formatted_biography);
 
-                // Récupération des titres et des paragraphes
                 $matches = [];
                 preg_match_all('/===[^=]+===\s*(.*?)(?:(?===)|(?===))/s', $formatted_biography, $matches);
 
-                // Variable pour la numérotation
                 $numeration = 1;
 
-                // Parcourir chaque titre et paragraphe pour ajouter des identifiants et la numérotation
                 foreach ($matches[0] as $index => $match) {
                     $content = $matches[1][$index];
-                    // Appliquer le formatage au paragraphe
                     $content = preg_replace('/\n/', '<br>', $content);
-                    // Ajouter la numérotation aux titres biographie-titre1
                     if (strpos($match, 'biographie-titre1') !== false) {
                         $formatted_biography = str_replace($match, "<br><p class='biography-heading'><strong class='biographie-texte'>$numeration. " . trim($matches[1][$index]) . "</strong></p>", $formatted_biography);
                         $numeration++;
@@ -128,13 +123,11 @@
                 }
                 
 
-                // Affichage de la biographie
                 echo "<div style='margin-right:2%;margin-left:2%;'>"; 
                 echo "<div style='float: right; margin-left: 10px; width: 300px;'>"; 
                 echo "<div class='image-container' style='background-color: white;box-shadow: 0 0 10px rgba(1, 1, 1, 0.4);border-radius: 25px;border: 1.5px solid black; text-align: center;padding-top:2%;margin-top:1.5%;margin-right:1.5%;'>"; 
                 echo "<img src='$photo_url' alt='Photo' style='max-width: 300px; max-height: 200px; margin: auto;border:1.5px solid black;'>"; 
-                
-                // Affichage des informations personnelles
+               
                 
           
                 if ($resultat['Prénom'] !== "NULL") {
@@ -173,7 +166,6 @@
                     echo "<p style='font-weight:normal;text-align: left;padding-left:5%;margin-top:-6%'><strong>Genre :</strong> {$resultat['Gender']}</p>";
                 }
                 
-<<<<<<< Updated upstream
                 echo "<p style='font-weight:normal;padding-bottom:10px;padding-top:20px;text-align: center;padding-left:5%;margin-top:-6%;text-decoration:underline;'><strong>À propos du prix Nobel :</p>";
                 
                 if ($resultato['nom_organisation'] !== "pas d’organisation") {
@@ -206,14 +198,12 @@
                 
                
            
-                
-=======
+               
                 if ($resultat['Nom_catégorie'] !== "NULL") {
                     echo "<p style='text-align: left;padding-left:5%;margin-top:-6%'><strong>Catégorie prix nobel :</strong> {$resultat['Nom_catégorie']}</p>";
                 }
                 
                 
->>>>>>> Stashed changes
 
                  echo "</div>"; 
                 echo "</div>"; 
@@ -233,31 +223,22 @@
 </div>
 
 <script>
-    // Attendre que le document soit complètement chargé
     document.addEventListener("DOMContentLoaded", function() {
-        // Sélectionner tous les éléments ayant les classes biographie-titre1, biographie-titre2 et biographie-titre3
         var titles1 = document.querySelectorAll('.biographie-titre1');
         var titles2 = document.querySelectorAll('.biographie-titre2');
         var titles3 = document.querySelectorAll('.biographie-titre3');
 
-        // Fonction pour ajouter un titre à la liste des titres
         function addTitleToList(title, list) {
-            // Créer un élément de liste
             var listItem = document.createElement('li');
-            // Créer un lien avec le titre comme texte et l'ancre correspondante comme href
             var link = document.createElement('a');
             link.textContent = title.textContent.trim();
             link.href = '#' + title.id;
-            // Ajouter le lien à l'élément de liste
             listItem.appendChild(link);
-            // Ajouter l'élément de liste à la liste
             list.appendChild(listItem);
         }
 
-        // Sélectionner le conteneur de menu des titres
         var titlesMenu = document.querySelector('.menu-titres ul');
 
-        // Ajouter chaque titre à la liste des titres
         titles1.forEach(function(title) {
             addTitleToList(title, titlesMenu);
         });
