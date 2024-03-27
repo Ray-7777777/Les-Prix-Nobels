@@ -541,6 +541,7 @@ body{
     background-color: whitesmoke;
     width: 96%;
     border-radius: 25px;
+
 }
 .biography-heading:not(:first-of-type) {
     margin-top: 20px;
@@ -552,6 +553,11 @@ body{
 
 .contenu-nobel-wikipedia {
   counter-reset: titre1 titre2 titre3;
+  
+}
+
+.contenu-nobel-wikipedia {
+    min-height: 500px;
 }
 
 .biographie-titre1:before {

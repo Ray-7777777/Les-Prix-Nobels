@@ -14,46 +14,50 @@
     <link rel="stylesheet" href="style.css?v=<?php echo filemtime('style.css'); ?>" type="text/css" media="screen" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-</head>
-<body id="body-wikipedia">
-    <div id="entete">
-        <a href="index.php" style="text-decoration: none;">
-            <h1><span class="text-stroke" style="color : black;">PRIX NOBEL</span></h1>
-        </a>
-    </div>
-    <div class="menu-wiki" style="width: 100%; background-color: black;">
-        <nav class="navbar navbar-expand-lg navbar-light justify-content-start px-0">
-            <div class="container-fluid">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav w-100 justify-content-between">
-                        <li class="nav-item">
-                            <a class="nav-link mx-5" id="accueil" href="index.php" style="color: black;">Accueil</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link mx-5" id="recherche" href="recherche.php" style="color: black;">Recherche</a>
-                        </li>
-                        
-                        <li class="nav-item">
-                            <a class="nav-link mx-5" id="graphique" href="./page_graphique copy.php" style="color: black;">Graphique</a>
-                        </li>
-                        <li class="nav-item">
-                            <?php
-                            if ($est_connecte) {
-                                echo '<a class="nav-link mx-5" id="connexion" href="connexion.php" style="color: black;">Connecté <span class="status-indicator connected"></span></a>';
-                            } else {
-                                echo '<a class="nav-link mx-5" id="connexion" href="connexion.php" style="color: black;">Connexion <span class="status-indicator disconnected"></span></a>';
-                            }
-                            ?>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </div>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+	 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	 <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
+	 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao+Looped:wght@100..900&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto+Slab:wght@100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+	 <link href="https://fonts.googleapis.com/css2?family=Reem+Kufi+Fun:wght@400..700&display=swap" rel="stylesheet">	 
 
+</head>
+<body>
+    <div id="entete">
+    <a href="index.php" style="text-decoration: none;">
+        <h1 class="oswald-font"><span class="text-stroke" style="color : black;">PRIX NOBEL</span></h1>
+    </a>
+	</div>
+
+<div class="menu" style="width: 100%;">
+    <nav class="navbar navbar-expand-lg navbar-light justify-content-start px-0">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav w-100 justify-content-between">
+                    <li class="nav-item">
+                        <a class="nav-link mx-5" id="accueil" href="index.php" style="color: black;">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link mx-5" id="recherche" href="recherche.php" style="color: black;">Recherche</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link mx-5" id="graphique" href="./page_graphique copy.php" style="color: black;">Graphique</a>
+                    </li>
+                    <li class="nav-item">
+                        <?php
+                        if ($est_connecte) {
+                            echo '<a class="nav-link mx-5" id="connexion" href="connexion.php" style="color: black;">Connecté <span class="status-indicator connected"></span></a>';
+                        } else {
+                            echo '<a class="nav-link mx-5" id="connexion" href="connexion.php" style="color: black;">Connexion <span class="status-indicator disconnected"></span></a>';
+                        }
+                        ?>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 </div>
 <div class="boite-wikipedia">
     <div class="contenu-nobel-wikipedia">
@@ -66,10 +70,25 @@
 
                 $sql = "SELECT Prénom, Biographie, Photos, Nom, Date_de_naissance, `Date_de_mort`, `Born_country`, `Born_city`, `Died_country`, `Died_city`, Gender FROM nomine WHERE `Id_nominé` = :id";
 
+                $sqlan = "SELECT Année, Motivation, categorie.Nom_catégorie, 'Overall motivation' FROM prix_nobel INNER JOIN categorie ON prix_nobel.id_category = categorie.Id_catégorie WHERE prix_nobel.`Id_nominé` = :id";
+                
+                $sqlo = "SELECT nom_organisation, ville_organisation, pays_organisation FROM organisation INNER JOIN prix_nobel ON organisation.id_organisation = prix_nobel.id_organisation WHERE prix_nobel.`Id_nominé` = :id";
+
                 $stmt = $connexion->prepare($sql);
+                $stmt2 = $connexion->prepare($sqlan);
+                $stmto = $connexion->prepare($sqlo);
+
                 $stmt->bindParam(':id', $id_personne, PDO::PARAM_INT);
+                $stmt2->bindParam(':id', $id_personne, PDO::PARAM_INT);
+                $stmto->bindParam(':id', $id_personne, PDO::PARAM_INT);
+
                 $stmt->execute();
+                $stmt2->execute();
+                $stmto->execute();
+
                 $resultat = $stmt->fetch(PDO::FETCH_ASSOC);
+                $resultat2 = $stmt2->fetch(PDO::FETCH_ASSOC);
+                $resultato = $stmto->fetch(PDO::FETCH_ASSOC);
 
                 $photo_url = $resultat['Photos'] ? $resultat['Photos'] : 'placeholder.jpg'; 
                 
@@ -107,6 +126,7 @@
                         $formatted_biography = str_replace($match, "<br><p class='biography-heading'><strong class='biographie-texte'>" . trim($matches[1][$index]) . "</strong></p>", $formatted_biography);
                     }
                 }
+                
 
                 // Affichage de la biographie
                 echo "<div style='margin-right:2%;margin-left:2%;'>"; 
@@ -115,39 +135,77 @@
                 echo "<img src='$photo_url' alt='Photo' style='max-width: 300px; max-height: 200px; margin: auto;border:1.5px solid black;'>"; 
                 
                 // Affichage des informations personnelles
+                
+          
                 if ($resultat['Prénom'] !== "NULL") {
-                    echo "<p style='text-align: left;padding-left:5%;margin-top:2%'><strong>Prénom :</strong> {$resultat['Prénom']}</p>";
-                }      if ($resultat['Nom'] !== "NULL") {
-                    echo "<p style='text-align: left;padding-left:5%;margin-top:-6%'><strong>Nom :</strong> {$resultat['Nom']}</p>";
+                    echo "<p style='font-weight:normal;text-align: left;padding-left:5%;margin-top:2%'><strong>Prénom :</strong> {$resultat['Prénom']}</p>";
+                }      
+                
+                if ($resultat['Nom'] !== "NULL") {
+                    echo "<p style='font-weight:normal;text-align: left;padding-left:5%;margin-top:-6%'><strong>Nom :</strong> {$resultat['Nom']}</p>";
                 }
 
                 if ($resultat['Date_de_naissance'] !== "NULL") {
-                    echo "<p style='text-align: left;padding-left:5%;margin-top:-6%'><strong>Date de naissance :</strong> {$resultat['Date_de_naissance']}</p>";
+                    echo "<p style='font-weight:normal;text-align: left;padding-left:5%;margin-top:-6%'><strong>Date de naissance :</strong> {$resultat['Date_de_naissance']}</p>";
                 }
 
                 if ($resultat['Date_de_mort'] !== "NULL") {
-                    echo "<p style='text-align: left;padding-left:5%;margin-top:-6%'><strong>Date de mort :</strong> {$resultat['Date_de_mort']}</p>";
+                    echo "<p style='font-weight:normal;text-align: left;padding-left:5%;margin-top:-6%'><strong>Date de mort :</strong> {$resultat['Date_de_mort']}</p>";
                 }
 
                 if ($resultat['Born_country'] !== "NULL") {
-                    echo "<p style='text-align: left;padding-left:5%;margin-top:-6%'><strong>Pays de naissance :</strong> {$resultat['Born_country']}</p>";
+                    echo "<p style='font-weight:normal;text-align: left;padding-left:5%;margin-top:-6%'><strong>Pays de naissance :</strong> {$resultat['Born_country']}</p>";
                 }
 
                 if ($resultat['Born_city'] !== "NULL") {
-                    echo "<p style='text-align: left;padding-left:5%;margin-top:-6%'><strong>Ville de naissance :</strong> {$resultat['Born_city']}</p>";
+                    echo "<p style='font-weight:normal;text-align: left;padding-left:5%;margin-top:-6%'><strong>Ville de naissance :</strong> {$resultat['Born_city']}</p>";
                 }
 
                 if ($resultat['Died_country'] !== "NULL") {
-                    echo "<p style='text-align: left;padding-left:5%;margin-top:-6%'><strong>Pays de mort :</strong> {$resultat['Died_country']}</p>";
+                    echo "<p style='font-weight:normal;text-align: left;padding-left:5%;margin-top:-6%'><strong>Pays de mort :</strong> {$resultat['Died_country']}</p>";
                 }
 
                 if ($resultat['Died_city'] !== "NULL") {
-                    echo "<p style='text-align: left;padding-left:5%;margin-top:-6%'><strong>Ville de mort :</strong> {$resultat['Died_city']}</p>";
+                    echo "<p style='font-weight:normal;text-align: left;padding-left:5%;margin-top:-6%'><strong>Ville de mort :</strong> {$resultat['Died_city']}</p>";
                 }
 
                 if ($resultat['Gender'] !== "NULL") {
-                    echo "<p style='text-align: left;padding-left:5%;margin-top:-6%'><strong>Genre :</strong> {$resultat['Gender']}</p>";
+                    echo "<p style='font-weight:normal;text-align: left;padding-left:5%;margin-top:-6%'><strong>Genre :</strong> {$resultat['Gender']}</p>";
                 }
+                
+                echo "<p style='font-weight:normal;padding-bottom:10px;padding-top:20px;text-align: center;padding-left:5%;margin-top:-6%;text-decoration:underline;'><strong>À propos du prix Nobel :</p>";
+                
+                if ($resultato['nom_organisation'] !== "pas d’organisation") {
+                    echo "<p style='text-align: left;padding-left:5%;margin-top:-6%'><strong>Organisation :</strong> {$resultato['nom_organisation']}</p>";
+                }
+                
+                if ($resultato['pays_organisation'] !== "pas d’organisation") {
+                    echo "<p style='text-align: left;padding-left:5%;margin-top:-6%'><strong>Pays de l'organisation :</strong> {$resultato['pays_organisation']}</p>";
+                }
+                
+                if ($resultato['ville_organisation'] !== "pas d’organisation") {
+                    echo "<p style='text-align: left;padding-left:5%;margin-top:-6%'><strong>Ville de l'organisation :</strong> {$resultato['ville_organisation']}</p>";
+                }
+                
+                if ($resultat2['Nom_catégorie'] !== "NULL") {
+                    echo "<p style='text-align: left;padding-left:5%;margin-top:-6%'><strong>Catégorie :</strong> {$resultat2['Nom_catégorie']}</p>";
+                }
+                
+                if ($resultat2['Année'] !== "NULL") {
+                    echo "<p style='text-align: left;padding-left:5%;margin-top:-6%'><strong>Année :</strong> {$resultat2['Année']}</p>";
+                }
+                
+                if ($resultat2['Motivation'] !== "NULL") {
+                    echo "<p style='text-align: left;padding-left:5%;margin-top:-6%'><strong>Motivation :</strong> {$resultat2['Motivation']}</p>";
+                }
+                
+                
+                
+           
+                
+               
+           
+                
 
                  echo "</div>"; 
                 echo "</div>"; 

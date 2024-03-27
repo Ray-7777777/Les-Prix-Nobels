@@ -70,10 +70,25 @@
 
                 $sql = "SELECT Prénom, Biographie, Photos, Nom, Date_de_naissance, `Date_de_mort`, `Born_country`, `Born_city`, `Died_country`, `Died_city`, Gender FROM nomine WHERE `Id_nominé` = :id";
 
+                $sqlan = "SELECT Année, Motivation, categorie.Nom_catégorie, 'Overall motivation' FROM prix_nobel INNER JOIN categorie ON prix_nobel.id_category = categorie.Id_catégorie WHERE prix_nobel.`Id_nominé` = :id";
+                
+                $sqlo = "SELECT nom_organisation, ville_organisation, pays_organisation FROM organisation INNER JOIN prix_nobel ON organisation.id_organisation = prix_nobel.id_organisation WHERE prix_nobel.`Id_nominé` = :id";
+
                 $stmt = $connexion->prepare($sql);
+                $stmt2 = $connexion->prepare($sqlan);
+                $stmto = $connexion->prepare($sqlo);
+
                 $stmt->bindParam(':id', $id_personne, PDO::PARAM_INT);
+                $stmt2->bindParam(':id', $id_personne, PDO::PARAM_INT);
+                $stmto->bindParam(':id', $id_personne, PDO::PARAM_INT);
+
                 $stmt->execute();
+                $stmt2->execute();
+                $stmto->execute();
+
                 $resultat = $stmt->fetch(PDO::FETCH_ASSOC);
+                $resultat2 = $stmt2->fetch(PDO::FETCH_ASSOC);
+                $resultato = $stmto->fetch(PDO::FETCH_ASSOC);
 
                 $photo_url = $resultat['Photos'] ? $resultat['Photos'] : 'placeholder.jpg'; 
                 
@@ -111,6 +126,7 @@
                         $formatted_biography = str_replace($match, "<br><p class='biography-heading'><strong class='biographie-texte'>" . trim($matches[1][$index]) . "</strong></p>", $formatted_biography);
                     }
                 }
+                
 
                 // Affichage de la biographie
                 echo "<div style='margin-right:2%;margin-left:2%;'>"; 
@@ -119,39 +135,77 @@
                 echo "<img src='$photo_url' alt='Photo' style='max-width: 300px; max-height: 200px; margin: auto;border:1.5px solid black;'>"; 
                 
                 // Affichage des informations personnelles
+                
+          
                 if ($resultat['Prénom'] !== "NULL") {
-                    echo "<p style='text-align: left;padding-left:5%;margin-top:2%'><strong>Prénom :</strong> {$resultat['Prénom']}</p>";
-                }      if ($resultat['Nom'] !== "NULL") {
-                    echo "<p style='text-align: left;padding-left:5%;margin-top:-6%'><strong>Nom :</strong> {$resultat['Nom']}</p>";
+                    echo "<p style='font-weight:normal;text-align: left;padding-left:5%;margin-top:2%'><strong>Prénom :</strong> {$resultat['Prénom']}</p>";
+                }      
+                
+                if ($resultat['Nom'] !== "NULL") {
+                    echo "<p style='font-weight:normal;text-align: left;padding-left:5%;margin-top:-6%'><strong>Nom :</strong> {$resultat['Nom']}</p>";
                 }
 
                 if ($resultat['Date_de_naissance'] !== "NULL") {
-                    echo "<p style='text-align: left;padding-left:5%;margin-top:-6%'><strong>Date de naissance :</strong> {$resultat['Date_de_naissance']}</p>";
+                    echo "<p style='font-weight:normal;text-align: left;padding-left:5%;margin-top:-6%'><strong>Date de naissance :</strong> {$resultat['Date_de_naissance']}</p>";
                 }
 
                 if ($resultat['Date_de_mort'] !== "NULL") {
-                    echo "<p style='text-align: left;padding-left:5%;margin-top:-6%'><strong>Date de mort :</strong> {$resultat['Date_de_mort']}</p>";
+                    echo "<p style='font-weight:normal;text-align: left;padding-left:5%;margin-top:-6%'><strong>Date de mort :</strong> {$resultat['Date_de_mort']}</p>";
                 }
 
                 if ($resultat['Born_country'] !== "NULL") {
-                    echo "<p style='text-align: left;padding-left:5%;margin-top:-6%'><strong>Pays de naissance :</strong> {$resultat['Born_country']}</p>";
+                    echo "<p style='font-weight:normal;text-align: left;padding-left:5%;margin-top:-6%'><strong>Pays de naissance :</strong> {$resultat['Born_country']}</p>";
                 }
 
                 if ($resultat['Born_city'] !== "NULL") {
-                    echo "<p style='text-align: left;padding-left:5%;margin-top:-6%'><strong>Ville de naissance :</strong> {$resultat['Born_city']}</p>";
+                    echo "<p style='font-weight:normal;text-align: left;padding-left:5%;margin-top:-6%'><strong>Ville de naissance :</strong> {$resultat['Born_city']}</p>";
                 }
 
                 if ($resultat['Died_country'] !== "NULL") {
-                    echo "<p style='text-align: left;padding-left:5%;margin-top:-6%'><strong>Pays de mort :</strong> {$resultat['Died_country']}</p>";
+                    echo "<p style='font-weight:normal;text-align: left;padding-left:5%;margin-top:-6%'><strong>Pays de mort :</strong> {$resultat['Died_country']}</p>";
                 }
 
                 if ($resultat['Died_city'] !== "NULL") {
-                    echo "<p style='text-align: left;padding-left:5%;margin-top:-6%'><strong>Ville de mort :</strong> {$resultat['Died_city']}</p>";
+                    echo "<p style='font-weight:normal;text-align: left;padding-left:5%;margin-top:-6%'><strong>Ville de mort :</strong> {$resultat['Died_city']}</p>";
                 }
 
                 if ($resultat['Gender'] !== "NULL") {
-                    echo "<p style='text-align: left;padding-left:5%;margin-top:-6%'><strong>Genre :</strong> {$resultat['Gender']}</p>";
+                    echo "<p style='font-weight:normal;text-align: left;padding-left:5%;margin-top:-6%'><strong>Genre :</strong> {$resultat['Gender']}</p>";
                 }
+                
+                echo "<p style='font-weight:normal;padding-bottom:10px;padding-top:20px;text-align: center;padding-left:5%;margin-top:-6%;text-decoration:underline;'><strong>À propos du prix Nobel :</p>";
+                
+                if ($resultato['nom_organisation'] !== "pas d’organisation") {
+                    echo "<p style='text-align: left;padding-left:5%;margin-top:-6%'><strong>Organisation :</strong> {$resultato['nom_organisation']}</p>";
+                }
+                
+                if ($resultato['pays_organisation'] !== "pas d’organisation") {
+                    echo "<p style='text-align: left;padding-left:5%;margin-top:-6%'><strong>Pays de l'organisation :</strong> {$resultato['pays_organisation']}</p>";
+                }
+                
+                if ($resultato['ville_organisation'] !== "pas d’organisation") {
+                    echo "<p style='text-align: left;padding-left:5%;margin-top:-6%'><strong>Ville de l'organisation :</strong> {$resultato['ville_organisation']}</p>";
+                }
+                
+                if ($resultat2['Nom_catégorie'] !== "NULL") {
+                    echo "<p style='text-align: left;padding-left:5%;margin-top:-6%'><strong>Catégorie :</strong> {$resultat2['Nom_catégorie']}</p>";
+                }
+                
+                if ($resultat2['Année'] !== "NULL") {
+                    echo "<p style='text-align: left;padding-left:5%;margin-top:-6%'><strong>Année :</strong> {$resultat2['Année']}</p>";
+                }
+                
+                if ($resultat2['Motivation'] !== "NULL") {
+                    echo "<p style='text-align: left;padding-left:5%;margin-top:-6%'><strong>Motivation :</strong> {$resultat2['Motivation']}</p>";
+                }
+                
+                
+                
+           
+                
+               
+           
+                
 
                  echo "</div>"; 
                 echo "</div>"; 
