@@ -68,7 +68,7 @@
             try {
                 $connexion = getBD();
 
-                $sql = "SELECT Prénom, Biographie, Photos, Nom, Date_de_naissance, `Date_de_mort`, `Born_country`, `Born_city`, `Died_country`, `Died_city`, Gender FROM nomine WHERE `Id_nominé` = :id";
+                $sql = "SELECT Prénom, Biographie, Photos, Nom, Date_de_naissance, `Date_de_mort`, `Born_country`, `Born_city`, `Died_country`, `Died_city`, Gender, Nom_catégorie FROM nomine, categorie WHERE `Id_nominé` = :id";
 
                 $sqlan = "SELECT Année, Motivation, categorie.Nom_catégorie, 'Overall motivation' FROM prix_nobel INNER JOIN categorie ON prix_nobel.id_category = categorie.Id_catégorie WHERE prix_nobel.`Id_nominé` = :id";
                 
@@ -131,7 +131,7 @@
                 // Affichage de la biographie
                 echo "<div style='margin-right:2%;margin-left:2%;'>"; 
                 echo "<div style='float: right; margin-left: 10px; width: 300px;'>"; 
-                echo "<div class='image-container' style='border: 1.5px solid black; text-align: center;padding-top:2%;margin-top:1.5%;margin-right:1.5%;'>"; 
+                echo "<div class='image-container' style='background-color: white;box-shadow: 0 0 10px rgba(1, 1, 1, 0.4);border-radius: 25px;border: 1.5px solid black; text-align: center;padding-top:2%;margin-top:1.5%;margin-right:1.5%;'>"; 
                 echo "<img src='$photo_url' alt='Photo' style='max-width: 300px; max-height: 200px; margin: auto;border:1.5px solid black;'>"; 
                 
                 // Affichage des informations personnelles
@@ -173,6 +173,7 @@
                     echo "<p style='font-weight:normal;text-align: left;padding-left:5%;margin-top:-6%'><strong>Genre :</strong> {$resultat['Gender']}</p>";
                 }
                 
+<<<<<<< Updated upstream
                 echo "<p style='font-weight:normal;padding-bottom:10px;padding-top:20px;text-align: center;padding-left:5%;margin-top:-6%;text-decoration:underline;'><strong>À propos du prix Nobel :</p>";
                 
                 if ($resultato['nom_organisation'] !== "pas d’organisation") {
@@ -206,6 +207,13 @@
                
            
                 
+=======
+                if ($resultat['Nom_catégorie'] !== "NULL") {
+                    echo "<p style='text-align: left;padding-left:5%;margin-top:-6%'><strong>Catégorie prix nobel :</strong> {$resultat['Nom_catégorie']}</p>";
+                }
+                
+                
+>>>>>>> Stashed changes
 
                  echo "</div>"; 
                 echo "</div>"; 

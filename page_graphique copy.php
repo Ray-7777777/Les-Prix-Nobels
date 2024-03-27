@@ -15,13 +15,13 @@ while ($row = $resultYears->fetch_assoc()) {
 // requete pour la visualisation des impacts des prix nobels par pays et Catégorie 
 $impactQuery = "SELECT DISTINCT
 Nom_catégorie, 
-`Born Country` AS Pays, 
+`Born_Country` AS Pays, 
 Gender, 
 COUNT(*) AS TotalLaureats
 FROM 
 nomine
 JOIN 
-prix_nobel ON nomine.`Id-nominé` = prix_nobel.id_nominé
+prix_nobel ON nomine.`Id_nominé` = prix_nobel.id_nominé
 JOIN 
 categorie ON prix_nobel.id_category = categorie.Id_catégorie
 GROUP BY 
@@ -50,7 +50,7 @@ $queryCatCount = "SELECT
 FROM 
     prix_nobel p
 JOIN 
-    nomine n ON p.id_nominé = n.`Id-nominé`
+    nomine n ON p.id_nominé = n.`Id_nominé`
 JOIN 
     categorie c ON c.Id_catégorie = p.id_category
 GROUP BY 
@@ -140,8 +140,8 @@ while ($row = $femaleGenderQueryRes->fetch_assoc()){
 }
 
 // recuperation des pays : pays de naissance et pays de décés
-$birthCountry ="SELECT   DISTINCT `Born country` FROM nomine"; 
-$deathCountry = "SELECT  DISTINCT `Died country` FROM nomine";
+$birthCountry ="SELECT   DISTINCT `Born_country` FROM nomine"; 
+$deathCountry = "SELECT  DISTINCT `Died_country` FROM nomine";
 // birth country  query fetching from the database
 $birthCountryQuery = $mysqli->query($birthCountry);
 $birthCountryArrResponseQuery = array();
@@ -641,7 +641,52 @@ document.getElementById('selectYearCam').addEventListener('click', function() {
 
 
 
+<<<<<<< Updated upstream
  
+=======
+    <?php 
+    foreach ($birthCountryArrResponseQuery as $item) {
+        $country = addslashes($item['Born_country']);
+        echo "var option = document.createElement('option');";
+        echo "option.value = \"$country\";";
+        echo "option.textContent = \"$country\";";
+        echo "selectedElement.appendChild(option);";
+    }
+    ?>
+
+    return selectedElement;
+}
+
+document.getElementById('SelectedBornCountry').addEventListener('click', function(){
+    var selectElement = displayBornCountry();
+    document.body.appendChild(selectElement);
+})
+
+// displaying Died Country without duplicated Value in the query 
+
+function displayDiedCountry(){
+    var selectedElement = document.createElement('select');
+    selectedElement.setAttribute('id', 'deathCountrySelect');
+
+<?php 
+foreach ($deathCountryArrResponseQuery as $item) {
+    $country = addslashes($item['Died_country']);
+    echo "var option = document.createElement('option');";
+    echo "option.value = \"$country\";";
+    echo "option.textContent = \"$country\";";
+    echo "selectedElement.appendChild(option);";
+}
+?>
+
+return selectedElement;
+
+}
+
+document.getElementById('SelectedDiedCountry').addEventListener('click', function(){
+    var selectElement = displayDiedCountry();
+    document.body.appendChild(selectElement);
+})
+>>>>>>> Stashed changes
     </script>
 </body>
 </html>
