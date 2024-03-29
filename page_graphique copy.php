@@ -11,6 +11,17 @@ while ($row = $resultYears->fetch_assoc()) {
 
 
 
+// récupération des années par decennies
+$queryDecennies = "SELECT DISTINCT CONCAT(FLOOR(Année / 10) * 10, ' - ', FLOOR(Année / 10) * 10 + 9) AS DecennieStart FROM prix_nobel ORDER BY DecennieStart ASC";
+$resultDecennies = $mysqli->query($queryDecennies);
+$decennies = array(); // le tableau il est vide 
+
+while ($row = $resultDecennies->fetch_assoc()) {
+    $decennies[] = $row['DecennieStart'];
+}
+
+
+
 //=============================================================
 // requete pour la visualisation des impacts des prix nobels par pays et Catégorie 
 $impactQuery = "SELECT DISTINCT
@@ -155,6 +166,10 @@ while ($row = $deathCountryQuery->fetch_assoc()){
     $deathCountryArrResponseQuery[] = $row;
 }
 
+
+
+// affichage 
+
 ?>
 <?php
     session_start();
@@ -255,6 +270,15 @@ while ($row = $deathCountryQuery->fetch_assoc()){
                     ?>
                 </select>
             </div>
+            <div class="decennies">
+                <ul>
+                    <?php
+                    foreach ($decennies as $decennieStart) {
+                        echo "<li>$decennieStart</li>"; 
+                    }
+                    ?>
+                </ul>
+             </div>
             <!-- fin div année -->
               <!-- Categorie -->
               <div class="dropdown">
@@ -297,6 +321,9 @@ while ($row = $deathCountryQuery->fetch_assoc()){
             </div>
         </div>
         <div class="contenu_graphe">
+
+
+        
             <ul>
                 <div>
                     <p class="selected-graphe">Le graphe sélectionné</p>
@@ -314,6 +341,8 @@ while ($row = $deathCountryQuery->fetch_assoc()){
         var maleData = <?php echo $jsonMaleData; ?>;
         var femaleData= <?php echo $jsonFemaleData; ?>;
         var years = <?php echo json_encode($years); ?>;
+        // recuperation des annees par decennies 
+        var decennies = <?php echo json_encode($decennies); ?>;
         var impactData = <?php echo json_encode($jsonImpactData); ?>; 
       
         document.addEventListener('DOMContentLoaded', function() {
