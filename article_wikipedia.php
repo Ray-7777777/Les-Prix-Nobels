@@ -66,32 +66,30 @@
     <div class="contenu-nobel-wikipedia">
         <?php
         if (isset($_GET['id']) && is_numeric($_GET['id'])) {
-            $id_personne = $_GET['id'];
+            $id_prix_nobel = $_GET['id'];
 
             try {
                 $connexion = getBD();
 
-                $sql = "SELECT Prénom, Biographie, Photos, Nom, Date_de_naissance, `Date_de_mort`, `Born_country`, `Born_city`, `Died_country`, `Died_city`, Gender, Nom_catégorie FROM nomine, categorie WHERE `Id_nominé` = :id";
+            $sql = "SELECT Prénom, Biographie, Photos, Nom, Date_de_naissance, `Date_de_mort`, `Born_country`, `Born_city`, `Died_country`, `Died_city`, Gender, Nom_catégorie FROM nomine, categorie WHERE `Id_nominé` = :id";
+            $sqlan = "SELECT Année, Motivation, categorie.Nom_catégorie, 'Overall motivation' FROM prix_nobel INNER JOIN categorie ON prix_nobel.id_category = categorie.Id_catégorie WHERE prix_nobel.`id_prix_nobels` = :id";
+            $sqlo = "SELECT nom_organisation, ville_organisation, pays_organisation FROM organisation INNER JOIN prix_nobel ON organisation.id_organisation = prix_nobel.id_organisation WHERE prix_nobel.`id_prix_nobels` = :id";
 
-                $sqlan = "SELECT Année, Motivation, categorie.Nom_catégorie, 'Overall motivation' FROM prix_nobel INNER JOIN categorie ON prix_nobel.id_category = categorie.Id_catégorie WHERE prix_nobel.`Id_nominé` = :id";
-                
-                $sqlo = "SELECT nom_organisation, ville_organisation, pays_organisation FROM organisation INNER JOIN prix_nobel ON organisation.id_organisation = prix_nobel.id_organisation WHERE prix_nobel.`Id_nominé` = :id";
+            $stmt = $connexion->prepare($sql);
+            $stmt2 = $connexion->prepare($sqlan);
+            $stmto = $connexion->prepare($sqlo);
 
-                $stmt = $connexion->prepare($sql);
-                $stmt2 = $connexion->prepare($sqlan);
-                $stmto = $connexion->prepare($sqlo);
+            $stmt->bindParam(':id', $id_prix_nobel, PDO::PARAM_INT);
+            $stmt2->bindParam(':id', $id_prix_nobel, PDO::PARAM_INT);
+            $stmto->bindParam(':id', $id_prix_nobel, PDO::PARAM_INT);
 
-                $stmt->bindParam(':id', $id_personne, PDO::PARAM_INT);
-                $stmt2->bindParam(':id', $id_personne, PDO::PARAM_INT);
-                $stmto->bindParam(':id', $id_personne, PDO::PARAM_INT);
+            $stmt->execute();
+            $stmt2->execute();
+            $stmto->execute();
 
-                $stmt->execute();
-                $stmt2->execute();
-                $stmto->execute();
-
-                $resultat = $stmt->fetch(PDO::FETCH_ASSOC);
-                $resultat2 = $stmt2->fetch(PDO::FETCH_ASSOC);
-                $resultato = $stmto->fetch(PDO::FETCH_ASSOC);
+            $resultat = $stmt->fetch(PDO::FETCH_ASSOC);
+            $resultat2 = $stmt2->fetch(PDO::FETCH_ASSOC);
+            $resultato = $stmto->fetch(PDO::FETCH_ASSOC);
 
                 $photo_url = $resultat['Photos'] ? $resultat['Photos'] : 'placeholder.jpg'; 
                 
@@ -129,7 +127,7 @@
                 echo "<div style='margin-right:2%;margin-left:2%;'>"; 
                 echo "<div style='float: right; margin-left: 10px; width: 300px;'>"; 
                 echo "<div class='image-container' style='background-color: white;box-shadow: 0 0 10px rgba(1, 1, 1, 0.4);border-radius: 25px;border: 1.5px solid black; text-align: center;padding-top:2%;margin-top:1.5%;margin-right:1.5%;'>"; 
-                echo "<img src='$photo_url' alt='Photo' style='max-width: 300px; max-height: 200px; margin: auto;border:1.5px solid black;'>"; 
+                echo "<img src='$photo_url' alt='Photo' style='box-shadow: 0 0 5px rgba(1, 1, 1, 0.4);max-width: 300px; max-height: 200px; margin: auto;border:1.5px solid black;'>"; 
                
                 
           
@@ -194,13 +192,6 @@
                 if ($resultat2['Motivation'] !== "NULL") {
                     echo "<p style='text-align: left;padding-left:5%;margin-top:-6%'><strong>Motivation :</strong> {$resultat2['Motivation']}</p>";
                 }
-                
-                
-                
-           
-                
-               
-           
                
                 if ($resultat['Nom_catégorie'] !== "NULL") {
                     echo "<p style='text-align: left;padding-left:5%;margin-top:-6%'><strong>Catégorie prix nobel :</strong> {$resultat['Nom_catégorie']}</p>";
@@ -220,21 +211,91 @@
                 echo "Erreur : " . $e->getMessage();
             }
         }
+         ?>
+                     <p style='text-align: center; font-style: italic; font-size: 14px;'><a href='https://fr.wikipedia.org/wiki/Wikip%C3%A9dia:Accueil_principal' style='text-decoration: none; color: black;'>Source : Wikipédia</a></p>
+        <div id='reco'>
+                <div id='reco_sim'>
+                    <?php
+                    // Recommander des prix Nobel similaires
+                    $prix_nobel_similaires = recommander_prix_nobel_similaires($_GET['id']);
 
-	// Recommander des prix Nobel similaires
-        $prix_nobel_similaires = recommander_prix_nobel_similaires($_GET['id']);
+                   
+                    echo "<h2 id='titre_sim'>Prix Nobel similaires</h2>";
+                    echo "<ul id='liste_sim'>";
+                    foreach ($prix_nobel_similaires as $prix_nobel) {
+                        
+                        $sql = "SELECT nomine.Prénom, nomine.Nom, nomine.Photos, categorie.Nom_catégorie, prix_nobel.Année
+                            FROM prix_nobel 
+                            INNER JOIN nomine ON prix_nobel.Id_nominé = nomine.Id_nominé 
+                            INNER JOIN categorie ON prix_nobel.id_category = categorie.Id_catégorie 
+                            WHERE prix_nobel.id_prix_nobels = :id";
 
-        // Afficher les prix Nobel recommandés
-        echo "<h2>Prix Nobel similaires :</h2>";
-        echo "<ul>";
-        foreach ($prix_nobel_similaires as $prix_nobel) {
-            echo "<li><a href='article.php?id=" . $prix_nobel['id_prix_nobels'] . "'>" . $prix_nobel['id_prix_nobels'] . "</a></li>";
-        }
-        echo "</ul>";
-        ?>
+                        $stmt = $connexion->prepare($sql);
+                        $stmt->bindParam(':id', $prix_nobel['id_prix_nobels'], PDO::PARAM_INT);
+                        $stmt->execute();
+                        $resultat_nomine = $stmt->fetch(PDO::FETCH_ASSOC);
 
+                        if ($resultat_nomine) {
+                           
+                            $photo = $resultat_nomine['Photos'];
+                            $prenom = $resultat_nomine['Prénom'];
+                            $nom = $resultat_nomine['Nom'];
+                            $categorie = $resultat_nomine['Nom_catégorie'];
+                            $annee = $resultat_nomine['Année'];
+                            echo "<li class='info-bulle' title='$categorie $annee' onclick=\"window.location='article.php?id=" . $prix_nobel['id_prix_nobels'] . "';\" style='display: flex; cursor: pointer; flex-direction: column; align-items: center; text-align: center;'>";
+                            echo "<img style='box-shadow: 0 0 5px rgba(1, 1, 1, 0.4);display: inline-block;margin-left: auto;margin-right: auto;border:solid 2px black;width: 130px; height: 150px; object-fit: cover;' src='$photo' alt='Photo'>";
+                            echo "<br>";
+                            echo "<a id='titre_reco' href='article.php?id=" . $prix_nobel['id_prix_nobels'] . "'>$prenom $nom</a>";
+                            echo "</li>";
+                        } else {
+                            echo "Aucun résultat trouvé.";
+                        }
+                    }
+                    echo "</ul>";
+                    ?>
+                </div>
+                <?php if ($est_connecte) : ?>
+                    <div id='reco_uti'>
+                        <!-- Affichage des recommandations pour l'utilisateur connecté -->
+                        <h2 id='titre_sim'>Recommandations</h2>
+                        <ul id='liste_sim'>
+                            <?php foreach ($prix_nobel_similaires as $prix_nobel) : ?>
+                                <?php
+                              
+                                $sql = "SELECT nomine.Prénom, nomine.Nom, nomine.Photos, categorie.Nom_catégorie, prix_nobel.Année
+                                    FROM prix_nobel 
+                                    INNER JOIN nomine ON prix_nobel.Id_nominé = nomine.Id_nominé 
+                                    INNER JOIN categorie ON prix_nobel.id_category = categorie.Id_catégorie 
+                                    WHERE prix_nobel.id_prix_nobels = :id";
+
+                                $stmt = $connexion->prepare($sql);
+                                $stmt->bindParam(':id', $prix_nobel['id_prix_nobels'], PDO::PARAM_INT);
+                                $stmt->execute();
+                                $resultat_nomine = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                                if ($resultat_nomine) {
+                                    // Afficher les résultats
+                                    $photo = $resultat_nomine['Photos'];
+                                    $prenom = $resultat_nomine['Prénom'];
+                                    $nom = $resultat_nomine['Nom'];
+                                    $categorie = $resultat_nomine['Nom_catégorie'];
+                                    $annee = $resultat_nomine['Année'];
+                                    echo "<li class='info-bulle' title='$categorie $annee' onclick=\"window.location='article.php?id=" . $prix_nobel['id_prix_nobels'] . "';\" style='display: flex; cursor: pointer; flex-direction: column; align-items: center; text-align: center;'>";
+                                    echo "<img style='box-shadow: 0 0 5px rgba(1, 1, 1, 0.4);display: inline-block;margin-left: auto;margin-right: auto;border:solid 2px black;width: 130px; height: 150px; object-fit: cover;' src='$photo' alt='Photo'>";
+                                    echo "<br>";
+                                    echo "<a id='titre_reco' href='article.php?id=" . $prix_nobel['id_prix_nobels'] . "'>$prenom $nom</a>";
+                                    echo "</li>";
+                                } else {
+                                    echo "Aucun résultat trouvé.";
+                                }
+                                ?>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                <?php endif; ?>
+            </div>
+        </div>
     </div>
-</div>
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {

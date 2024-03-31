@@ -542,11 +542,7 @@ body{
     width: 96%;
     box-shadow: 0 0 5px rgba(1, 1, 1, 0.4);
     border-radius: 25px;
-<<<<<<< Updated upstream
-
-=======
-    min-height: 100vh;
->>>>>>> Stashed changes
+    min-height: 80vh;
 }
 
 .biography-heading:not(:first-of-type) {
@@ -563,7 +559,7 @@ body{
 }
 
 .contenu-nobel-wikipedia {
-    min-height: 200%;
+    min-height: 500px;
 }
 
 .biographie-titre1:before {
@@ -587,10 +583,7 @@ body{
   font-size: 18px; 
 }
 
-#body-wikipedia{
-	 margin: 0;
-    margin-left: -2px;
-}
+
 
 .menu-wiki {
    justify-content: space-around; 
@@ -602,4 +595,99 @@ body{
    top: calc(80px); 
    width: 99%;
    z-index: 1;
+}
+
+#reco{
+	display: flex;
+	text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+#titre_sim{
+	font-size: 24px;
+	text-align: center;
+	margin-left: -2%;
+	padding-bottom: 10px;
+	padding-top: 10px;
+	margin-left: -30px;
+}
+
+#liste_sim {
+    display: flex; 
+    list-style-type: none; 
+    padding: 0;
+    justify-content: space-between;
+}
+
+#liste_sim li {
+  margin-right: 20px;
+}
+
+#reco_sim {
+    padding-left: 25px;
+    border: solid 0.1rem black;
+    margin: 2%;
+    flex-grow: 0; 
+    flex-shrink: 0; 
+    flex-basis: calc(50% - 2% - 15px); 
+    background-color: white;
+    box-shadow: 0 0 5px rgba(1, 1, 1, 0.8);
+    border-radius: 25px;
+}
+
+#reco_uti {
+    padding-left: 25px;
+    border: solid 0.1rem black;
+    margin: 2%;
+    flex-grow: 0; 
+    flex-shrink: 0; 
+    flex-basis: calc(50% - 2% - 15px); 
+    background-color: white;
+    box-shadow: 0 0 5px rgba(1, 1, 1, 0.8);
+    border-radius: 25px;
+    margin-left: auto; 
+}
+
+#titre_reco{
+	text-decoration: none;
+	color: black;
+}
+
+#reco_sim li {
+   transition: transform 0.2s ease-in-out;
+}
+
+#reco_sim li:hover {
+   transform: scale(1.1);
+}
+   
+#reco_uti li {
+   transition: transform 0.2s ease-in-out;
+}
+
+#reco_uti li:hover {
+   transform: scale(1.1);
+}
+ 
+.info-bulle {
+  position: relative;
+  display: inline-block;
+}
+
+.info-bulle::after {
+  content: attr(title);
+  background-color: black;
+  color: white;
+  padding: 5px;
+  border-radius: 20px;
+  position: absolute;
+  bottom: 100%;
+  font-size: 10px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  margin-bottom: 10px;
+}
+
+.info-bulle:hover::after {
+  opacity: 1;
 }
