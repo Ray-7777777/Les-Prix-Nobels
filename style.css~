@@ -1,10 +1,11 @@
+/* CSS des pages */
+
 html{
 	background-color: white;
 	border: solid 1.5px black;
 }
 
 h1{
-	
 	border: solid 1px black;
 	margin-bottom: 8px;
 	margin-top: 5px;
@@ -100,40 +101,47 @@ body{
     background-color: black;  
 }
 
+
+/* CSS pour la page recherche */
+
 .boite_recherche{
-	margin: 2%;
-	background-color: #FFFEF9;
-	position: fixed;
-	height: 75%;
-	width: 96%;
-	border-radius: 25px;
+	 margin: 2%;
+	 background-color: #FFFEF9;
+	 position: fixed;
+	 height: 75%;
+	 width: 96%;
+	 border-radius: 25px;
     overflow-y: auto;
     box-shadow: 0 0 5px rgba(1, 1, 1, 0.4);
 }
 
 .topBar{
-	margin-bottom: 1%;
-	display: flex;
-	text-align: center;
+	 margin-bottom: 1%;
+	 display: flex;
+	 text-align: center;
 }
+
 #search{
-	margin-top: 1%;
-	width: 90%;
-	border-radius: 15px;
-	padding-left: 2%;
+	 margin-top: 1%;
+	 width: 90%;
+	 border-radius: 15px;
+	 padding-left: 2%;
 }
-.navbar.navbar-light.bg-light.rounded-pill.col-lg-12{
+
+.navbar.navbar-light.bg-light.rounded-pill.col-lg-12 {
     height: auto;
 }
-.container-fluid.recherche{
+
+.container-fluid.recherche {
     padding-left: 5%;
 }
-.dropdown{
-	margin-left: 2%;
-	margin-right: 2%;
-	margin-top: 1.5%;
-	height: 10%;
-	display: inline-block;
+
+.dropdown {
+	 margin-left: 2%;
+	 margin-right: 2%;
+	 margin-top: 1.5%;
+	 height: 10%;
+	 display: inline-block;
 }
 
 .contenu {
@@ -178,38 +186,41 @@ body{
     align-items: center;
     width: 100.16%; 
     font-family: "PT Sans", sans-serif;
-  font-weight: 200;
-  font-style: normal;
+    font-weight: 200;
+    font-style: normal;
 
 }
 
-
-
-
-.filters{
+.filters {
     padding-left: 5%;
     display: inline-block;
 }
-#activeFilters{
+
+#activeFilters {
     width: 50%;
     text-align: left;
     margin-right: 5%;
 }
-.FiltreCroix{
+
+.FiltreCroix {
     display: inline-block;
     margin-right: 2%;
 }
-.FiltreCroix p, .FiltreCroix span{
+
+.FiltreCroix p, .FiltreCroix span {
     display: inline-block;
 }
-#sousFiltre{
+
+#sousFiltre {
     display: inline-block;
     }
-.sousFiltre{
+    
+.sousFiltre {
     max-height: 200px;
     overflow-y: auto;
     overflow-x: hidden;
 }
+
 .close-icon {
     position: relative;
     display: block;
@@ -233,10 +244,10 @@ body{
 .close-icon::after {
     transform: translate(-50%, -50%) rotate(-45deg);
 }
-.titre_recherche{
+.titre_recherche {
     font-size: 2em;
 }
-.minibio{
+.minibio {
     padding-left: 2%;
     margin-right: 4%;
     max-height: 18vh;
@@ -256,11 +267,14 @@ body{
     bottom: 0;
     right: 0;
 }
-.sousFiltre{
+.sousFiltre {
     max-height: 200px;
     overflow-y: auto;
     overflow-x: hidden;
 }
+
+
+/* CSS pour la page d'accueil */
 
 .prev,
 .next {
@@ -354,18 +368,19 @@ body{
     height: 18px;
 }
 
-.menu-article{
-   justify-content: space-around; 
-   align-items: center; 
-	border: solid 1px black ;	
-	font-family: sans-serif;
-	font-weight: bold;
-	position: fixed;
-   top: calc(80px); 
-   width: 100%;
-   z-index: 1;
 
-   
+/* CSS pour les articles sur la page d'accueil */
+
+.menu-article {
+    justify-content: space-around; 
+    align-items: center; 
+	 border: solid 1px black ;	
+	 font-family: sans-serif;
+	 font-weight: bold;
+	 position: fixed;
+    top: calc(80px); 
+    width: 100%;
+    z-index: 1;
 }
         
 .boite_article {
@@ -374,53 +389,53 @@ body{
     width: 96%;
     border-radius: 25px;
     box-shadow: 0 0 5px rgba(1, 1, 1, 0.4);
-    padding-top: 10px;
-     
+    padding-top: 10px; 
+}
+
+.contenu_article {
+	 padding-right: 3%;
+	 padding-left: 3%;
+	 padding-bottom: 10px;
+}
+
+.titre_article {
+	 font-size: 30px;
+	 text-decoration: underline;
+	 text-align: center;
+	 padding-top: 10px;
+	 padding-bottom: 15px;
+	 font-weight: bold;
+}
+
+.sous_titre_article {
+	 font-size: 24px;
+	 text-align: left;
+	 font-weight: bold;
+}
+
+.p_article {
+	 text-align: justify;
 }
 
 
+/* CSS pour la page graphique */
 
-.contenu_article{
-	padding-right: 3%;
-	padding-left: 3%;
-	padding-bottom: 10px;
+.contenu_graphe {
+	 display: block;
+	 justify-content: center;
+	 height: 50%;
+	 margin: 1%;
 }
 
-.titre_article{
-	font-size: 30px;
-	text-decoration: underline;
-	text-align: center;
-	padding-top: 10px;
-	padding-bottom: 15px;
-	font-weight: bold;
+#graphs {
+	 display: block;
+	 justify-content: center;
+	 width: 80%;
+	 height: 400px !important;
 }
 
 
-.sous_titre_article{
-	font-size: 24px;
-	text-align: left;
-	font-weight: bold;
-}
-
-.p_article{
-	text-align: justify;
-}
-
-.contenu_graphe{
-	display: block;
-	justify-content: center;
-	height: 50%;
-	margin: 1%;
-}
-
-#graphs{
-	display: block;
-	justify-content: center;
-	width: 80%;
-	height: 400px !important;
-	
-	
-}
+/* CSS pour les pages connexion / inscription / déconnexion */
 
 .boite_connexion {
     background-color: #FFFEF9;
@@ -434,15 +449,14 @@ body{
     box-shadow: 0 0 5px rgba(1, 1, 1, 0.4);
 }
 
-.titre-connexion{
-	text-align: center;
-	padding-top: 70px;
-	font-weight: bold;
-	text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
-	font-family: "PT Sans", sans-serif;
-  font-weight: 600;
-  font-style: normal;
-	
+.titre-connexion {
+	 text-align: center;
+	 padding-top: 70px;
+	 font-weight: bold;
+	 text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+	 font-family: "PT Sans", sans-serif;
+    font-weight: 600;
+    font-style: normal;
 }
 
 .custom-input {
@@ -450,92 +464,62 @@ body{
     box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2); 
 }
 
-#inscription{
-	text-align: center;
-	text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+#inscription {
+	 text-align: center;
+	 text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
 }
 
-#formu{
-	padding-top: 20px;
-	text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+#formu {
+	 padding-top: 20px;
+	 text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
 }
 
 .nav-link .status-indicator {
-	margin-left: 5px;
-	width: 10px;
-	height: 10px;
-	border-radius: 50%;
-	display: inline-block;
+	 margin-left: 5px;
+	 width: 10px;
+	 height: 10px;
+	 border-radius: 50%;
+	 display: inline-block;
 }
+
 .status-indicator.connected {
-	background-color: green;
-	border:solid 1px black;
-	box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
-	
+	 background-color: green;
+	 border:solid 1px black;
+	 box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
 }
+
 .status-indicator.disconnected {
-	background-color: red;
-	border:solid 1px black;
-	box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+	 background-color: red;
+	 border:solid 1px black;
+	 box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
 }
 
-#titre-co{
-	padding-top: 120px;
-	text-align: center;
-	font-weight: bold;
-	font-size: 36px;
-	text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
-	font-family: "PT Sans", sans-serif;
-  font-weight: 600;
-  font-style: normal;
-	
-}
-#deja-connecte{
-	text-align: center;
-	padding-top: 20px;
-	text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
-}
-#se-deconnecter{
-	text-align: center;
-	text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+#titre-co {
+	 padding-top: 120px;
+	 text-align: center;
+	 font-weight: bold;
+	 font-size: 36px;
+	 text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2); 
+    font-family: "PT Sans", sans-serif;
+    font-weight: 600;
+    font-style: normal;
 }
 
+#deja-connecte {
+	 text-align: center;
+	 padding-top: 20px;
+	 text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+}
 
-
-
+#se-deconnecter {
+	 text-align: center;
+	 text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+}
 
 
 /* CSS pour les pages d'articles */
-.contenu-nobel {
-    padding: 20px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin-top: 20px;
-}
-.contenu-nobel p {
-    margin: 10px 0;
-    font-size: 16px;
-    line-height: 1.6;
-}
-.contenu-nobel .titre {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 15px;
-    color: #333;
-}
-.contenu-nobel .sous-titre {
-    font-size: 20px;
-    font-weight: bold;
-    margin-top: 15px;
-    color: #555;
-}
-.contenu-nobel .organisation {
-    font-style: italic;
-    color: #888;
-}
 
-.boite-wikipedia{
+.boite-wikipedia {
     border: solid 0.1rem black;
     margin: 2%;
     background-color: #FFFEF9;
@@ -549,12 +533,12 @@ body{
     margin-top: 20px;
 }
 
-.biography-heading{
-	text-decoration: underline;
+.biography-heading {
+	 text-decoration: underline;
 }
 
 .contenu-nobel-wikipedia {
-  counter-reset: titre1 titre2 titre3;
+    counter-reset: titre1 titre2 titre3;
   
 }
 
@@ -563,52 +547,51 @@ body{
 }
 
 .biographie-titre1:before {
-  content: counter(titre1) ". ";
-  counter-increment: titre1;
-  margin-left: 10px; 
-  font-size: 22px;
+    content: counter(titre1) ". ";
+    counter-increment: titre1;
+    margin-left: 10px; 
+    font-size: 22px;
 }
 
 .biographie-titre2:before {
-  content: counter(titre1) "." counter(titre2) ". ";
-  counter-increment: titre2;
-  margin-left: 20px; 
-  font-size: 20px; 
+    content: counter(titre1) "." counter(titre2) ". ";
+    counter-increment: titre2;
+    margin-left: 20px; 
+    font-size: 20px; 
 }
 
 .biographie-titre3:before {
-  content: counter(titre1) "." counter(titre2) "." counter(titre3) ". ";
-  counter-increment: titre3;
-  margin-left: 30px; 
-  font-size: 18px; 
+    content: counter(titre1) "." counter(titre2) "." counter(titre3) ". ";
+    counter-increment: titre3;
+    margin-left: 30px; 
+    font-size: 18px; 
 }
-
-
 
 .menu-wiki {
-   justify-content: space-around; 
-   align-items: center; 
-	border: solid 1px black ;	
-	font-family: sans-serif;
-	font-weight: bold;
-	position: fixed;
-   top: calc(80px); 
-   width: 99%;
-   z-index: 1;
+    justify-content: space-around; 
+    align-items: center; 
+	 border: solid 1px black ;	
+	 font-family: sans-serif;
+	 font-weight: bold;
+	 position: fixed;
+    top: calc(80px); 
+    width: 99%;
+    z-index: 1;
 }
 
-#reco{
-	display: flex;
-	text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+#reco {
+	 display: flex;
+	 text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
 }
 
-#titre_sim{
-	font-size: 24px;
-	text-align: center;
-	margin-left: -2%;
-	padding-bottom: 10px;
-	padding-top: 10px;
-	margin-left: -30px;
+#titre_sim {
+	 font-size: 24px;
+	 text-align: center;
+	 margin-left: -2%;
+	 padding-bottom: 10px;
+	 padding-top: 10px;
+	 margin-left: -30px;
+	 font-weight: bold;
 }
 
 #liste_sim {
@@ -619,7 +602,7 @@ body{
 }
 
 #liste_sim li {
-  margin-right: 20px;
+    margin-right: 20px;
 }
 
 #reco_sim {
@@ -648,46 +631,103 @@ body{
 }
 
 #titre_reco{
-	text-decoration: none;
-	color: black;
+	 text-decoration: none;
+    color: black;
 }
 
 #reco_sim li {
-   transition: transform 0.2s ease-in-out;
+    transition: transform 0.2s ease-in-out;
 }
 
 #reco_sim li:hover {
-   transform: scale(1.1);
+    transform: scale(1.1);
 }
    
 #reco_uti li {
-   transition: transform 0.2s ease-in-out;
+    transition: transform 0.2s ease-in-out;
 }
 
 #reco_uti li:hover {
-   transform: scale(1.1);
+    transform: scale(1.1);
 }
  
 .info-bulle {
-  position: relative;
-  display: inline-block;
+    position: relative;
+    display: inline-block;
 }
 
 .info-bulle::after {
-  content: attr(title);
-  background-color: black;
-  color: white;
-  padding: 5px;
-  border-radius: 20px;
-  position: absolute;
-  bottom: 100%;
-  font-size: 10px;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-  margin-bottom: 10px;
+    content: attr(title);
+    background-color: black;
+    color: white;
+    padding: 5px;
+    border-radius: 20px;
+    position: absolute;
+    bottom: 100%;
+    font-size: 10px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    margin-bottom: 10px;
 }
 
 .info-bulle:hover::after {
-  opacity: 1;
+    opacity: 1;
 }
+
+#body_wiki{
+    margin: 0;
+    margin-left: -px;
+    font-family: "PT Sans", sans-serif;
+    font-weight: 200;
+    font-style: normal;
+}
+
+#h1_wiki{
+	 margin-left: -2px;
+	 border-left: solid 2px black;
+}
+
+#menu_wiki{
+    margin-left: -2px;
+    border-left: solid 2px black;
+}
+
+#image-preview-container {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+#preview-image {
+    max-width: 80%;
+    max-height: 80vh; 
+    min-width: 200px; 
+    min-height: 200px; 
+    display: block;
+    margin: 0 auto;
+}
+
+#close-preview {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+#image_wiki {
+    transition: transform 0.2s ease-in-out;
+}
+
+#image_wiki:hover {
+    transform: scale(1.03);
+}
+
