@@ -98,18 +98,46 @@
                 $photo_url = $resultat['Photos'] ? $resultat['Photos'] : 'placeholder.jpg'; 
                 
                 $biographie = $resultat['Biographie'];
-
+              
+                
+                function supprimerTitresVides($texte) {
+                    $lignes = explode("\n", $texte);
+                    $nouveauTexte = ''; 
+                    $i = 0;
+                    while ($i < count($lignes)) {
+                        $ligne = trim($lignes[$i]);
+                    
+                        if (strpos($ligne, '==') === 0 && isset($lignes[$i + 1]) && isset($lignes[$i + 2]) && trim($lignes[$i + 1]) === '' && trim($lignes[$i + 2]) === '') {
+                            $i += 2;
+                        } else {
+                            $nouveauTexte .= $ligne . "\n";
+                        }
+                    
+                        $i++;
+                    }
+                    
+                    
+                    return $nouveauTexte;
+                }
+                
+                // Exemple d'utilisation
+                $biographie = supprimerTitresVides($biographie);
+               
+                
                 $formatted_biography = preg_replace_callback('/====(.*?)====/', function($matches) {
                     return "<p class='biography-heading'><strong class='biographie-texte biographie-titre3'>" . trim($matches[1]) . "</strong></p>";
                 }, $biographie);
-                
+           
                 $formatted_biography = preg_replace_callback('/===(.*?)===/', function($matches) {
                     return "<br><p class='biography-heading'><strong class='biographie-texte biographie-titre2'>" . trim($matches[1]) . "</strong></p>";
                 }, $formatted_biography);
 
+
                 $formatted_biography = preg_replace_callback('/==(.*?)==/', function($matches) {
                     return "<br><p class='biography-heading'><strong class='biographie-texte biographie-titre1'>" . trim($matches[1]) . "</strong></p>";
                 }, $formatted_biography);
+                
+                
 
                 $matches = [];
                 preg_match_all('/===[^=]+===\s*(.*?)(?:(?===)|(?===))/s', $formatted_biography, $matches);
