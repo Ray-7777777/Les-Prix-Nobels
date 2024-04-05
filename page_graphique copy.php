@@ -11,6 +11,88 @@ while ($row = $resultYears->fetch_assoc()) {
 
 
 
+// ==========================================
+// ====Implication des organisations
+$organisation= "SELECT nom_organisation AS Organisation, COUNT(*) AS NombreLauréats
+FROM prix_nobel
+JOIN organisation ON prix_nobel.id_organisation = organisation.id_organisation
+GROUP BY nom_organisation
+HAVING COUNT(*) >= 10
+ORDER BY COUNT(*) DESC";
+$requeteOrganisation =  $mysqli->query($organisation);
+$var_Array_Organisation=array();
+while ($row=$requeteOrganisation->fetch_assoc()){
+    $var_Array_Organisation[]=$row;
+}
+
+// =========================================================
+// ===Implications des pays des organisations qui on remporté plus de 5 prix nobel: pays d'origine 
+$paysOrganisations = "SELECT pays_organisation AS Pays, COUNT(*) AS NombreLaureats
+                FROM organisation
+                JOIN prix_nobel ON prix_nobel.id_organisation = organisation.id_organisation
+                GROUP BY pays_organisation
+                HAVING COUNT(*) > 5
+                ORDER BY COUNT(*) DESC";
+
+$requetePaysOrganisations = $mysqli->query($paysOrganisations);
+$var_Array_PaysOrg = array();
+
+while ($row = $requetePaysOrganisations->fetch_assoc()) {
+    $var_Array_PaysOrg[] = $row;
+}
+$paysOrganisationsJSON = json_encode($var_Array_PaysOrg);
+
+
+// =========================================================
+// ===nombre de lauréats et evolution au fil des années dans différentes catégories(historique)
+$queryHistorique = "SELECT 
+            CONCAT(FLOOR(p.Année / 10) * 10, ' - ', FLOOR(p.Année / 10) * 10 + 9) AS Décennie,
+            c.Nom_catégorie,
+            COUNT(*) AS nbLauréats
+          FROM 
+            prix_nobel p
+          JOIN 
+            nomine n ON p.id_nominé = n.`Id-nominé`
+          JOIN 
+            categorie c ON p.id_category = c.Id_catégorie
+          GROUP BY 
+            FLOOR(p.Année / 10),
+            c.Nom_catégorie
+          ORDER BY 
+            FLOOR(p.Année / 10),
+            c.Nom_catégorie";
+
+$requete = $mysqli->query($queryHistorique);
+
+$donnees = array();
+
+while ($row = $requete->fetch_assoc()) {
+    $donnees[] = $row;
+}
+$donneesJSON_Historique = json_encode($donnees);
+
+
+
+//-------------------------------------------------------------------------------------
+
+
+
+
+
+///========================================= nv query 
+$queryCam = "SELECT Gender, COUNT(*) AS nombre_prix_nobel
+          FROM prix_nobel pn
+          JOIN nomine n ON pn.id_nominé = n.`Id-nominé`
+          WHERE Gender IN ('female', 'male')
+          GROUP BY Gender";
+          //declaration de variable en php 
+
+$queryCamExecute = $mysqli->query($queryCam);
+$queryCamArray = array();
+while ($row = $queryCamExecute->fetch_assoc()){
+    $queryCamArray[] = $row;
+}
+
 // récupération des années par decennies
 $queryDecennies = "SELECT DISTINCT CONCAT(FLOOR(Année / 10) * 10, ' - ', FLOOR(Année / 10) * 10 + 9) AS DecennieStart FROM prix_nobel ORDER BY DecennieStart ASC";
 $resultDecennies = $mysqli->query($queryDecennies);
@@ -153,13 +235,15 @@ while ($row = $femaleGenderQueryRes->fetch_assoc()){
 // recuperation des pays : pays de naissance et pays de décés
 $birthCountry ="SELECT   DISTINCT `Born country` FROM nomine"; 
 $deathCountry = "SELECT  DISTINCT `Died country` FROM nomine";
-// birth country  query fetching from the database
+
+//  requete pour recuperation des pays de naissance à partir de la base de donnée
 $birthCountryQuery = $mysqli->query($birthCountry);
 $birthCountryArrResponseQuery = array();
 while ($row = $birthCountryQuery->fetch_assoc()){
     $birthCountryArrResponseQuery[] = $row;
 }
-// died country query fetching fromm the database
+
+//  requete pour recuperation des pays de décés à partir de la base de donnée
 $deathCountryQuery = $mysqli->query($deathCountry);
 $deathCountryArrResponseQuery = array();
 while ($row = $deathCountryQuery->fetch_assoc()){
@@ -168,9 +252,9 @@ while ($row = $deathCountryQuery->fetch_assoc()){
 
 
 
-// affichage 
-
+// affichage des graphiques
 ?>
+
 <?php
     session_start();
     require_once 'connexion_bd.php';
@@ -191,7 +275,8 @@ while ($row = $deathCountryQuery->fetch_assoc()){
 	 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	 <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
 	 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao+Looped:wght@100..900&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto+Slab:wght@100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
-	 <link href="https://fonts.googleapis.com/css2?family=Reem+Kufi+Fun:wght@400..700&display=swap" rel="stylesheet">	 
+	 <link href="https://fonts.googleapis.com/css2?family=Reem+Kufi+Fun:wght@400..700&display=swap" rel="stylesheet">
+	 
 
 </head>
 <body>
@@ -248,78 +333,37 @@ while ($row = $deathCountryQuery->fetch_assoc()){
                     <a class="dropdown-item" href="#" onclick="changerTypeGraphe('box-plot')">Box-plot</a>
                 </div>
             </div>
-            <div class="dropdown">
-                <a class="btn btn-secondary dropdown-toggle " id="Gender" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Sexe
-               </a>
-                  <!-- <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#" id="SelectedMaleGender" onclick="displayMaleData()">Masculin</a>
-                    <a class="dropdown-item" href="#" id="SelectedFemaleGender" onclick="displayFemaleData()">Feminin</a>
-                </div> -->
-            </div>
-            <!-- Année -->
-            <div class="dropdown">
-                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Année
-                </a>
-                <select id="selectYear">
-                    <?php
-                    foreach ($years as $year) {
-                        echo "<option value=\"$year\">$year</option>";
-                    }
-                    ?>
-                </select>
-            </div>
-            <div class="decennies">
-                <ul>
-                    <?php
-                    foreach ($decennies as $decennieStart) {
-                        echo "<li>$decennieStart</li>"; 
-                    }
-                    ?>
-                </ul>
-             </div>
-            <!-- fin div année -->
-              <!-- Categorie -->
-              <div class="dropdown">
-                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Catégorie
-                </a>
-                <select id="selectCategorie">
-                    <?php
-                    foreach ($catData as $cat) {
-                        echo "<option value=\"" . $cat['Nom_catégorie'] . "\">" . $cat['Nom_catégorie'] . "</option>";
-                      
-                    }
-                    ?>
-                </select>
-            </div>
-            <!-- fin div catégorie -->
-
-            <div class="dropdown">
-                <a class="btn btn-secondary dropdown-toggle" href="#" id="Country" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Pays
-                </a>
-                <!--<div class="dropdown-menu">
-                    <a class="dropdown-item" href="#" id="SelectedBornCountry" onclick="displayBornCountry()">de naissance</a>
-                    <a class="dropdown-item" href="#" id="SelectedDiedCountry" onclick="displayDiedCountry()">de décés</a>
-                </div> -->
-            </div>
-            <!-- fin div catégorie -->
-            <div class="dropdown">
-                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Nombre de prix nobel
-                </a>
+            <div class="dropdown"> 
+                <a class="btn btn-secondary dropdown-toggle " id="Gender" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Axe X </a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">1</a>
-                    <a class="dropdown-item" href="#">2</a>
-                    <a class="dropdown-item" href="#">3</a>
-                    <a class="dropdown-item" href="#">4</a>
-                    <a class="dropdown-item" href="#">5</a>
-
+                    <a class="dropdown-item" href="#">Catégorie</a>
+                    <a class="dropdown-item" href="#" id="pays">Pays de naissance</a>
+                    <a class="dropdown-item" href="#">Pays de décès</a>
+                    <a class="dropdown-item" href="#">Année</a>
+                    <a class="dropdown-item" href="#" id="SEXE">Sexe</a>
+                    <a class="dropdown-item" href="#" id="organisation">Organisation</a>
                 </div>
             </div>
+            <div class="dropdown">
+                <a class="btn btn-secondary dropdown-toggle " id="Gender" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Axe Y</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Nombre de prix Nobel</a>
+                </div>
+            </div>
+            <div class="dropdown">
+      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Année
+      </a>
+      <select id="selectYear">
+          <?php
+          foreach ($years as $year) {
+              echo "<option value=\"$year\">$year</option>";
+          }
+          ?>
+      </select>
+  </div>
         </div>
+        <!-- le contenu du canvas du graphe  -->
         <div class="contenu_graphe">
 
 
@@ -331,29 +375,46 @@ while ($row = $deathCountryQuery->fetch_assoc()){
                 </div>
             </ul>
         </div>
+        <!-- fin du contenu du canvas -->
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-        
+
+        // conversion en JSON pour l'envoyer à JavaScript : pays d'origine des organisations
+       
+        var donneesPaysOrganisation = <?php echo $paysOrganisationsJSON; ?>;
+        console.log("Mes données de pays de naissance : " + donneesPaysOrganisation);
+        donneesPaysOrganisation.forEach(function (i) {
+    console.log("Pays : " + i.Pays + ", Nombre de Lauréats : " + i.NombreLaureats);
+});
+
+
+
+       
+        // 
         var categories = <?php echo $jsonCategories; ?>;
         var datasets = <?php echo $jsonDatasets; ?>;
         var maleData = <?php echo $jsonMaleData; ?>;
         var femaleData= <?php echo $jsonFemaleData; ?>;
         var years = <?php echo json_encode($years); ?>;
+        
         // recuperation des annees par decennies 
         var decennies = <?php echo json_encode($decennies); ?>;
-        var impactData = <?php echo json_encode($jsonImpactData); ?>; 
+        var impactData = <?php echo json_encode($jsonImpactData); ?>;
+        var queryCam =  <?php echo json_encode($queryCamArray); ?>; 
+        
+
       
         document.addEventListener('DOMContentLoaded', function() {
         var ctx = document.getElementById('graphs').getContext('2d');
         var currentChart;
-        function updateBarGraph(selectedYear) {
+function updateBarGraph(selectedYear) {
     var filteredData = datasets.filter(dataset => dataset.label === selectedYear);
 
     if (currentChart) {
         currentChart.destroy();
-    }
+   } 
     filteredData.forEach(dataset => {
         dataset.backgroundColor = dataset.data.map((_, index) => {
             return `hsl(${index * 50 % 360}, 100%, 70%)`;
@@ -378,148 +439,108 @@ while ($row = $deathCountryQuery->fetch_assoc()){
 }
 
 
-    // Fonction pour mettre à jour le graphique linéaire pour les données de sexe
-  /*  function updateLineGraph(year) {
-        if (currentChart) {
-            currentChart.destroy();
-        }
 
-        var maleDataset = {
-            label:`Hommes (${year}) - Prix Nobel: ${maleData[year] ? Object.values(maleData[year]).reduce((a, b) => a + b, 0) : 0}`,
-            data: categories.map(category => maleData[year] && maleData[year][category] ? maleData[year][category] : 0),
-            borderColor: '#42A5F5',
-            fill: false
-        };
+///==========================
+function CouleurAleatoire (){
+    var rouge = Math.floor(Math.random() * 255);
+    var vert = Math.floor(Math.random() * 255);
+    var bleu = Math.floor(Math.random() * 255);
+    return 'rgba(' + rouge + ',' + vert +',' + bleu + ', 0.5)';
+}
+function grapheEnBarrehorizontal(){
+    var nomOrganisation = organisation.map(function(o){return o.Organisation});
+    var nombreLaureats = organisation.map(function(o){return o.NombreLauréats});
+    var barColor = organisation.map(function() { return CouleurAleatoire(); });
 
-        var femaleDataset = {
-            label:`Femmes (${year}) - Prix Nobel: ${femaleData[year] ? Object.values(femaleData[year]).reduce((a, b) => a + b, 0) : 0}`,
-            data: categories.map(category => femaleData[year] && femaleData[year][category] ? femaleData[year][category] : 0),
-            borderColor: '#EC407A',
-            fill: false
-        };
-
-        currentChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: categories,
-                datasets: [maleDataset, femaleDataset]
-            },
-            options: {
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: 'Nombre de Prix Nobel'
-                    }
-                }
-            },
-            plugins: {
-                title: {
-                    display: true,
-                    text: `Distribution des Prix Nobel par Sexe en ${year}`
-                },
-                legend: {
-                    display: true,
-                    position: 'top',
-                },
-                tooltip: {
-                    mode: 'index',
-                    intersect: false,
-                }
-            },
-            responsive: true,
-            interaction: {
-                mode: 'nearest',
-                axis: 'x',
-                intersect: false
-            }
-        }
-    });
-}*/
-
-
-
-
-//======= fin fonction pour afficher le gra
-
-/*function displayImpactGraph() {
-    var impactDataParsed = JSON.parse(impactData); 
-    var uniqueCategories = [...new Set(impactDataParsed.map(item => item.Nom_catégorie))];
-    var uniqueCountries = [...new Set(impactDataParsed.map(item => item.Pays))];
-    var maxWidth = 1024;
-    var baseRadius = 3;
-    var bubbleData = impactDataParsed.map(item => {
-        var canvasWidth = document.getElementById('graphs').offsetWidth;
-        var scaleFactor = Math.min(canvasWidth / maxWidth, 1);
-        return {
-            x: uniqueCategories.indexOf(item.Nom_catégorie),
-            y: uniqueCountries.indexOf(item.Pays), 
-            r: Math.sqrt(item.TotalLaureats) * baseRadius * scaleFactor,
-            gender: item.Gender,
-            category: item.Nom_catégorie,
-            country: item.Pays
-        };
-    });
-
-    var dataset = {
-        label: "Impact des Prix Nobel",
-        backgroundColor: bubbleData.map(data => data.gender === 'male' ? 'rgba(0, 0, 255, 0.5)' : 'rgba(255, 20, 147, 0.5)'),
-        data: bubbleData
-    };
-
-    var ctx = document.getElementById('graphs').getContext('2d');
     if (currentChart) {
         currentChart.destroy();
-    }
-
-    currentChart = new Chart(ctx, {
-        type: 'bubble',
-        data: {
-            datasets: [dataset] 
+   } 
+   var ctx = document.getElementById('graphs').getContext('2d');
+   currentChart = new Chart(ctx, {
+    type: 'bar',
+    data:{
+        labels: nomOrganisation,
+        datasets:[{
+            backgroundColor: barColor,
+            data: nombreLaureats,
+        }]
+    },
+    options:{
+        indexAxis: 'y',
+        plugins:{
+            title:{
+                display : true,
+                text : 'Organisation ayant au moins 10 prix nobels'
+            }
         },
-        options: {
-            scales: {
-                x: {
-                    type: 'category',
-                    labels: uniqueCategories,
-                    title: {
-                        display: true,
-                        text: 'Catégorie'
-                    }
-                },
-                y: {
-                    type: 'category',
-                    labels: uniqueCountries, 
-                    title: {
-                        display: true,
-                        text: 'Pays'
-                    }
-                }
-            },
-            plugins: {
-                tooltip: {
-                    callbacks: {
-                        label: function(context) {
-                            var dataItem = context.raw;
-                            return `Catégorie: ${dataItem.category}, Sexe: ${dataItem.gender}, Pays: ${dataItem.country}, Lauréats: ${Math.pow(dataItem.r / 3, 2)}`;
-                        }
-                    }
-                },
-                title: {
-                    display: true,
-                    text: 'Impact des Prix Nobel par Pays et Catégorie'
+        scales :{
+            x: {
+                beginAtZero : true,
+                ticks:{
+                    stepSize: 10
                 }
             }
         }
-    });
-}*/
+    }
+
+
+   });
+
+}
+document.getElementById('organisation').addEventListener('click', function() {
+    grapheEnBarrehorizontal();
+});
+
+
+
+function graphEnBarreOrg (){
+    var orgPays = donneesPaysOrganisation.map(function(i) { return i.Pays; });
+    var orgNombreLaureats = donneesPaysOrganisation.map(function(i) { return i.NombreLaureats; });
+    var barColor = donneesPaysOrganisation.map(function() { return CouleurAleatoire(); });
+    
+    if (currentChart) {
+        currentChart.destroy();
+   } 
+   var ctx = document.getElementById('graphs').getContext('2d');
+
+   currentChart = new Chart(ctx, {
+    type: 'bar',
+    data:{
+        labels: orgPays,
+        datasets:[{
+            backgroundColor: barColor,
+            data: orgNombreLaureats,
+        }]
+    },
+    options:{
+        indexAxis: 'y',
+        plugins:{
+            title:{
+                display : true,
+                text : 'Pays d\'origine des organisations ayant au moins 5 lauréats '
+            }
+        },
+        scales :{
+            x: {
+                beginAtZero : true,
+                ticks:{
+                    stepSize: 5
+                }
+            }
+        }
+    }
+   });
+}
+document.getElementById('pays').addEventListener('click', function() {
+    graphEnBarreOrg();
+});
 
 
 
 
 
-//==== pour le graphe circulaire sur le sexe par categories et annnée 
+
+//le graphe circulaire sur le sexe par categories et annnée 
 function updatePieGraph(year) {
     if (currentChart) {
         currentChart.destroy();
@@ -599,7 +620,8 @@ document.getElementById('CircularDiagram').addEventListener('click', function(){
     });*/
 
 //=======fonction pour afficher le gra
-function grapheEnCambert(selectedYear) {
+// depend plus de l'année 
+function grapheEnCambert(selectYear) {
     var yearData = datasets.find(dataset => dataset.label === selectedYear);
     if (!yearData) return; 
     var ctx = document.getElementById('graphs').getContext('2d');
@@ -646,6 +668,44 @@ function grapheEnCambert(selectedYear) {
     });
 }
 
+function grapheEnCam2(){
+    if (currentChart) {
+        currentChart.destroy();
+    }
+    var ctx = document.getElementById('graphs').getContext('2d');
+    currentChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: queryCam.map(item => item.Gender),
+            datasets: [{
+                label: `Distribution des prix Nobel en`,
+                
+                data: queryCam.map(item => item.nombre_prix_nobel),
+               //backgroundColor: queryCam.Gender.map((_, index) => `hsl(${index * 360 / categories.length}, 70%, 50%)`),
+                hoverOffset: 4
+            }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top',
+                },
+                title: {
+                    display: false,
+                    text: `Distribution des Prix Nobel par Catégorie en`
+                }
+            },
+            responsive: true,
+        }
+    });
+
+}
+document.getElementById('SEXE').addEventListener('click', function() {
+    grapheEnCam2()
+});
+
+
 document.getElementById('selectYearCam').addEventListener('click', function() {
     var selectedYear = document.getElementById('selectYear').value;
     grapheEnCambert(selectedYear);
@@ -662,15 +722,19 @@ document.getElementById('selectYearCam').addEventListener('click', function() {
 
 
 
-  
-
-
-
  
 
 
 
  
     </script>
+
+
+
+
 </body>
 </html>
+
+
+
+
