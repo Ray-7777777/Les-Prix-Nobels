@@ -44,23 +44,24 @@ $paysOrganisationsJSON = json_encode($var_Array_PaysOrg);
 
 
 // =========================================================
-// ===nombre de lauréats et evolution au fil des années dans différentes catégories(historique)
+// ===nombre de lauréats et evolution au fil des années dans différentes catégories(historique) tous les 20 ans
 $queryHistorique = "SELECT 
-            CONCAT(FLOOR(p.Année / 10) * 10, ' - ', FLOOR(p.Année / 10) * 10 + 9) AS Décennie,
-            c.Nom_catégorie,
-            COUNT(*) AS nbLauréats
-          FROM 
-            prix_nobel p
-          JOIN 
-            nomine n ON p.id_nominé = n.`Id-nominé`
-          JOIN 
-            categorie c ON p.id_category = c.Id_catégorie
-          GROUP BY 
-            FLOOR(p.Année / 10),
-            c.Nom_catégorie
-          ORDER BY 
-            FLOOR(p.Année / 10),
-            c.Nom_catégorie";
+CONCAT(FLOOR(p.Année / 20) * 20, ' - ', FLOOR(p.Année / 20) * 20 + 19) AS Intervalle,
+c.Nom_catégorie,
+COUNT(*) AS nbLauréats
+FROM 
+prix_nobel p
+JOIN 
+nomine n ON p.id_nominé = n.`Id-nominé`
+JOIN 
+categorie c ON p.id_category = c.Id_catégorie
+GROUP BY 
+FLOOR(p.Année / 20),
+c.Nom_catégorie
+ORDER BY 
+FLOOR(p.Année / 20),
+c.Nom_catégorie;
+";
 
 $requete = $mysqli->query($queryHistorique);
 
@@ -338,6 +339,7 @@ while ($row = $deathCountryQuery->fetch_assoc()){
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="#">Catégorie</a>
                     <a class="dropdown-item" href="#" id="pays">Pays de naissance</a>
+                    <a class="dropdown-item" href="#" id="historique">Historique</a>
                     <a class="dropdown-item" href="#">Pays de décès</a>
                     <a class="dropdown-item" href="#">Année</a>
                     <a class="dropdown-item" href="#" id="SEXE">Sexe</a>
@@ -381,13 +383,19 @@ while ($row = $deathCountryQuery->fetch_assoc()){
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 
+
+     
+        
+        // Recuperation des données JSON encodées depuis PHP
+        var donneesHistorique = <?php echo $donneesJSON_Historique; ?>;
+
+        // Utilisation les données dans votre script JavaScript
+        console.log(donneesHistorique);
+
         // conversion en JSON pour l'envoyer à JavaScript : pays d'origine des organisations
        
         var donneesPaysOrganisation = <?php echo $paysOrganisationsJSON; ?>;
-        console.log("Mes données de pays de naissance : " + donneesPaysOrganisation);
-        donneesPaysOrganisation.forEach(function (i) {
-    console.log("Pays : " + i.Pays + ", Nombre de Lauréats : " + i.NombreLaureats);
-});
+        
 
 
 
@@ -447,6 +455,67 @@ function CouleurAleatoire (){
     var bleu = Math.floor(Math.random() * 255);
     return 'rgba(' + rouge + ',' + vert +',' + bleu + ', 0.5)';
 }
+
+//-----------------------------------------------------------------
+function grapheLineaire() {
+    var categories = [...new Set(donneesHistorique.map(item => item.Nom_catégorie))];
+    var intervalles = [...new Set(donneesHistorique.map(item => item.Intervalle))].sort();
+
+    var datasets = categories.map(catégorie => {
+    var dataPourCategorie = donneesHistorique.filter(item => item.Nom_catégorie === catégorie);
+    var data = intervalles.map(intervalle => {
+        var item = dataPourCategorie.find(item => item.Intervalle === intervalle);
+        return item ? item.nbLauréats : 0;
+    });
+
+    return {
+        label: catégorie,
+        data: data,
+        fill: false,
+  
+    };
+});
+    if (currentChart) {
+        currentChart.destroy();
+    } 
+
+  var ctx = document.getElementById('monGraphique').getContext('2d');
+var monGraphique = new Chart(ctx, {
+    type: 'line', 
+    data: {
+        labels: intervalles,
+        datasets: datasets
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        },
+        plugins: {
+            title: {
+                display: true,
+                text: 'Nombre de lauréats par catégorie et intervalle d\'années'
+            }
+        }
+    }
+});
+
+}
+
+document.getElementById('historique').addEventListener('click', function() {
+    grapheLineaire();
+});
+
+
+// --------------------------------------------------------------------------
+
+
+
+
+
+
+
 function grapheEnBarrehorizontal(){
     var nomOrganisation = organisation.map(function(o){return o.Organisation});
     var nombreLaureats = organisation.map(function(o){return o.NombreLauréats});
@@ -733,8 +802,5 @@ document.getElementById('selectYearCam').addEventListener('click', function() {
 
 
 </body>
+
 </html>
-
-
-
-

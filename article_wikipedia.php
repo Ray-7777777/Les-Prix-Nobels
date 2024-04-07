@@ -2,6 +2,9 @@
     session_start();
     require_once 'connexion_bd.php';
     $est_connecte = isset($_SESSION['user_id']);
+
+    // Inclure le fichier contenant la fonction de recommandation
+    require_once 'recommandations.php';
 ?>
 
 <!DOCTYPE html>
@@ -21,14 +24,14 @@
 	 <link href="https://fonts.googleapis.com/css2?family=Reem+Kufi+Fun:wght@400..700&display=swap" rel="stylesheet">	 
 
 </head>
-<body>
+<body id='body_wiki'>
     <div id="entete">
     <a href="index.php" style="text-decoration: none;">
-        <h1 class="oswald-font"><span class="text-stroke" style="color : black;">PRIX NOBEL</span></h1>
+        <h1 id = 'h1_wiki' class="oswald-font"><span class="text-stroke" style="color : black;">PRIX NOBEL</span></h1>
     </a>
 	</div>
 
-<div class="menu" style="width: 100%;">
+<div id = 'menu_wiki' class="menu" style="width: 100%;">
     <nav class="navbar navbar-expand-lg navbar-light justify-content-start px-0">
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -59,51 +62,91 @@
         </div>
     </nav>
 </div>
+<div id="image-preview-container">
+        <span id="close-preview">&times;</span>
+        <img id="preview-image" src="" alt="Preview Image">
+    </div>
 <div class="boite-wikipedia">
     <div class="contenu-nobel-wikipedia">
         <?php
         if (isset($_GET['id']) && is_numeric($_GET['id'])) {
-            $id_personne = $_GET['id'];
+            $id_prix_nobel = $_GET['id'];
 
             try {
                 $connexion = getBD();
 
-                $sql = "SELECT Prénom, Biographie, Photos, Nom, Date_de_naissance, `Date_de_mort`, `Born_country`, `Born_city`, `Died_country`, `Died_city`, Gender FROM nomine WHERE `Id_nominé` = :id";
+            $sql = "SELECT Prénom, Biographie, Photos, Nom, Date_de_naissance, `Date_de_mort`, `Born_country`, `Born_city`, `Died_country`, `Died_city`, Gender, Nom_catégorie FROM nomine, categorie WHERE `Id_nominé` = :id";
+            $sqlan = "SELECT Année, Motivation, categorie.Nom_catégorie, 'Overall motivation' FROM prix_nobel INNER JOIN categorie ON prix_nobel.id_category = categorie.Id_catégorie WHERE prix_nobel.`id_prix_nobels` = :id";
+            $sqlo = "SELECT nom_organisation, ville_organisation, pays_organisation FROM organisation INNER JOIN prix_nobel ON organisation.id_organisation = prix_nobel.id_organisation WHERE prix_nobel.`id_prix_nobels` = :id";
 
-                $stmt = $connexion->prepare($sql);
-                $stmt->bindParam(':id', $id_personne, PDO::PARAM_INT);
-                $stmt->execute();
-                $resultat = $stmt->fetch(PDO::FETCH_ASSOC);
+            $stmt = $connexion->prepare($sql);
+            $stmt2 = $connexion->prepare($sqlan);
+            $stmto = $connexion->prepare($sqlo);
+
+            $stmt->bindParam(':id', $id_prix_nobel, PDO::PARAM_INT);
+            $stmt2->bindParam(':id', $id_prix_nobel, PDO::PARAM_INT);
+            $stmto->bindParam(':id', $id_prix_nobel, PDO::PARAM_INT);
+
+            $stmt->execute();
+            $stmt2->execute();
+            $stmto->execute();
+
+            $resultat = $stmt->fetch(PDO::FETCH_ASSOC);
+            $resultat2 = $stmt2->fetch(PDO::FETCH_ASSOC);
+            $resultato = $stmto->fetch(PDO::FETCH_ASSOC);
 
                 $photo_url = $resultat['Photos'] ? $resultat['Photos'] : 'placeholder.jpg'; 
                 
                 $biographie = $resultat['Biographie'];
-
+              
+                
+                function supprimerTitresVides($texte) {
+                    $lignes = explode("\n", $texte);
+                    $nouveauTexte = ''; 
+                    $i = 0;
+                    while ($i < count($lignes)) {
+                        $ligne = trim($lignes[$i]);
+                    
+                        if (strpos($ligne, '==') === 0 && isset($lignes[$i + 1]) && isset($lignes[$i + 2]) && trim($lignes[$i + 1]) === '' && trim($lignes[$i + 2]) === '') {
+                            $i += 2;
+                        } else {
+                            $nouveauTexte .= $ligne . "\n";
+                        }
+                    
+                        $i++;
+                    }
+                    
+                    
+                    return $nouveauTexte;
+                }
+                
+                // Exemple d'utilisation
+                $biographie = supprimerTitresVides($biographie);
+               
+                
                 $formatted_biography = preg_replace_callback('/====(.*?)====/', function($matches) {
                     return "<p class='biography-heading'><strong class='biographie-texte biographie-titre3'>" . trim($matches[1]) . "</strong></p>";
                 }, $biographie);
-                
+           
                 $formatted_biography = preg_replace_callback('/===(.*?)===/', function($matches) {
                     return "<br><p class='biography-heading'><strong class='biographie-texte biographie-titre2'>" . trim($matches[1]) . "</strong></p>";
                 }, $formatted_biography);
 
+
                 $formatted_biography = preg_replace_callback('/==(.*?)==/', function($matches) {
                     return "<br><p class='biography-heading'><strong class='biographie-texte biographie-titre1'>" . trim($matches[1]) . "</strong></p>";
                 }, $formatted_biography);
+                
+                
 
-                // Récupération des titres et des paragraphes
                 $matches = [];
                 preg_match_all('/===[^=]+===\s*(.*?)(?:(?===)|(?===))/s', $formatted_biography, $matches);
 
-                // Variable pour la numérotation
                 $numeration = 1;
 
-                // Parcourir chaque titre et paragraphe pour ajouter des identifiants et la numérotation
                 foreach ($matches[0] as $index => $match) {
                     $content = $matches[1][$index];
-                    // Appliquer le formatage au paragraphe
                     $content = preg_replace('/\n/', '<br>', $content);
-                    // Ajouter la numérotation aux titres biographie-titre1
                     if (strpos($match, 'biographie-titre1') !== false) {
                         $formatted_biography = str_replace($match, "<br><p class='biography-heading'><strong class='biographie-texte'>$numeration. " . trim($matches[1][$index]) . "</strong></p>", $formatted_biography);
                         $numeration++;
@@ -111,47 +154,82 @@
                         $formatted_biography = str_replace($match, "<br><p class='biography-heading'><strong class='biographie-texte'>" . trim($matches[1][$index]) . "</strong></p>", $formatted_biography);
                     }
                 }
+                
 
-                // Affichage de la biographie
                 echo "<div style='margin-right:2%;margin-left:2%;'>"; 
                 echo "<div style='float: right; margin-left: 10px; width: 300px;'>"; 
-                echo "<div class='image-container' style='border: 1.5px solid black; text-align: center;padding-top:2%;margin-top:1.5%;margin-right:1.5%;'>"; 
-                echo "<img src='$photo_url' alt='Photo' style='max-width: 300px; max-height: 200px; margin: auto;border:1.5px solid black;'>"; 
+                echo "<div class='image-container' style='background-color: white;box-shadow: 0 0 10px rgba(1, 1, 1, 0.4);border-radius: 25px;border: 1.5px solid black; text-align: center;padding-top:2%;margin-top:1.5%;margin-right:1.5%;'>"; 
+                echo "<img src='$photo_url' id='image_wiki' alt='Photo' style='cursor: pointer;box-shadow: 0 0 5px rgba(1, 1, 1, 0.4);max-width: 300px; max-height: 200px; margin: auto;border:1.5px solid black;'>"; 
+               
                 
-                // Affichage des informations personnelles
+          
                 if ($resultat['Prénom'] !== "NULL") {
-                    echo "<p style='text-align: left;padding-left:5%;margin-top:2%'><strong>Prénom :</strong> {$resultat['Prénom']}</p>";
-                }      if ($resultat['Nom'] !== "NULL") {
-                    echo "<p style='text-align: left;padding-left:5%;margin-top:-6%'><strong>Nom :</strong> {$resultat['Nom']}</p>";
+                    echo "<p style='font-weight:normal;text-align: left;padding-left:5%;margin-top:2%'><strong>Prénom :</strong> {$resultat['Prénom']}</p>";
+                }      
+                
+                if ($resultat['Nom'] !== "NULL") {
+                    echo "<p style='font-weight:normal;text-align: left;padding-left:5%;margin-top:-6%'><strong>Nom :</strong> {$resultat['Nom']}</p>";
                 }
 
                 if ($resultat['Date_de_naissance'] !== "NULL") {
-                    echo "<p style='text-align: left;padding-left:5%;margin-top:-6%'><strong>Date de naissance :</strong> {$resultat['Date_de_naissance']}</p>";
+                    echo "<p style='font-weight:normal;text-align: left;padding-left:5%;margin-top:-6%'><strong>Date de naissance :</strong> {$resultat['Date_de_naissance']}</p>";
                 }
 
                 if ($resultat['Date_de_mort'] !== "NULL") {
-                    echo "<p style='text-align: left;padding-left:5%;margin-top:-6%'><strong>Date de mort :</strong> {$resultat['Date_de_mort']}</p>";
+                    echo "<p style='font-weight:normal;text-align: left;padding-left:5%;margin-top:-6%'><strong>Date de mort :</strong> {$resultat['Date_de_mort']}</p>";
                 }
 
                 if ($resultat['Born_country'] !== "NULL") {
-                    echo "<p style='text-align: left;padding-left:5%;margin-top:-6%'><strong>Pays de naissance :</strong> {$resultat['Born_country']}</p>";
+                    echo "<p style='font-weight:normal;text-align: left;padding-left:5%;margin-top:-6%'><strong>Pays de naissance :</strong> {$resultat['Born_country']}</p>";
                 }
 
                 if ($resultat['Born_city'] !== "NULL") {
-                    echo "<p style='text-align: left;padding-left:5%;margin-top:-6%'><strong>Ville de naissance :</strong> {$resultat['Born_city']}</p>";
+                    echo "<p style='font-weight:normal;text-align: left;padding-left:5%;margin-top:-6%'><strong>Ville de naissance :</strong> {$resultat['Born_city']}</p>";
                 }
 
                 if ($resultat['Died_country'] !== "NULL") {
-                    echo "<p style='text-align: left;padding-left:5%;margin-top:-6%'><strong>Pays de mort :</strong> {$resultat['Died_country']}</p>";
+                    echo "<p style='font-weight:normal;text-align: left;padding-left:5%;margin-top:-6%'><strong>Pays de mort :</strong> {$resultat['Died_country']}</p>";
                 }
 
                 if ($resultat['Died_city'] !== "NULL") {
-                    echo "<p style='text-align: left;padding-left:5%;margin-top:-6%'><strong>Ville de mort :</strong> {$resultat['Died_city']}</p>";
+                    echo "<p style='font-weight:normal;text-align: left;padding-left:5%;margin-top:-6%'><strong>Ville de mort :</strong> {$resultat['Died_city']}</p>";
                 }
 
                 if ($resultat['Gender'] !== "NULL") {
-                    echo "<p style='text-align: left;padding-left:5%;margin-top:-6%'><strong>Genre :</strong> {$resultat['Gender']}</p>";
+                    echo "<p style='font-weight:normal;text-align: left;padding-left:5%;margin-top:-6%'><strong>Genre :</strong> {$resultat['Gender']}</p>";
                 }
+                
+                echo "<p style='font-weight:normal;padding-bottom:10px;padding-top:20px;text-align: center;padding-left:5%;margin-top:-6%;text-decoration:underline;'><strong>À propos du prix Nobel :</p>";
+                
+                if ($resultato['nom_organisation'] !== "pas d’organisation") {
+                    echo "<p style='text-align: left;padding-left:5%;margin-top:-6%'><strong>Organisation :</strong> {$resultato['nom_organisation']}</p>";
+                }
+                
+                if ($resultato['pays_organisation'] !== "pas d’organisation") {
+                    echo "<p style='text-align: left;padding-left:5%;margin-top:-6%'><strong>Pays de l'organisation :</strong> {$resultato['pays_organisation']}</p>";
+                }
+                
+                if ($resultato['ville_organisation'] !== "pas d’organisation") {
+                    echo "<p style='text-align: left;padding-left:5%;margin-top:-6%'><strong>Ville de l'organisation :</strong> {$resultato['ville_organisation']}</p>";
+                }
+                
+                if ($resultat2['Nom_catégorie'] !== "NULL") {
+                    echo "<p style='text-align: left;padding-left:5%;margin-top:-6%'><strong>Catégorie :</strong> {$resultat2['Nom_catégorie']}</p>";
+                }
+                
+                if ($resultat2['Année'] !== "NULL") {
+                    echo "<p style='text-align: left;padding-left:5%;margin-top:-6%'><strong>Année :</strong> {$resultat2['Année']}</p>";
+                }
+                
+                if ($resultat2['Motivation'] !== "NULL") {
+                    echo "<p style='text-align: left;padding-left:5%;margin-top:-6%'><strong>Motivation :</strong> {$resultat2['Motivation']}</p>";
+                }
+               
+                if ($resultat['Nom_catégorie'] !== "NULL") {
+                    echo "<p style='text-align: left;padding-left:5%;margin-top:-6%'><strong>Catégorie prix nobel :</strong> {$resultat['Nom_catégorie']}</p>";
+                }
+                
+                
 
                  echo "</div>"; 
                 echo "</div>"; 
@@ -165,37 +243,109 @@
                 echo "Erreur : " . $e->getMessage();
             }
         }
-        ?>
+         ?>
+                     <p style='text-align: center; font-style: italic; font-size: 14px;'><a href='https://fr.wikipedia.org/wiki/Wikip%C3%A9dia:Accueil_principal' style='text-decoration: none; color: black;'>Source : Wikipédia</a></p>
+        <div id='reco'>
+                <div id='reco_sim'>
+                    <?php
+                    // Recommander des prix Nobel similaires
+                    $prix_nobel_similaires = recommander_prix_nobel_similaires($_GET['id']);
 
+                   
+                    echo "<h2 id='titre_sim'>Prix Nobel similaires</h2>";
+                    echo "<ul id='liste_sim'>";
+                    foreach ($prix_nobel_similaires as $prix_nobel) {
+                        
+                        $sql = "SELECT nomine.Prénom, nomine.Nom, nomine.Photos, categorie.Nom_catégorie, prix_nobel.Année
+                            FROM prix_nobel 
+                            INNER JOIN nomine ON prix_nobel.Id_nominé = nomine.Id_nominé 
+                            INNER JOIN categorie ON prix_nobel.id_category = categorie.Id_catégorie 
+                            WHERE prix_nobel.id_prix_nobels = :id";
+
+                        $stmt = $connexion->prepare($sql);
+                        $stmt->bindParam(':id', $prix_nobel['id_prix_nobels'], PDO::PARAM_INT);
+                        $stmt->execute();
+                        $resultat_nomine = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                        if ($resultat_nomine) {
+                           
+                            $photo = $resultat_nomine['Photos'];
+                            $prenom = $resultat_nomine['Prénom'];
+                            $nom = $resultat_nomine['Nom'];
+                            $categorie = $resultat_nomine['Nom_catégorie'];
+                            $annee = $resultat_nomine['Année'];
+                            echo "<li class='info-bulle' title='$categorie $annee' onclick=\"window.location='article.php?id=" . $prix_nobel['id_prix_nobels'] . "';\" style='display: flex; cursor: pointer; flex-direction: column; align-items: center; text-align: center;'>";
+                            echo "<img style='box-shadow: 0 0 5px rgba(1, 1, 1, 0.4);display: inline-block;margin-left: auto;margin-right: auto;border:solid 2px black;width: 130px; height: 150px; object-fit: cover;' src='$photo' alt='Photo'>";
+                            echo "<br>";
+                            echo "<a id='titre_reco' href='article.php?id=" . $prix_nobel['id_prix_nobels'] . "'>$prenom $nom</a>";
+                            echo "</li>";
+                        } else {
+                            echo "Aucun résultat trouvé.";
+                        }
+                    }
+                    echo "</ul>";
+                    ?>
+                </div>
+                <?php if ($est_connecte) : ?>
+                    <div id='reco_uti'>
+                        <!-- Affichage des recommandations pour l'utilisateur connecté -->
+                        <h2 id='titre_sim'>Recommandations</h2>
+                        <ul id='liste_sim'>
+                            <?php foreach ($prix_nobel_similaires as $prix_nobel) : ?>
+                                <?php
+                              
+                                $sql = "SELECT nomine.Prénom, nomine.Nom, nomine.Photos, categorie.Nom_catégorie, prix_nobel.Année
+                                    FROM prix_nobel 
+                                    INNER JOIN nomine ON prix_nobel.Id_nominé = nomine.Id_nominé 
+                                    INNER JOIN categorie ON prix_nobel.id_category = categorie.Id_catégorie 
+                                    WHERE prix_nobel.id_prix_nobels = :id";
+
+                                $stmt = $connexion->prepare($sql);
+                                $stmt->bindParam(':id', $prix_nobel['id_prix_nobels'], PDO::PARAM_INT);
+                                $stmt->execute();
+                                $resultat_nomine = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                                if ($resultat_nomine) {
+                                    // Afficher les résultats
+                                    $photo = $resultat_nomine['Photos'];
+                                    $prenom = $resultat_nomine['Prénom'];
+                                    $nom = $resultat_nomine['Nom'];
+                                    $categorie = $resultat_nomine['Nom_catégorie'];
+                                    $annee = $resultat_nomine['Année'];
+                                    echo "<li class='info-bulle' title='$categorie $annee' onclick=\"window.location='article.php?id=" . $prix_nobel['id_prix_nobels'] . "';\" style='display: flex; cursor: pointer; flex-direction: column; align-items: center; text-align: center;'>";
+                                    echo "<img style='box-shadow: 0 0 5px rgba(1, 1, 1, 0.4);display: inline-block;margin-left: auto;margin-right: auto;border:solid 2px black;width: 130px; height: 150px; object-fit: cover;' src='$photo' alt='Photo'>";
+                                    echo "<br>";
+                                    echo "<a id='titre_reco' href='article.php?id=" . $prix_nobel['id_prix_nobels'] . "'>$prenom $nom</a>";
+                                    echo "</li>";
+                                } else {
+                                    echo "Aucun résultat trouvé.";
+                                }
+                                ?>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                <?php endif; ?>
+            </div>
+        </div>
     </div>
-</div>
 
 <script>
-    // Attendre que le document soit complètement chargé
     document.addEventListener("DOMContentLoaded", function() {
-        // Sélectionner tous les éléments ayant les classes biographie-titre1, biographie-titre2 et biographie-titre3
         var titles1 = document.querySelectorAll('.biographie-titre1');
         var titles2 = document.querySelectorAll('.biographie-titre2');
         var titles3 = document.querySelectorAll('.biographie-titre3');
 
-        // Fonction pour ajouter un titre à la liste des titres
         function addTitleToList(title, list) {
-            // Créer un élément de liste
             var listItem = document.createElement('li');
-            // Créer un lien avec le titre comme texte et l'ancre correspondante comme href
             var link = document.createElement('a');
             link.textContent = title.textContent.trim();
             link.href = '#' + title.id;
-            // Ajouter le lien à l'élément de liste
             listItem.appendChild(link);
-            // Ajouter l'élément de liste à la liste
             list.appendChild(listItem);
         }
 
-        // Sélectionner le conteneur de menu des titres
         var titlesMenu = document.querySelector('.menu-titres ul');
 
-        // Ajouter chaque titre à la liste des titres
         titles1.forEach(function(title) {
             addTitleToList(title, titlesMenu);
         });
@@ -209,7 +359,38 @@
         });
     });
 </script>
-	
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    var image = document.querySelector('#preview-image');
+    var previewContainer = document.querySelector('#image-preview-container');
+    var closeButton = document.querySelector('#close-preview');
+
+    // Fonction pour afficher l'aperçu avec l'image agrandie
+    function showPreview(imageUrl) {
+        image.src = imageUrl;
+        previewContainer.style.display = 'block';
+    }
+
+    // Fonction pour cacher l'aperçu
+    function hidePreview() {
+        previewContainer.style.display = 'none';
+    }
+
+    // Écouteur d'événement pour le clic sur la miniature
+    document.querySelectorAll('.image-container img').forEach(function(thumbnail) {
+        thumbnail.addEventListener('click', function() {
+            var imageUrl = thumbnail.src;
+            showPreview(imageUrl);
+        });
+    });
+
+    // Écouteur d'événement pour le clic sur le bouton de fermeture
+    closeButton.addEventListener('click', function() {
+        hidePreview();
+    });
+});
+
+</script>
 
 </body>
 

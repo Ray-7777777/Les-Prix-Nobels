@@ -2,6 +2,9 @@
     session_start();
     require_once 'connexion_bd.php';
     $est_connecte = isset($_SESSION['user_id']);
+
+    // Inclure le fichier contenant la fonction de recommandation
+    require_once 'recommandations.php';
 ?>
 
 <!DOCTYPE html>
@@ -144,6 +147,17 @@
         } else {
             echo "Ce prix Nobel n'est pas présent dans notre base de données";
         }
+
+	// Recommander des prix Nobel similaires
+        $prix_nobel_similaires = recommander_prix_nobel_similaires($_GET['id']);
+
+        // Afficher les prix Nobel recommandés
+        echo "<h2>Prix Nobel similaires :</h2>";
+        echo "<ul>";
+        foreach ($prix_nobel_similaires as $prix_nobel) {
+            echo "<li><a href='article.php?id=" . $prix_nobel['id_prix_nobels'] . "'>" . $prix_nobel['id_prix_nobels'] . "</a></li>";
+        }
+        echo "</ul>";
         ?>
         
     </div>

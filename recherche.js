@@ -56,8 +56,13 @@ $(document).ready(function() {
         var items = JSON.parse(storedResults);
         var text = "<ul> ";
         items.forEach(function(element) {
-            text += "<li class='article_recherche' data-id="+element["Id_nominé"]+"><div class='titre_recherche'>"+element["Prénom"]+" "+element["Nom"]+element["Id_nominé"]+"</div><p class='minibio'>"+element["biographie"]+"</p></li>";
-        });
+            if (element["Nom"]=="NULL"){
+                text += "<li class='article_recherche' data-id="+element["Id_nominé"]+"><div class='titre_recherche'>"+element["Prénom"]+"</div><p class='minibio'>"+element["biographie"]+"</p></li>";
+            }
+            else{
+                text += "<li class='article_recherche' data-id="+element["Id_nominé"]+"><div class='titre_recherche'>"+element["Prénom"]+" "+element["Nom"]+"</div><p class='minibio'>"+element["biographie"]+"</p></li>";
+            }
+            });
         text += "</ul>";
         $(".contenu").html(text);
     }
