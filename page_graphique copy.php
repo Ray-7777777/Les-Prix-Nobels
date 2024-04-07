@@ -394,12 +394,7 @@ while ($row = $deathCountryQuery->fetch_assoc()){
 
         // conversion en JSON pour l'envoyer à JavaScript : pays d'origine des organisations
        
-        var donneesPaysOrganisation = <?php echo $paysOrganisationsJSON; ?>;
-        
-
-
-
-       
+        var organisation = <?php echo json_encode($var_Array_Organisation); ?>;
         // 
         var categories = <?php echo $jsonCategories; ?>;
         var datasets = <?php echo $jsonDatasets; ?>;
@@ -411,12 +406,13 @@ while ($row = $deathCountryQuery->fetch_assoc()){
         var decennies = <?php echo json_encode($decennies); ?>;
         var impactData = <?php echo json_encode($jsonImpactData); ?>;
         var queryCam =  <?php echo json_encode($queryCamArray); ?>; 
+        var donneesPaysOrganisation = <?php echo ($paysOrganisationsJSON); ?>;
         
-
+        var currentChart;
       
         document.addEventListener('DOMContentLoaded', function() {
         var ctx = document.getElementById('graphs').getContext('2d');
-        var currentChart;
+      
 function updateBarGraph(selectedYear) {
     var filteredData = datasets.filter(dataset => dataset.label === selectedYear);
 
@@ -479,7 +475,7 @@ function grapheLineaire() {
         currentChart.destroy();
     } 
 
-  var ctx = document.getElementById('monGraphique').getContext('2d');
+  var ctx = document.getElementById('graphs').getContext('2d');
 var monGraphique = new Chart(ctx, {
     type: 'line', 
     data: {
