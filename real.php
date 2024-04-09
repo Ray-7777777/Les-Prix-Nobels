@@ -63,7 +63,7 @@ while ($row = $resultCategories->fetch_assoc()) {
                             <a class="nav-link mx-5" id="graphique" href="./real.php" style="color: black;">Graphique 1</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link mx-5" id="graphique" href="./page_graphique copy.php" style="color: black;">Graphique 2</a>
+                            <a class="nav-link mx-5" id="graphique" href="graphique.php" style="color: black;">Graphique 2</a>
                         </li>
                         <li class="nav-item">
                             <?php

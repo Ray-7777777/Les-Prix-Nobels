@@ -446,7 +446,43 @@ body{
 	 display: block;
 	 font-weight: 600;
 }
-
+.deroule{
+    overflow-y: auto;
+    max-height: 200px;
+}
+.btnVar{
+    display: none;
+    margin-top: 15%;
+}
+.titreVariables{
+    padding-top: 3%;
+}
+#menuG{
+    padding-top: 3%;
+}
+.titreVariables{
+    display: none;
+}
+#activeVar{
+    margin-top: 2%;
+}
+.activeVar{
+    display: block;
+    text-align: left;
+}
+.contenu_graphe{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#varY{
+    border-left: black solid 2px;
+    margin-left: 2%;
+    padding-left: 2%;
+}
+#varX{
+    margin-left: 2%;
+}
 
 /* CSS pour les pages connexion / inscription / déconnexion */
 

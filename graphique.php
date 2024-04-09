@@ -3,10 +3,10 @@ session_start();
 require_once 'connexion_bd.php';
 $est_connecte = isset($_SESSION['user_id']);
 
-// Récupération de la connexion à la base de données
+// Récupérer la connexion à la base de données
 $connexion = getBD();
 
-// Récupération des données sur le sexe des lauréats du prix Nobel depuis la base de données
+// Récupérer les données sur le sexe des lauréats du prix Nobel depuis la base de données
 $sql = "SELECT COUNT(*) AS nombre_hommes FROM nomine WHERE Gender = 'male'";
 $stmt = $connexion->query($sql);
 $resultat = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -21,7 +21,7 @@ $sqlNationalites = "SELECT Born_Country AS Nationalite, COUNT(*) AS Nombre FROM 
 $stmtNationalites = $connexion->query($sqlNationalites);
 $nationalites = $stmtNationalites->fetchAll(PDO::FETCH_ASSOC);
 
-// Récupération des données si le prix Nobel est remporté par une organisation ou une personne
+// Récupérer les données sur si le prix Nobel est remporté par une organisation ou une personne
 $sqlTypeLaureat = "SELECT COUNT(*) AS nombre_organisations FROM prix_nobel p JOIN organisation o ON p.id_organisation = o.id_organisation WHERE o.id_organisation = 0";
 
 $stmtTypeLaureat = $connexion->query($sqlTypeLaureat);
@@ -69,7 +69,7 @@ $nombre_personnes = $nombre_hommes + $nombre_femmes - $nombre_organisations;
                             <a class="nav-link mx-5" id="recherche" href="recherche.php" style="color: black;">Recherche</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link mx-5" id="graphique" href="./page_graphique copy.php" style="color: black;">Graphique</a>
+                            <a class="nav-link mx-5" id="graphique" href="graphique.php" style="color: black;">Graphique</a>
                         </li>
                         <li class="nav-item">
                             <?php
@@ -111,11 +111,10 @@ $nombre_personnes = $nombre_hommes + $nombre_femmes - $nombre_organisations;
 </div>
 
     <script>
-        // Récupération les données des sexes depuis PHP
+        // Récupérer les données des sexes depuis PHP
         var nombreHommes = <?php echo $nombre_hommes; ?>;
         var nombreFemmes = <?php echo $nombre_femmes; ?>;
 
-        // Créer le graphique circulaire pour la répartition par sexe
         var ctxSexe = document.getElementById('graphiqueSexe').getContext('2d');
         var graphiqueSexe = new Chart(ctxSexe, {
             type: 'pie',
@@ -138,12 +137,12 @@ $nombre_personnes = $nombre_hommes + $nombre_femmes - $nombre_organisations;
                     title: {
                         display: true,
                         text: 'Répartition des lauréats du prix Nobel par sexe',
-                        color: 'black', // Couleur du texte
+                        color: 'black', 
                         font: {
-                            size: 16, // Taille du texte en pixels
-                            weight: 'normal', // Texte en gras
-                            family: '"PT Sans", sans-serif', // Police de caractères
-                            style: 'normal' // Style normal
+                            size: 16, 
+                            weight: 'normal', 
+                            family: '"PT Sans", sans-serif', 
+                            style: 'normal' 
                         },
                         shadow: {
                             color: 'rgba(0, 0, 0, 0.2)',
@@ -156,10 +155,8 @@ $nombre_personnes = $nombre_hommes + $nombre_femmes - $nombre_organisations;
             }
         });
 
-        // Récupérer les données des nationalités depuis PHP
         var nationalites = <?php echo json_encode($nationalites); ?>;
 
-        // Créer les graphiques en barres pour les top 6 nationalités
         var ctxNationalites1 = document.getElementById('graphiqueNationalites1').getContext('2d');
         var graphiqueNationalites1 = new Chart(ctxNationalites1, {
             type: 'bar',
@@ -179,12 +176,12 @@ $nombre_personnes = $nombre_hommes + $nombre_femmes - $nombre_organisations;
                     title: {
                         display: true,
                         text: 'Top 6 des nationalités des lauréats du prix Nobel',
-                        color: 'black', // Couleur du texte
+                        color: 'black',
                         font: {
-                            size: 16, // Taille du texte en pixels
-                            weight: 'normal', // Texte en gras
-                            family: '"PT Sans", sans-serif', // Police de caractères
-                            style: 'normal' // Style normal
+                            size: 16, 
+                            weight: 'normal', 
+                            family: '"PT Sans", sans-serif', 
+                            style: 'normal' 
                         },
                         shadow: {
                             color: 'rgba(0, 0, 0, 0.2)',
@@ -200,7 +197,7 @@ $nombre_personnes = $nombre_hommes + $nombre_femmes - $nombre_organisations;
 var nombreOrganisations = <?php echo $nombre_organisations; ?>;
 var nombrePersonnes = <?php echo $nombre_personnes; ?>;
 
-// Création le graphique en barres pour la répartition par type de lauréat
+       // Créer le graphique en barres pour la répartition par type de lauréat
 var ctxType = document.getElementById('graphiqueType').getContext('2d');
 var graphiqueType = new Chart(ctxType, {
     type: 'pie',
