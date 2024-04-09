@@ -21,11 +21,6 @@ while ($row = $resultCategories->fetch_assoc()) {
 }
 
 ?>
-<?php
-    session_start();
-    require_once 'connexion_bd.php';
-    $est_connecte = isset($_SESSION['user_id']);
-?>
 
 <?php
     session_start();
@@ -173,7 +168,7 @@ while ($row = $resultCategories->fetch_assoc()) {
 
                     console.log(response)
         var jsonData = JSON.parse(response);
-        updateChart(jsonData, selectedChartType);// Appel de la fonction pour mettre à jour le graphique
+        updateChart(jsonData, selectedChartType);// mis à jour du graphique
             } catch (e) {
         console.error("Erreur lors de l'analyse JSON:", e);
     }},
@@ -187,7 +182,7 @@ while ($row = $resultCategories->fetch_assoc()) {
     function updateChart(data, chartType) {
     console.log(data);
 
-   // detruis le graphe 
+   // Suppression du graphe 
     if (myChart) {
         myChart.destroy();
     }
@@ -207,19 +202,19 @@ while ($row = $resultCategories->fetch_assoc()) {
             });
             break;
         case 'doughnut':
-            //  à personnaliser si tu veux 
+            //  à personnaliser
             break;
         case 'polarArea':
-               //  à personnaliser si tu veux 
+               //  à personnaliser
             break;
         case 'line':
-          //  à personnaliser si tu veux 
+          //  à personnaliser
             break;
         case 'bubble':
-               //  à personnaliser si tu veux 
+               //  à personnaliser 
             break;
         case 'box-plot':
-            //  à personnaliser si tu veux 
+            //  à personnaliser  
             break;
         default:
             myChart = new Chart(ctx, {
