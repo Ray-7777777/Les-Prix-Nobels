@@ -92,5 +92,46 @@
 	<script src="filtres.js"></script>
 	<script src="recherche.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+
+    function envoyerHistorique(pageURL, id_prix_nobel) {
+    // Vérifier si l'utilisateur est connecté
+    var estConnecte = <?php echo $est_connecte ? 'true' : 'false'; ?>;
+    
+    // Vérifier si la page actuelle est un article
+    var estPageArticle = pageURL.includes("article_wikipedia.php");
+
+    if (estConnecte && estPageArticle) {
+        // Créer une requête AJAX
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "enregistrer_historique.php", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                console.log(xhr.responseText);
+            }
+        };
+        // Envoyer les données à votre script PHP
+        xhr.send("pageURL=" + encodeURIComponent(pageURL) + "&id_prix_nobel=" + encodeURIComponent(id_prix_nobel));
+    }
+}
+
+
+    window.addEventListener("load", function() {
+        // Envoyer l'historique lorsque la page est chargée
+        envoyerHistorique(window.location.href, <?php echo isset($_GET['id']) ? $_GET['id'] : 'null'; ?>);
+    });
+        
+    // Écouteur d'événement pour le changement de page (navigation)
+    window.addEventListener("beforeunload", function() {
+        // Envoyer l'historique lorsque l'utilisateur quitte la page
+        envoyerHistorique(window.location.href, <?php echo isset($_GET['id']) ? $_GET['id'] : 'null'; ?>);
+    });
+
+
+});
+
+
+</script>
 </body>
 </html>

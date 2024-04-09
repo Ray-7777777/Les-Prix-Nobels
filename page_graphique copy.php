@@ -16,7 +16,6 @@
 	 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao+Looped:wght@100..900&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto+Slab:wght@100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
 	 <link href="https://fonts.googleapis.com/css2?family=Reem+Kufi+Fun:wght@400..700&display=swap" rel="stylesheet">
 	 
-
 </head>
 <body>
     <div id="entete">
@@ -64,20 +63,20 @@
                   Type de graphe
                </a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#" onclick="changerTypeGraphe('bar')">Barre</a>
-                    <a class="dropdown-item" href="#" id="CircularDiagram">Circulaire</a>
-                    <a class="dropdown-item" href="#" id="selectYearCam">Histogramme</a>
-                    <a class="dropdown-item" href="#" onclick="changerTypeGraphe('line')">Courbe</a>
-                    <a class="dropdown-item" href="#" onclick="changerTypeGraphe('bubble')">Nuage de points</a>
-                    <a class="dropdown-item" href="#" onclick="changerTypeGraphe('box-plot')">Box-plot</a>
+                    <a class="dropdown-item" href="#" data-chart-type="bar">Barre</a> 
+                    <!-- <a class="dropdown-item" href="#" >Circulaire</a> -->
+                    <a class="dropdown-item" href="#" data-chart-type="line">Courbe</a>
+                    <a class="dropdown-item" href="#" id="selectYearCam">Diagramme en cambert</a>
+                    <a class="dropdown-item" href="#" data-chart-type=>Nuage de points</a>
+                    <a class="dropdown-item" href="#" onclick="changerTypeGraphe('box-plot')">Box-plot</a> 
                 </div>
             </div>
             <div class="dropdown"> 
                 <a class="btn btn-secondary dropdown-toggle " id="Gender" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Axe X </a>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="#">Catégorie</a>
-                    <a class="dropdown-item" href="#" id="pays">Pays de naissance</a>
-                    <a class="dropdown-item" href="#" id="historique">Historique</a>
+                    <a class="dropdown-item" href="#" id="pays">Pays d'Origine des Organisations</a>
+                    <!-- <a class="dropdown-item" href="#" id="historique">Historique</a> -->
                     <a class="dropdown-item" href="#">Pays de décès</a>
                     <a class="dropdown-item" href="#">Année</a>
                     <a class="dropdown-item" href="#" id="SEXE">Sexe</a>

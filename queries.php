@@ -31,7 +31,7 @@ $paysOrganisations = "SELECT pays_organisation AS Pays, COUNT(*) AS NombreLaurea
                 FROM organisation
                 JOIN prix_nobel ON prix_nobel.id_organisation = organisation.id_organisation
                 GROUP BY pays_organisation
-                HAVING COUNT(*) > 5
+                HAVING COUNT(*) >= 5
                 ORDER BY COUNT(*) DESC";
 
 $requetePaysOrganisations = $mysqli->query($paysOrganisations);
