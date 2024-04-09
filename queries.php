@@ -1,5 +1,27 @@
+<!-- mes requetes sql -->
 <?php
 include("connexion_base_donnee.php");
+
+// Requête SQL pour récupérer le nombre de lauréats par pays de naissance(nationalité des prix nobel)
+$query = "SELECT `Born_country`, COUNT(*) AS nbLauréats
+          FROM nomine
+          GROUP BY `Born_country`
+          HAVING COUNT(*) >= 10
+          ORDER BY COUNT(*) DESC";
+
+// Exécution de la requête
+$result = $mysqli->query($query);
+
+// Création d'un tableau pour stocker les données
+$data = array();
+
+// Récupération des données dans le tableau
+while ($row = $result->fetch_assoc()) {
+    $data[$row['Born_country']] = $row['nbLauréats'];
+}
+
+
+
 // Récupération des années 
 $queryYears = "SELECT DISTINCT Année FROM prix_nobel   ORDER BY Année ASC" ;
 $resultYears = $mysqli->query($queryYears);
@@ -12,7 +34,7 @@ while ($row = $resultYears->fetch_assoc()) {
 
 
 // ==========================================
-// ====Implication des organisations
+// ====Implication des organisations(Axe de X: organisation)
 $organisation= "SELECT nom_organisation AS Organisation, COUNT(*) AS NombreLauréats
 FROM prix_nobel
 JOIN organisation ON prix_nobel.id_organisation = organisation.id_organisation
@@ -72,13 +94,7 @@ while ($row = $requete->fetch_assoc()) {
 }
 $donneesJSON_Historique = json_encode($donnees);
 
-
-
 //-------------------------------------------------------------------------------------
-
-
-
-
 
 ///========================================= nv query 
 $queryCam = "SELECT Gender, COUNT(*) AS nombre_prix_nobel
@@ -86,7 +102,6 @@ $queryCam = "SELECT Gender, COUNT(*) AS nombre_prix_nobel
           JOIN nomine n ON pn.id_nominé = n.`Id_nominé`
           WHERE Gender IN ('female', 'male')
           GROUP BY Gender";
-          //declaration de variable en php 
 
 $queryCamExecute = $mysqli->query($queryCam);
 $queryCamArray = array();
@@ -156,16 +171,13 @@ ORDER BY
     c.Nom_catégorie ASC;";
 
 
-
-
-
-
 $resultCatCount = $mysqli->query($queryCatCount);
 $catCountData = array();
 
 while ($row = $resultCatCount->fetch_assoc()) {
     $catCountData[] = $row;
 }
+
 //conversion des donnees pour qu'elles soient facilement utilissables dans le graphes 
 $categories = [];
 $maleData= [];
@@ -251,9 +263,6 @@ while ($row = $deathCountryQuery->fetch_assoc()){
     $deathCountryArrResponseQuery[] = $row;
 }
 
-
-
-// affichage des graphiques
 ?>
 
 <?php

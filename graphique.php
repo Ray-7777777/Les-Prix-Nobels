@@ -3,10 +3,10 @@ session_start();
 require_once 'connexion_bd.php';
 $est_connecte = isset($_SESSION['user_id']);
 
-// Récupérer la connexion à la base de données
+// Récupération de la connexion à la base de données
 $connexion = getBD();
 
-// Récupérer les données sur le sexe des lauréats du prix Nobel depuis la base de données
+// Récupération des données sur le sexe des lauréats du prix Nobel depuis la base de données
 $sql = "SELECT COUNT(*) AS nombre_hommes FROM nomine WHERE Gender = 'male'";
 $stmt = $connexion->query($sql);
 $resultat = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -21,7 +21,7 @@ $sqlNationalites = "SELECT Born_Country AS Nationalite, COUNT(*) AS Nombre FROM 
 $stmtNationalites = $connexion->query($sqlNationalites);
 $nationalites = $stmtNationalites->fetchAll(PDO::FETCH_ASSOC);
 
-// Récupérer les données sur si le prix Nobel est remporté par une organisation ou une personne
+// Récupération des données si le prix Nobel est remporté par une organisation ou une personne
 $sqlTypeLaureat = "SELECT COUNT(*) AS nombre_organisations FROM prix_nobel p JOIN organisation o ON p.id_organisation = o.id_organisation WHERE o.id_organisation = 0";
 
 $stmtTypeLaureat = $connexion->query($sqlTypeLaureat);
@@ -86,7 +86,7 @@ $nombre_personnes = $nombre_hommes + $nombre_femmes - $nombre_organisations;
         </nav>
     </div>
     <div class="boite_graphique">
-	 <p id="lien-graph">Si vous souhaitez faire votre propre graphique : <a id="lien-graphe" href="graphique_perso.php">cliquez ici</a></p>
+	 <p id="lien-graph">Si vous souhaitez faire votre propre graphique : <a id="lien-graphe" href="page_graphique copy.php">cliquez ici</a></p>
 
    
     
@@ -111,7 +111,7 @@ $nombre_personnes = $nombre_hommes + $nombre_femmes - $nombre_organisations;
 </div>
 
     <script>
-        // Récupérer les données des sexes depuis PHP
+        // Récupération les données des sexes depuis PHP
         var nombreHommes = <?php echo $nombre_hommes; ?>;
         var nombreFemmes = <?php echo $nombre_femmes; ?>;
 
@@ -197,10 +197,10 @@ $nombre_personnes = $nombre_hommes + $nombre_femmes - $nombre_organisations;
             }
         });
         
-        var nombreOrganisations = <?php echo $nombre_organisations; ?>;
+var nombreOrganisations = <?php echo $nombre_organisations; ?>;
 var nombrePersonnes = <?php echo $nombre_personnes; ?>;
 
-       // Créer le graphique en barres pour la répartition par type de lauréat
+// Création le graphique en barres pour la répartition par type de lauréat
 var ctxType = document.getElementById('graphiqueType').getContext('2d');
 var graphiqueType = new Chart(ctxType, {
     type: 'pie',
@@ -241,6 +241,6 @@ var graphiqueType = new Chart(ctxType, {
     }
 });
         
-    </script>
+</script>
 </body>
-</html>
+</html> 

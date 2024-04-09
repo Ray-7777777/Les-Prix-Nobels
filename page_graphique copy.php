@@ -11,11 +11,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-	 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	 <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
-	 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao+Looped:wght@100..900&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto+Slab:wght@100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
-	 <link href="https://fonts.googleapis.com/css2?family=Reem+Kufi+Fun:wght@400..700&display=swap" rel="stylesheet">
-	 
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao+Looped:wght@100..900&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto+Slab:wght@100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Reem+Kufi+Fun:wght@400..700&display=swap" rel="stylesheet">
+    	 
 </head>
 <body>
     <div id="entete">
@@ -23,7 +23,7 @@
         <h1 class="oswald-font"><span class="text-stroke" style="color : black;">PRIX NOBEL</span></h1>
     </a>
 	</div>
-
+    
 <div class="menu" style="width: 100%;">
     <nav class="navbar navbar-expand-lg navbar-light justify-content-start px-0">
         <div class="container-fluid">
@@ -66,7 +66,7 @@
                     <a class="dropdown-item" href="#" data-chart-type="bar">Barre</a> 
                     <!-- <a class="dropdown-item" href="#" >Circulaire</a> -->
                     <a class="dropdown-item" href="#" data-chart-type="line">Courbe</a>
-                    <a class="dropdown-item" href="#" id="selectYearCam">Diagramme en cambert</a>
+                    <a class="dropdown-item" href="#"id="selectYearCam">Diagramme en cambert</a>
                     <a class="dropdown-item" href="#" data-chart-type=>Nuage de points</a>
                     <a class="dropdown-item" href="#" onclick="changerTypeGraphe('box-plot')">Box-plot</a> 
                 </div>
@@ -77,7 +77,7 @@
                     <a class="dropdown-item" href="#">Catégorie</a>
                     <a class="dropdown-item" href="#" id="pays">Pays d'Origine des Organisations</a>
                     <!-- <a class="dropdown-item" href="#" id="historique">Historique</a> -->
-                    <a class="dropdown-item" href="#">Pays de décès</a>
+                    <a class="dropdown-item" href="#">Nationnalité des L'auréats</a>
                     <a class="dropdown-item" href="#">Année</a>
                     <a class="dropdown-item" href="#" id="SEXE">Sexe</a>
                     <a class="dropdown-item" href="#" id="organisation">Organisation</a>
@@ -132,13 +132,7 @@ var impactData = <?php echo json_encode($jsonImpactData); ?>;
 var queryCam =  <?php echo json_encode($queryCamArray); ?>; 
 var donneesPaysOrganisation = <?php echo ($paysOrganisationsJSON); ?>;
 
- 
-    </script>
-
-
-
-
-
+</script>
 
 </body>
 

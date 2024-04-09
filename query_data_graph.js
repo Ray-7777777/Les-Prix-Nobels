@@ -21,7 +21,7 @@ var ctx = document.getElementById('graphs').getContext('2d');
 function updateBarGraph(selectedYear) {
 var filteredData = datasets.filter(dataset => dataset.label === selectedYear);
 
- detruireGraphiqueActuel();
+detruireGraphiqueActuel();
 filteredData.forEach(dataset => {
 dataset.backgroundColor = dataset.data.map((_, index) => {
     return `hsl(${index * 50 % 360}, 100%, 70%)`;
@@ -173,7 +173,7 @@ function updatePieGraph(year) {
     }
     if (femaleData[year] && femaleData[year][category]) {
         totalByGender.female += femaleData[year][category];
-    }
+    } 
     });
     
     var total = totalByGender.male + totalByGender.female;
