@@ -1,18 +1,18 @@
 /* CSS des pages */
 
-html{
+html {
 	background-color: white;
 	border: solid 1.5px black;
 }
 
-h1{
-	border: solid 1px black;
-	margin-bottom: 8px;
-	margin-top: 5px;
-	background-color: #FFFCE9;
-	text-align: center;
-	font-size: 54px;
-	position: fixed;
+h1 {
+	 border: solid 1px black;
+	 margin-bottom: 8px;
+	 margin-top: 5px;
+	 background-color: #FFFCE9;
+	 text-align: center;
+	 font-size: 54px;
+	 position: fixed;
     top: 0;
     width: 100%;
     z-index: 1;
@@ -20,54 +20,50 @@ h1{
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
 }
 
-h1:hover{
-	transform: scale(1.1);
+h1:hover {
+	 transform: scale(1.1);
 }
 
 .oswald-font {
-  font-family: "Oswald", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 400;
-  font-style: normal;
+    font-family: "Oswald", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
 }
 
 body{
     margin: 0;
     margin-left: -2px;
     font-family: "PT Sans", sans-serif;
-  font-weight: 200;
-  font-style: normal;
+    font-weight: 200;
+    font-style: normal;
 }
 
-
-
 .menu {
-   justify-content: space-around; 
-   align-items: center; 
-	border: solid 1px black ;
-	border-bottom: solid 0px white;	
-	font-family: sans-serif;
-	font-weight: bold;
-	
-	position: fixed;
-   top: calc(80px); 
-   width: 100%;
-   z-index: 1;
+    justify-content: space-around; 
+    align-items: center; 
+	 border: solid 1px black ;
+	 border-bottom: solid 0px white;	
+	 font-family: sans-serif;
+	 font-weight: bold;
+	 position: fixed;
+    top: calc(80px); 
+    width: 100%;
+    z-index: 1;
     font-family: "Reem Kufi Fun", sans-serif;
-  font-weight: 600;
-  font-style: normal; 
+    font-weight: 600;
+    font-style: normal; 
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
     box-shadow: 4px 4px 5px rgba(0, 0, 0, 1);
 }
 
 .menu .navbar-nav .nav-link {
-        color: black;
-    }
+    color: black;
+}
     
 .navbar {
     height: 34px;  
 }
-
 
 .menu .container-fluid {
     padding-left: 0;
@@ -75,7 +71,6 @@ body{
     background-color: #FFFEF9;
 
 }
-
 
 .menu a {
     font-size: 18px;
@@ -88,9 +83,8 @@ body{
 }
 
 .navbar {
-        background-color: white !important;
-        
-    }
+    background-color: white !important; 
+}
 
 #entete {   
     padding-top: 116px;
@@ -244,9 +238,11 @@ body{
 .close-icon::after {
     transform: translate(-50%, -50%) rotate(-45deg);
 }
+
 .titre_recherche {
     font-size: 2em;
 }
+
 .minibio {
     padding-left: 2%;
     margin-right: 4%;
@@ -267,6 +263,7 @@ body{
     bottom: 0;
     right: 0;
 }
+
 .sousFiltre {
     max-height: 200px;
     overflow-y: auto;
@@ -319,8 +316,6 @@ body{
     padding-right: 20px;
 }
 
-
-
 .boite_index {   
     background-color: #FFFEF9;
     position: fixed;
@@ -332,9 +327,6 @@ body{
     transform: translate(-50%, -50%); 
     box-shadow: 0 0 5px rgba(1, 1, 1, 0.4);
 }
-
-
-
 
 .transition-effect {
     transition: opacity 6s ease; 
@@ -348,8 +340,6 @@ body{
     transform: translateX(-50%);
     z-index: 2; 
 }
-
-
 
 .selector-dot {
     display: inline-block;
@@ -420,18 +410,41 @@ body{
 
 /* CSS pour la page graphique */
 
-.contenu_graphe {
-	 display: block;
-	 justify-content: center;
-	 height: 50%;
-	 margin: 1%;
+.boite_graphique {
+    border: solid 0.1rem black;
+    margin: 2%;
+    background-color: #FFFEF9;
+    width: 96%;
+    box-shadow: 0 0 5px rgba(1, 1, 1, 0.4);
+    border-radius: 25px;
+    min-height: 80vh;
+    padding-bottom: 50px;
 }
 
-#graphs {
+.titre_graphique_prefait {
+	 padding-top: 20px;
+	 padding-bottom: 20px;
+	 text-align: center;
+	 font-weight: bold;
+	 font-size: 20px;
+	 text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+	 font-family: "PT Sans", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    text-decoration: underline;
+}
+
+#lien-graph {
+	 font-size: 22px;
+	 text-decoration: none;
+	 color: black;
+	 padding-top: 40px;
+	 padding-bottom: 20px;
+	 text-align: center;
+	 text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+	 font-family: "PT Sans", sans-serif;
 	 display: block;
-	 justify-content: center;
-	 width: 80%;
-	 height: 400px !important;
+	 font-weight: 600;
 }
 
 
