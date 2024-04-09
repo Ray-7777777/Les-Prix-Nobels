@@ -274,10 +274,10 @@
                             $nom = $resultat_nomine['Nom'];
                             $categorie = $resultat_nomine['Nom_catégorie'];
                             $annee = $resultat_nomine['Année'];
-                            echo "<li class='info-bulle' title='$categorie $annee' onclick=\"window.location='article.php?id=" . $prix_nobel['id_prix_nobels'] . "';\" style='display: flex; cursor: pointer; flex-direction: column; align-items: center; text-align: center;'>";
+                            echo "<li class='info-bulle' title='$categorie $annee' onclick=\"window.location='article_wikipedia.php?id=" . $prix_nobel['id_prix_nobels'] . "';\" style='display: flex; cursor: pointer; flex-direction: column; align-items: center; text-align: center;'>";
                             echo "<img style='box-shadow: 0 0 5px rgba(1, 1, 1, 0.4);display: inline-block;margin-left: auto;margin-right: auto;border:solid 2px black;width: 130px; height: 150px; object-fit: cover;' src='$photo' alt='Photo'>";
                             echo "<br>";
-                            echo "<a id='titre_reco' href='article.php?id=" . $prix_nobel['id_prix_nobels'] . "'>$prenom $nom</a>";
+                            echo "<a id='titre_reco' href='article_wikipedia.php?id=" . $prix_nobel['id_prix_nobels'] . "'>$prenom $nom</a>";
                             echo "</li>";
                         } else {
                             echo "Aucun résultat trouvé.";
@@ -289,9 +289,12 @@
                 <?php if ($est_connecte) : ?>
                     <div id='reco_uti'>
                         <!-- Affichage des recommandations pour l'utilisateur connecté -->
-                        <h2 id='titre_sim'>Recommandations</h2>
+                        <h2 id='titre_sim'>Recommandations Personnelles</h2>
                         <ul id='liste_sim'>
-                            <?php foreach ($prix_nobel_similaires as $prix_nobel) : ?>
+                            <?php 
+                                // Recommander des prix Nobel similaires
+                                $prix_nobel_historique_similaires = recommander_prix_nobel_historique_similaires($_GET['id']);
+                                foreach ($prix_nobel_historique_similaires as $prix_nobel) : ?>
                                 <?php
                               
                                 $sql = "SELECT nomine.Prénom, nomine.Nom, nomine.Photos, categorie.Nom_catégorie, prix_nobel.Année
@@ -312,10 +315,10 @@
                                     $nom = $resultat_nomine['Nom'];
                                     $categorie = $resultat_nomine['Nom_catégorie'];
                                     $annee = $resultat_nomine['Année'];
-                                    echo "<li class='info-bulle' title='$categorie $annee' onclick=\"window.location='article.php?id=" . $prix_nobel['id_prix_nobels'] . "';\" style='display: flex; cursor: pointer; flex-direction: column; align-items: center; text-align: center;'>";
+                                    echo "<li class='info-bulle' title='$categorie $annee' onclick=\"window.location='article_wikipedia.php?id=" . $prix_nobel['id_prix_nobels'] . "';\" style='display: flex; cursor: pointer; flex-direction: column; align-items: center; text-align: center;'>";
                                     echo "<img style='box-shadow: 0 0 5px rgba(1, 1, 1, 0.4);display: inline-block;margin-left: auto;margin-right: auto;border:solid 2px black;width: 130px; height: 150px; object-fit: cover;' src='$photo' alt='Photo'>";
                                     echo "<br>";
-                                    echo "<a id='titre_reco' href='article.php?id=" . $prix_nobel['id_prix_nobels'] . "'>$prenom $nom</a>";
+                                    echo "<a id='titre_reco' href='article_wikipedia.php?id=" . $prix_nobel['id_prix_nobels'] . "'>$prenom $nom</a>";
                                     echo "</li>";
                                 } else {
                                     echo "Aucun résultat trouvé.";
@@ -388,7 +391,45 @@ document.addEventListener("DOMContentLoaded", function() {
     closeButton.addEventListener('click', function() {
         hidePreview();
     });
+
+    
+    function envoyerHistorique(pageURL, id_prix_nobel) {
+    // Vérifier si l'utilisateur est connecté
+    var estConnecte = <?php echo $est_connecte ? 'true' : 'false'; ?>;
+    
+    // Vérifier si la page actuelle est un article
+    var estPageArticle = pageURL.includes("article_wikipedia.php");
+
+    if (estConnecte && estPageArticle) {
+        // Créer une requête AJAX
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "enregistrer_historique.php", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                console.log(xhr.responseText);
+            }
+        };
+        // Envoyer les données à votre script PHP
+        xhr.send("pageURL=" + encodeURIComponent(pageURL) + "&id_prix_nobel=" + encodeURIComponent(id_prix_nobel));
+    }
+}
+
+
+    // Écouteur d'événement pour le chargement de la page
+    window.addEventListener("load", function() {
+        // Envoyer l'historique lorsque la page est chargée
+        envoyerHistorique(window.location.href);
+    });
+        
+    // Écouteur d'événement pour le changement de page (navigation)
+    window.addEventListener("beforeunload", function() {
+        // Envoyer l'historique lorsque l'utilisateur quitte la page
+        envoyerHistorique(window.location.href);
+    });
+
 });
+
 
 </script>
 
