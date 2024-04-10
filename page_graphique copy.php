@@ -63,12 +63,11 @@
                   Type de graphe
                </a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#" data-chart-type="bar">Barre</a> 
-                    <!-- <a class="dropdown-item" href="#" >Circulaire</a> -->
-                    <a class="dropdown-item" href="#" data-chart-type="line">Courbe</a>
+                    <a class="dropdown-item ourGraph" href="#" data-chart-type="bar">Barre</a> 
+                    <a class="dropdown-item ourGraph" href="#" data-chart-type="line">Courbe</a>
+                    <a class="dropdown-item ourGraph2" href="#" data-chart-type="doughnut">Anneau</a>
+                    <a class="dropdown-item ourGraph2" href="#" data-chart-type="bar">Barre 2</a><!--renomme -->
                     <a class="dropdown-item" href="#"id="selectYearCam">Diagramme en cambert</a>
-                    <a class="dropdown-item" href="#" data-chart-type=>Nuage de points</a>
-                    <a class="dropdown-item" href="#" onclick="changerTypeGraphe('box-plot')">Box-plot</a> 
                 </div>
             </div>
             <div class="dropdown"> 
@@ -101,17 +100,20 @@
           ?>
       </select>
   </div>
+
+
+  <div class="dropdown">
+      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Fil du temps
+      </a>
+  </div>
         </div>
         <!-- le contenu du canvas du graphe  -->
-        <div class="contenu_graphe">
-
-
-        
-            <ul>
-                <div>
-                    <canvas id="graphs"></canvas>
-                </div>
-            </ul>
+        <div class="contenu_graphe">   
+            <div>
+            <canvas id="graphs"></canvas>
+            </div>    
+             
         </div>
         <!-- fin du contenu du canvas -->
     </div>
@@ -120,7 +122,7 @@
     <script src="query_data_graph.js"></script>
    
 <script>
-       var donneesHistorique = <?php echo $donneesJSON_Historique; ?>;   
+var donneesHistorique = <?php echo $donneesJSON_Historique; ?>;   
 var organisation = <?php echo json_encode($var_Array_Organisation); ?>;
 var categories = <?php echo $jsonCategories; ?>;
 var datasets = <?php echo $jsonDatasets; ?>;
@@ -131,6 +133,8 @@ var decennies = <?php echo json_encode($decennies); ?>;
 var impactData = <?php echo json_encode($jsonImpactData); ?>;
 var queryCam =  <?php echo json_encode($queryCamArray); ?>; 
 var donneesPaysOrganisation = <?php echo ($paysOrganisationsJSON); ?>;
+var nationalites = <?php echo json_encode($datas);?>;
+
 
 </script>
 

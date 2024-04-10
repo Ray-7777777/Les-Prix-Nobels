@@ -471,10 +471,11 @@ body{
     text-align: left;
 }
 .contenu_graphe{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+   margin-left: 10%;
+    height: 250px;
+    width: 60%;
 }
+
 #varY{
     border-left: black solid 2px;
     margin-left: 2%;

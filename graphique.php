@@ -86,7 +86,9 @@ $nombre_personnes = $nombre_hommes + $nombre_femmes - $nombre_organisations;
         </nav>
     </div>
     <div class="boite_graphique">
-	 <p id="lien-graph">Si vous souhaitez faire votre propre graphique : <a id="lien-graphe" href="page_graphique copy.php">cliquez ici</a></p>
+	 <p id="lien-graph">Si vous souhaitez faire votre propre graphique : <a id="lien-graphe" href="graphiques_perso.php">cliquez ici</a></p>
+     <p id="lien-graph">Si vous souhaitez faire votre propre graphique : <a id="lien-graphe" href="page_graphique copy.php">cliquez ici</a></p>
+
 
    
     

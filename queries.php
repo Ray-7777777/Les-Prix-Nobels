@@ -3,21 +3,15 @@
 include("connexion_base_donnee.php");
 
 // Requête SQL pour récupérer le nombre de lauréats par pays de naissance(nationalité des prix nobel)
-$query = "SELECT `Born_country`, COUNT(*) AS nbLauréats
+$queryCountry = "SELECT `Born_country`, COUNT(*) AS nbLauréats
           FROM nomine
           GROUP BY `Born_country`
           HAVING COUNT(*) >= 10
           ORDER BY COUNT(*) DESC";
-
-// Exécution de la requête
-$result = $mysqli->query($query);
-
-// Création d'un tableau pour stocker les données
-$data = array();
-
-// Récupération des données dans le tableau
+$result = $mysqli->query($queryCountry);
+$datas = array();
 while ($row = $result->fetch_assoc()) {
-    $data[$row['Born_country']] = $row['nbLauréats'];
+    $datas[$row['Born_country']] = $row['nbLauréats'];
 }
 
 

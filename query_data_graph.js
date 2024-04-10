@@ -1,4 +1,5 @@
 let currentChart;
+let ctx = document.getElementById('graphs').getContext('2d');
 
 function detruireGraphiqueActuel() {
     if (currentChart) {
@@ -7,16 +8,12 @@ function detruireGraphiqueActuel() {
     }
 }
 
-
-
-
-
 function couleurAleatoire() {
     return `rgba(${[...Array(3)].map(() => Math.floor(Math.random() * 255)).join(',')},0.5)`;
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-var ctx = document.getElementById('graphs').getContext('2d');
+
 
 function updateBarGraph(selectedYear) {
 var filteredData = datasets.filter(dataset => dataset.label === selectedYear);
@@ -67,56 +64,12 @@ options: {
 
 
 
-// function grapheLineaire() {
-// var categories = [...new Set(donneesHistorique.map(item => item.Nom_catégorie))];
-// var intervalles = [...new Set(donneesHistorique.map(item => item.Intervalle))].sort();
-
-// var datasets = categories.map(catégorie => {
-// var dataPourCategorie = donneesHistorique.filter(item => item.Nom_catégorie === catégorie);
-// var data = intervalles.map(intervalle => {
-// var item = dataPourCategorie.find(item => item.Intervalle === intervalle);
-// return item ? item.nbLauréats : 0;
-// });
-
-// return {
-// label: catégorie,
-// data: data,
-// fill: false,
-
-// };
-// });
-// detruireGraphiqueActuel();
-
-// var ctx = document.getElementById('graphs').getContext('2d');
-// currentChart = new Chart(ctx, {
-// type: 'line', 
-// data: {
-// labels: intervalles,
-// datasets: datasets
-// },
-// options: {
-// scales: {
-//     y: {
-//         beginAtZero: true
-//     }
-// },
-// plugins: {
-//     title: {
-//         display: true,
-//         text: 'Nombre de lauréats par catégorie et intervalle d\'années'
-//     }
-// }
-// }
-// });
-
-// }
 
 
 
 /// genereration des historiques sous formes de plusieurs graphes 
 function genererGraphique(typeGraphique, datasets) {
     detruireGraphiqueActuel();
-    var ctx = document.getElementById('graphs').getContext('2d');
     currentChart = new Chart(ctx, {
         type: typeGraphique,
         data: {
@@ -126,6 +79,9 @@ function genererGraphique(typeGraphique, datasets) {
         options: datasets.options
     });
 }
+
+
+
 
 /// genereration des historiques sous formes de plusieurs graphes 
 
@@ -218,14 +174,16 @@ function updatePieGraph(year) {
     });
 }
 
-function grapheEnCambert(selectYear) {
-        var yearData = datasets.find(dataset => dataset.label === selectedYear);
-        if (!yearData) return; 
-        var ctx = document.getElementById('graphs').getContext('2d');
-        
-        detruireGraphiqueActuel();
-        var total = yearData.data.reduce((acc, value) => acc + Number(value), 0);
-        currentChart = new Chart(ctx, {
+function grapheEnCambert() {
+    var selectedYear = document.getElementById('selectYear').value;
+    
+    var yearData = datasets.find(dataset => dataset.label === selectedYear);
+    if (!yearData) return;  
+
+    detruireGraphiqueActuel();
+    var total = yearData.data.reduce((acc, value) => acc + Number(value), 0);
+    var ctx = document.getElementById('graphs').getContext('2d');
+    currentChart = new Chart(ctx, {
         type: 'pie',
         data: {
             labels: categories,
@@ -259,7 +217,7 @@ function grapheEnCambert(selectYear) {
             },
             responsive: true,
         }
-        });
+    });
 }
 
 function grapheEnCam2(){
@@ -294,13 +252,7 @@ function grapheEnCam2(){
     
     }
 
-
-document.getElementById('historique').addEventListener('click', function() {
-grapheLineaire();
-});
-
-//Listener pour la generartion des historiques sur plusieurs graphs 
-document.querySelectorAll('.dropdown-item').forEach(item => {
+document.querySelectorAll('.ourGraph').forEach(item => {
     item.addEventListener('click', function(e) {
         e.preventDefault();
         var typeGraphique = e.target.getAttribute('data-chart-type');
@@ -358,6 +310,98 @@ document.querySelectorAll('.dropdown-item').forEach(item => {
     });
 });
 
+
+document.querySelectorAll('.ourGraph, .ourGraph2').forEach(item => {
+    item.addEventListener('click', function(e) {
+        e.preventDefault();
+        var typeGraphique = e.target.getAttribute('data-chart-type');
+        if(e.target.classList.contains('ourGraph2')) {
+            var labels = Object.keys(nationalites);
+            var data = Object.values(nationalites).map(Number);
+
+            var datasets = [{
+                label: 'Nombre de Lauréats par Pays',
+                data: data,
+                backgroundColor: labels.map(_ => couleurAleatoire()),
+                borderColor: labels.map(_ => couleurAleatoire()),
+            }];
+
+            var options = {
+                plugins: {
+                    legend: { display: true },
+                    title: {
+                        display: true,
+                        text: 'Répartition des lauréats par pays'
+                    }
+                }
+            };
+
+            genererGraphique(typeGraphique, { labels: labels, datasets: datasets, options: options });
+        } else {
+            var categories = [...new Set(donneesHistorique.map(item => item.Nom_catégorie))];
+        var intervalles = [...new Set(donneesHistorique.map(item => item.Intervalle))].sort();
+        
+        var datasets = categories.map(catégorie => {
+            var dataPourCategorie = donneesHistorique.filter(item => item.Nom_catégorie === catégorie);
+            var data = intervalles.map(intervalle => {
+                var item = dataPourCategorie.find(item => item.Intervalle === intervalle);
+                return item ? item.nbLauréats : 0;
+            });
+
+            return {
+                label: catégorie,
+                data: data,
+                fill: false,
+                backgroundColor: couleurAleatoire(), 
+                borderColor: couleurAleatoire(), 
+                tension: 0.1 
+            };
+        });
+        var options = {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: "Nombre de lauréats"
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: "Intervalle d'années"
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: true 
+                },
+                title: {
+                    display: true,
+                    text: 'Nombre de lauréats par catégorie et intervalle d\'années'
+                }
+            }
+        };
+
+        genererGraphique(typeGraphique, {labels: intervalles, datasets: datasets, options: options});  
+        }
+
+
+    });
+});
+
+
+
+
+
+
+
+
+
+
+
+
 document.getElementById('organisation').addEventListener('click', function() {
     var labels = organisation.map(o => o.Organisation);
     var donnees = organisation.map(o => o.NombreLauréats);
@@ -392,10 +436,9 @@ grapheEnCam2()
 });
 
 
-/*document.getElementById('selectYearCam').addEventListener('click', function() {
-var selectedYear = document.getElementById('selectYear').value;
-grapheEnCambert(selectedYear);
-});*/
+document.getElementById('selectYearCam').addEventListener('click', function() {
+grapheEnCambert();
+});
 
 
 
