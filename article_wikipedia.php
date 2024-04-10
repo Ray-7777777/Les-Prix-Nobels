@@ -46,7 +46,7 @@
                         <a class="nav-link mx-5" id="recherche" href="recherche.php" style="color: black;">Recherche</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link mx-5" id="graphique" href="graphique.php" style="color: black;">Graphique</a>
+                        <a class="nav-link mx-5" id="graphique" href="./page_graphique copy.php" style="color: black;">Graphique</a>
                     </li>
                     <li class="nav-item">
                         <?php
@@ -263,7 +263,7 @@
                             WHERE prix_nobel.id_prix_nobels = :id";
 
                         $stmt = $connexion->prepare($sql);
-                        $stmt->bindParam(':id', $prix_nobel['id_prix_nobels'], PDO::PARAM_INT);
+                        $stmt->bindParam(':id', $prix_nobel, PDO::PARAM_INT);
                         $stmt->execute();
                         $resultat_nomine = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -274,10 +274,10 @@
                             $nom = $resultat_nomine['Nom'];
                             $categorie = $resultat_nomine['Nom_catégorie'];
                             $annee = $resultat_nomine['Année'];
-                            echo "<li class='info-bulle' title='$categorie $annee' onclick=\"window.location='article_wikipedia.php?id=" . $prix_nobel['id_prix_nobels'] . "';\" style='display: flex; cursor: pointer; flex-direction: column; align-items: center; text-align: center;'>";
+                            echo "<li class='info-bulle' data-id='" . $prix_nobel . "' title='$categorie $annee' onclick=\"window.location='article_wikipedia.php?id=" . $prix_nobel . "';\" style='display: flex; cursor: pointer; flex-direction: column; align-items: center; text-align: center;'>";
                             echo "<img style='box-shadow: 0 0 5px rgba(1, 1, 1, 0.4);display: inline-block;margin-left: auto;margin-right: auto;border:solid 2px black;width: 130px; height: 150px; object-fit: cover;' src='$photo' alt='Photo'>";
                             echo "<br>";
-                            echo "<a id='titre_reco' href='article_wikipedia.php?id=" . $prix_nobel['id_prix_nobels'] . "'>$prenom $nom</a>";
+                            echo "<a id='titre_reco' href='article_wikipedia.php?id=" . $prix_nobel . "'>$prenom $nom</a>";
                             echo "</li>";
                         } else {
                             echo "Aucun résultat trouvé.";
@@ -293,7 +293,7 @@
                         <ul id='liste_sim'>
                             <?php 
                                 // Recommander des prix Nobel similaires
-                                $prix_nobel_historique_similaires = recommander_prix_nobel_historique_similaires($_GET['id']);
+                                $prix_nobel_historique_similaires = recommander_prix_nobel_historique_similaires($_SESSION['user_id']);
                                 foreach ($prix_nobel_historique_similaires as $prix_nobel) : ?>
                                 <?php
                               
@@ -304,7 +304,7 @@
                                     WHERE prix_nobel.id_prix_nobels = :id";
 
                                 $stmt = $connexion->prepare($sql);
-                                $stmt->bindParam(':id', $prix_nobel['id_prix_nobels'], PDO::PARAM_INT);
+                                $stmt->bindParam(':id', $prix_nobel, PDO::PARAM_INT);
                                 $stmt->execute();
                                 $resultat_nomine = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -315,10 +315,10 @@
                                     $nom = $resultat_nomine['Nom'];
                                     $categorie = $resultat_nomine['Nom_catégorie'];
                                     $annee = $resultat_nomine['Année'];
-                                    echo "<li class='info-bulle' title='$categorie $annee' onclick=\"window.location='article_wikipedia.php?id=" . $prix_nobel['id_prix_nobels'] . "';\" style='display: flex; cursor: pointer; flex-direction: column; align-items: center; text-align: center;'>";
+                                    echo "<li class='info-bulle' title='$categorie $annee' onclick=\"window.location='article_wikipedia.php?id=" . $prix_nobel . "';\" style='display: flex; cursor: pointer; flex-direction: column; align-items: center; text-align: center;'>";
                                     echo "<img style='box-shadow: 0 0 5px rgba(1, 1, 1, 0.4);display: inline-block;margin-left: auto;margin-right: auto;border:solid 2px black;width: 130px; height: 150px; object-fit: cover;' src='$photo' alt='Photo'>";
                                     echo "<br>";
-                                    echo "<a id='titre_reco' href='article_wikipedia.php?id=" . $prix_nobel['id_prix_nobels'] . "'>$prenom $nom</a>";
+                                    echo "<a id='titre_reco' href='article_wikipedia.php?id=" . $prix_nobel . "'>$prenom $nom</a>";
                                     echo "</li>";
                                 } else {
                                     echo "Aucun résultat trouvé.";
@@ -416,17 +416,14 @@ document.addEventListener("DOMContentLoaded", function() {
 }
 
 
-    // Écouteur d'événement pour le chargement de la page
-    window.addEventListener("load", function() {
-        // Envoyer l'historique lorsque la page est chargée
-        envoyerHistorique(window.location.href);
+    // Écouteur d'événement pour le clic sur les liens de prix Nobel
+document.querySelectorAll('#reco_sim ul li').forEach(function(item) {
+    item.addEventListener('click', function() {
+        var id_prix_nobel = this.getAttribute('data-id');
+        envoyerHistorique(window.location.href, id_prix_nobel);
     });
-        
-    // Écouteur d'événement pour le changement de page (navigation)
-    window.addEventListener("beforeunload", function() {
-        // Envoyer l'historique lorsque l'utilisateur quitte la page
-        envoyerHistorique(window.location.href);
-    });
+});
+
 
 });
 
