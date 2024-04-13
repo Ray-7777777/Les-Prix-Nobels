@@ -217,6 +217,7 @@ body{
 .filters {
     padding-left: 5%;
     display: inline-block;
+    width: 100%;
 }
 
 #activeFilters {
@@ -236,8 +237,10 @@ body{
 
 #sousFiltre {
     display: inline-block;
-}
 
+    padding-top: 2%;
+}
+    
 .sousFiltre {
     max-height: 200px;
     overflow-y: auto;
