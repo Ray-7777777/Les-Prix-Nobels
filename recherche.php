@@ -21,14 +21,14 @@
 	 <link href="https://fonts.googleapis.com/css2?family=Reem+Kufi+Fun:wght@400..700&display=swap" rel="stylesheet">	 
 
 </head>
-<body>
+<body id="body_recherche">
     <div id="entete">
     <a href="index.php" style="text-decoration: none;">
-        <h1 class="oswald-font"><span class="text-stroke" style="color : black;">PRIX NOBEL</span></h1>
+        <h1 class="oswald-font" id="menu_recherche"><span class="text-stroke" style="color : black;">PRIX NOBEL</span></h1>
     </a>
 	</div>
 
-<div class="menu" style="width: 100%;">
+<div class="menu" id="menu_recherche" style="width: 100%;">
     <nav class="navbar navbar-expand-lg navbar-light justify-content-start px-0">
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -65,26 +65,32 @@
 				<nav class="navbar navbar-light bg-light rounded-pill col-lg-12">
   					<div class="container-fluid recherche">
     					<form class="d-flex recherche" action="rechercher.php" method="post">
-      						<input class="form-control me-2 col-lg-12" type="search" placeholder="Rechercher" aria-label="Rechercher" id="bar" name="recherche">
-      						<button class="btn btn-outline-success" type="submit" id="boutonRecherche">Recherche</button>
+      						<input class="form-control me-2 col-lg-12" type="search" placeholder="Rechercher" aria-label="Rechercher" id="bar" style="border: 1px solid black;border-radius: 30px;box-shadow: 0 0 5px rgba(1, 1, 1, 0.4);" name="recherche">
+      						<button style="border: 1px solid black; border-radius: 150px; box-shadow: 0 0 5px rgba(1, 1, 1, 0.4); background-color: transparent;" 
+        class="btn btn-outline-success" type="submit" id="boutonRecherche"
+        onmouseover="this.style.backgroundColor='#cfd1cd';" 
+        onmouseout="this.style.backgroundColor='transparent';">
+    <img src="Images/loupe.png" width="20" height="20">
+</button>
+<div class="dropdown">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Filtres
+                </a>
+                <div class="dropdown-menu">
+                    <button class="dropdown-item BFiltre" type="button" id="Bnationalite" name="Born_country">Nationalité</button>
+                    <button class="dropdown-item BFiltre" type="button" id="Bgenre" name="Gender">Genre</button>
+                </div>
+            </div>
+
     					</form>
   					</div>
+				<div class="filters" ">
+				</div>
 				<div id="activeFilters">
 				</div>
 				</nav>
 			</div>
-            <div class="filters">
-			</div>
-			<div class="dropdown">
-  				<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    				Filtres
- 				</a>
-
-  				<div class="dropdown-menu">
-    				<button class="dropdown-item BFiltre" type="button" id="Bnationalite" name="Born_country">Nationalité</button>
-   					<button class="dropdown-item BFiltre" type="button" id="Bgenre" name="Gender">Genre</button>
-  				</div>
-			</div>
+			
 		</div>
 		<div class="contenu">
 		</div>
@@ -133,5 +139,20 @@
 
 
 </script>
+<script>
+$(document).ready(function() {
+    // Afficher seulement le texte avant le premier "=="
+    $(".minibio").each(function() {
+        var text = $(this).text();
+        var index = text.indexOf("=="); // Trouver l'index du premier "=="
+        if (index !== -1) {
+            text = text.substring(0, index); // Extraire le texte avant le premier "=="
+        }
+        $(this).text(text);
+    });
+});
+</script>
+
+
 </body>
 </html>

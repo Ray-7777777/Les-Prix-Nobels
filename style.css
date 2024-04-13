@@ -6,13 +6,13 @@ html {
 }
 
 h1 {
-	 border: solid 1px black;
-	 margin-bottom: 8px;
-	 margin-top: 5px;
-	 background-color: #FFFCE9;
-	 text-align: center;
-	 font-size: 54px;
-	 position: fixed;
+	border: solid 1px black;
+	margin-bottom: 8px;
+	margin-top: 5px;
+	background-color: #FFFCE9;
+    text-align: center;
+	font-size: 54px;
+	position: fixed;
     top: 0;
     width: 100%;
     z-index: 1;
@@ -21,7 +21,7 @@ h1 {
 }
 
 h1:hover {
-	 transform: scale(1.1);
+	transform: scale(1.1);
 }
 
 .oswald-font {
@@ -42,11 +42,11 @@ body{
 .menu {
     justify-content: space-around; 
     align-items: center; 
-	 border: solid 1px black ;
-	 border-bottom: solid 0px white;	
-	 font-family: sans-serif;
-	 font-weight: bold;
-	 position: fixed;
+	border: solid 1px black ;
+	border-bottom: solid 0px white;	
+	font-family: sans-serif;
+	font-weight: bold;
+	position: fixed;
     top: calc(80px); 
     width: 100%;
     z-index: 1;
@@ -98,28 +98,47 @@ body{
 
 /* CSS pour la page recherche */
 
+#body_recherche{
+    margin: 0;
+    margin-left: -px;
+    font-family: "PT Sans", sans-serif;
+    font-weight: 200;
+    font-style: normal;
+}
+
+#h1_recherche{
+	 margin-left: -2px;
+	 border-left: solid 2px black;
+}
+
+#menu_recherche{
+    margin-left: -2px;
+    border-left: solid 2px black;
+}
+
 .boite_recherche{
-	 margin: 2%;
-	 background-color: #FFFEF9;
-	 position: fixed;
-	 height: 75%;
-	 width: 96%;
-	 border-radius: 25px;
-    overflow-y: auto;
+	margin: 2%;
+	background-color: #FFFEF9;
+	width: 96%;
+	border-radius: 25px;
     box-shadow: 0 0 5px rgba(1, 1, 1, 0.4);
+    border: solid 0.1rem black;
+    box-shadow: 0 0 5px rgba(1, 1, 1, 0.4);
+    border-radius: 25px;
+    min-height: 80vh;
 }
 
 .topBar{
-	 margin-bottom: 1%;
-	 display: flex;
-	 text-align: center;
+	margin-bottom: 1%;
+	display: flex;
+	text-align: center;
 }
 
 #search{
-	 margin-top: 1%;
-	 width: 90%;
-	 border-radius: 15px;
-	 padding-left: 2%;
+	margin-top: 1%;
+	width: 90%;
+	border-radius: 15px;
+	padding-left: 2%;
 }
 
 .navbar.navbar-light.bg-light.rounded-pill.col-lg-12 {
@@ -131,11 +150,13 @@ body{
 }
 
 .dropdown {
-	 margin-left: 2%;
-	 margin-right: 2%;
-	 margin-top: 1.5%;
-	 height: 10%;
-	 display: inline-block;
+	margin-left: 8%;
+	margin-right: 2%;
+	margin-top: 1.5%;
+	height: 10%;
+	display: inline-block;
+    box-shadow: 0 0 5px rgba(1, 1, 1, 0.4);
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
 .contenu {
@@ -144,14 +165,11 @@ body{
     justify-content: center;
     align-items: center;
     height: calc(100%); 
-    margin-left: 2%;
+    margin-left: 5%;
     margin-top: 2%;
-    margin-bottom: -5%;
+    margin-right: 5%;
 }
 
-.titre_recherhce{
-    font-size: 300px;
-}
 .minibio{
     padding-left: 2%;
     margin-right: 4%;
@@ -207,13 +225,14 @@ body{
 
 #sousFiltre {
     display: inline-block;
-    }
-    
+}
+
 .sousFiltre {
     max-height: 200px;
     overflow-y: auto;
     overflow-x: hidden;
 }
+
 
 .close-icon {
     position: relative;
@@ -240,7 +259,13 @@ body{
 }
 
 .titre_recherche {
-    font-size: 2em;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+}
+.titre_recherche:hover {
+    text-decoration: underline;
 }
 
 .minibio {
@@ -249,7 +274,9 @@ body{
     max-height: 18vh;
     overflow-y: hidden;
     position: relative;
+    margin-bottom: 2%;
 }
+
 
 .minibio:after {
     content: '...';
@@ -264,11 +291,8 @@ body{
     right: 0;
 }
 
-.sousFiltre {
-    max-height: 200px;
-    overflow-y: auto;
-    overflow-x: hidden;
-}
+
+
 
 
 /* CSS pour la page d'accueil */
