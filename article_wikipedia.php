@@ -46,7 +46,7 @@
                         <a class="nav-link mx-5" id="recherche" href="recherche.php" style="color: black;">Recherche</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link mx-5" id="graphique" href="./page_graphique copy.php" style="color: black;">Graphique</a>
+                        <a class="nav-link mx-5" id="graphique" href="graphique.php" style="color: black;">Graphique</a>
                     </li>
                     <li class="nav-item">
                         <?php
@@ -157,7 +157,7 @@
                 
 
                 echo "<div style='margin-right:2%;margin-left:2%;'>"; 
-                echo "<div style='float: right; margin-left: 10px; width: 300px;'>"; 
+                echo "<div style='float: right; margin-left: 30px; width: 300px;'>"; 
                 echo "<div class='image-container' style='background-color: white;box-shadow: 0 0 10px rgba(1, 1, 1, 0.4);border-radius: 25px;border: 1.5px solid black; text-align: center;padding-top:2%;margin-top:1.5%;margin-right:1.5%;'>"; 
                 echo "<img src='$photo_url' id='image_wiki' alt='Photo' style='cursor: pointer;box-shadow: 0 0 5px rgba(1, 1, 1, 0.4);max-width: 300px; max-height: 200px; margin: auto;border:1.5px solid black;'>"; 
                

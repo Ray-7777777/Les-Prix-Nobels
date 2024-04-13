@@ -150,6 +150,7 @@ body{
 }
 
 .dropdown {
+<<<<<<< Updated upstream
 	margin-left: 8%;
 	margin-right: 2%;
 	margin-top: 1.5%;
@@ -157,6 +158,16 @@ body{
 	display: inline-block;
     box-shadow: 0 0 5px rgba(1, 1, 1, 0.4);
     background-color: rgba(255, 255, 255, 0.8);
+=======
+	 margin-left: 8%;
+	 margin-right: 2%;
+	 margin-top: 1.5%;
+	 height: 10%;
+	 display: inline-block;
+     box-shadow: 0 0 5px rgba(1, 1, 1, 0.4);
+     background-color: rgba(255, 255, 255, 0.8);
+
+>>>>>>> Stashed changes
 }
 
 .contenu {
@@ -262,7 +273,10 @@ body{
     font-size: 24px;
     font-weight: bold;
     cursor: pointer;
+<<<<<<< Updated upstream
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+=======
+>>>>>>> Stashed changes
 }
 .titre_recherche:hover {
     text-decoration: underline;
