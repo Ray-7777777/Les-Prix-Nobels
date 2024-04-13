@@ -69,11 +69,11 @@
       						<button class="btn btn-outline-success" type="submit" id="boutonRecherche">Recherche</button>
     					</form>
   					</div>
-				<div class="filters">
-				</div>
 				<div id="activeFilters">
 				</div>
 				</nav>
+			</div>
+            <div class="filters">
 			</div>
 			<div class="dropdown">
   				<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
