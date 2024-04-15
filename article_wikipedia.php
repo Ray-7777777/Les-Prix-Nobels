@@ -143,17 +143,19 @@
                 preg_match_all('/===[^=]+===\s*(.*?)(?:(?===)|(?===))/s', $formatted_biography, $matches);
 
                 $numeration = 1;
+                $counter = 1;
 
                 foreach ($matches[0] as $index => $match) {
                     $content = $matches[1][$index];
                     $content = preg_replace('/\n/', '<br>', $content);
                     if (strpos($match, 'biographie-titre1') !== false) {
-                        $formatted_biography = str_replace($match, "<br><p class='biography-heading'><strong class='biographie-texte'>$numeration. " . trim($matches[1][$index]) . "</strong></p>", $formatted_biography);
-                        $numeration++;
+                        $formatted_biography = str_replace($match, "<br><p class='biography-heading'><strong class='biographie-texte'>$counter. " . trim($matches[1][$index]) . "</strong></p>", $formatted_biography);
+                        $counter++;
                     } else {
                         $formatted_biography = str_replace($match, "<br><p class='biography-heading'><strong class='biographie-texte'>" . trim($matches[1][$index]) . "</strong></p>", $formatted_biography);
                     }
                 }
+                
                 
 
                 echo "<div style='margin-right:2%;margin-left:2%;'>"; 

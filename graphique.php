@@ -217,7 +217,7 @@ var nouveauGraphique1 = new Chart(ctxNouveauGraphique1, {
             label: 'Top 8 des organisations',
             data: nombresPrixNobel,
             backgroundColor: 'rgb(204, 255, 204)',
-            borderWidth: 1 // Augmentation de la largeur de la bordure
+            borderWidth: 1 
         }]
     },
     options: {

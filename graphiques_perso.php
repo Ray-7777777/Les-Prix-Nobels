@@ -24,8 +24,8 @@
 <body>
     <div id="entete">
     <a href="index.php" style="text-decoration: none;">
-        <h1 class="oswald-font"><span class="text-stroke" style="color : black;">PRIX NOBEL</span></h1>
-    </a>
+    <h1 class="oswald-font"><span class="text-stroke" style="color : black;">PRIX NOBEL</span></h1>
+    
 	</div>
 
 <div class="menu" style="width: 100%;">
@@ -59,11 +59,12 @@
         </div>
     </nav>
 </div>
-    <div class="boite">
+    <div class="boite_graphiques">
         <div class="topBar">
             <div class="dropdown" id="menuG">
+            
                 <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Type de graphe
+                  Type de graphe    
                </a>
                 <div class="dropdown-menu">
                     <button class="dropdown-item typeG" type="button" href="#" id="Barre">Barre</button>
@@ -111,9 +112,15 @@
                 </div>
             </ul>
         </div>
+        
     </div>
+    
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="graphiques.js"></script>
+    
 </body>
 </html>

@@ -150,15 +150,7 @@ body{
 }
 
 .dropdown {
-<<<<<<< Updated upstream
-	margin-left: 8%;
-	margin-right: 2%;
-	margin-top: 1.5%;
-	height: 10%;
-	display: inline-block;
-    box-shadow: 0 0 5px rgba(1, 1, 1, 0.4);
-    background-color: rgba(255, 255, 255, 0.8);
-=======
+
 	 margin-left: 8%;
 	 margin-right: 2%;
 	 margin-top: 1.5%;
@@ -166,8 +158,6 @@ body{
 	 display: inline-block;
      box-shadow: 0 0 5px rgba(1, 1, 1, 0.4);
      background-color: rgba(255, 255, 255, 0.8);
-
->>>>>>> Stashed changes
 }
 
 .contenu {
@@ -276,10 +266,7 @@ body{
     font-size: 24px;
     font-weight: bold;
     cursor: pointer;
-<<<<<<< Updated upstream
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
-=======
->>>>>>> Stashed changes
 }
 .titre_recherche:hover {
     text-decoration: underline;
@@ -462,6 +449,16 @@ body{
     padding-bottom: 60px;
 }
 
+.boite_graphiques {
+    margin: 2% auto; 
+    background-color: #FFFEF9;
+    width: 96%;
+    border-radius: 25px;
+    box-shadow: 0 0 5px rgba(1, 1, 1, 0.4);
+    padding-top: 10px; 
+    min-height: 100vh;
+}
+
 .titre_graphique_prefait {
 	 padding-top: 20px;
 	 padding-bottom: 20px;
@@ -526,6 +523,13 @@ body{
     margin-left: 2%;
 }
 
+#deuxieme_row{
+    padding-top: 100px;
+    margin-right: 20px;
+}
+
+
+
 /* CSS pour les pages connexion / inscription / déconnexion */
 
 .boite_connexion {
@@ -541,11 +545,11 @@ body{
 }
 
 .titre-connexion {
-	 text-align: center;
-	 padding-top: 70px;
-	 font-weight: bold;
-	 text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
-	 font-family: "PT Sans", sans-serif;
+    text-align: center;
+	padding-top: 70px;
+	font-weight: bold;
+	text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+	font-family: "PT Sans", sans-serif;
     font-weight: 600;
     font-style: normal;
 }
@@ -556,13 +560,13 @@ body{
 }
 
 #inscription {
-	 text-align: center;
-	 text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+	text-align: center;
+	text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
 }
 
 #formu {
-	 padding-top: 20px;
-	 text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+	padding-top: 20px;
+	text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
 }
 
 .nav-link .status-indicator {
@@ -625,30 +629,27 @@ body{
 }
 
 .biography-heading {
-	 text-decoration: underline;
+	 font-size: 20px;
 }
 
 .contenu-nobel-wikipedia {
     counter-reset: titre1 titre2 titre3;
-  
-}
-
-.contenu-nobel-wikipedia {
-    min-height: 500px;
+    min-height: calc(100vh - 20px);
+    padding: 20px;
 }
 
 .biographie-titre1:before {
     content: counter(titre1) ". ";
     counter-increment: titre1;
     margin-left: 10px; 
-    font-size: 22px;
+    font-size: 26px;
 }
 
 .biographie-titre2:before {
     content: counter(titre1) "." counter(titre2) ". ";
     counter-increment: titre2;
     margin-left: 20px; 
-    font-size: 20px; 
+    font-size: 22px; 
 }
 
 .biographie-titre3:before {
