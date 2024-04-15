@@ -69,50 +69,44 @@
                 <div class="dropdown-menu">
                     <button class="dropdown-item typeG" type="button" href="#" id="Barre">Barre</button>
                     <button class="dropdown-item typeG" type="button" href="#" id="Circulaire">Circulaire</button>
-                    <!-- <button class="dropdown-item typeG" type="button" href="#" id="Linéaire">Linéaire</button>
-                    <button class="dropdown-item typeG" type="button" href="#" id="BarreEmp">Barres empilées</button>
-                    <button class="dropdown-item typeG" type="button" href="#" id="Nuage">Nuage de points</button> -->
                 </div>
             </div>
             <div id="varX">
                 <h4 class="titreVariables">Variables sur X:</h4>
                 <!-- Bouton Sexe -->
-                <button type="button" class="btn btn-primary btnVar" data-axe="X" data-nb="menu1" data-cat="Gender" id="GenderX" href="#" role="button" aria-haspopup="true" aria-expanded="false">Sexe</button>
+                <button type="button" class="btn btn-warning btnVar" data-axe="X" data-nb="menu1" data-cat="Gender" id="GenderX" href="#" role="button" aria-haspopup="true" aria-expanded="false">Sexe</button>
                 <!-- Bouton Année -->
-                <button type="button" class="btn btn-primary btnVar" data-axe="X" data-cat="Année" data-nb="menu2" id="AnnéeX" href="#" role="button" aria-haspopup="true" aria-expanded="false">Année</button>
+                <button type="button" class="btn btn-warning btnVar" data-axe="X" data-cat="Année" data-nb="menu2" id="AnnéeX" href="#" role="button" aria-haspopup="true" aria-expanded="false">Année</button>
                 <!-- Categorie -->
-                <button type="button" class="btn btn-primary btnVar" data-axe="X" data-cat="Category" data-nb="menu3" id="CategoryX" href="#" role="button" aria-haspopup="true" aria-expanded="false">Catégorie</button>
+                <button type="button" class="btn btn-warning btnVar" data-axe="X" data-cat="Category" data-nb="menu3" id="CategoryX" href="#" role="button" aria-haspopup="true" aria-expanded="false">Catégorie</button>
                 <!-- Naissance -->
-                <button type="button" class="btn btn-primary btnVar" href="#" data-axe="X" data-cat="Naissance" data-nb="menu4" id="NaissanceX" role="button" aria-haspopup="true" aria-expanded="false">Pays de naissance</button>
+                <button type="button" class="btn btn-warning btnVar" href="#" data-axe="X" data-cat="Naissance" data-nb="menu4" id="NaissanceX" role="button" aria-haspopup="true" aria-expanded="false">Pays de naissance</button>
                 <!-- Décès -->
-                <button type="button" class="btn btn-primary btnVar" href="#" data-axe="X" data-cat="Décès" data-nb="menu5" id="DécèsX" role="button" aria-haspopup="true" aria-expanded="false">Pays de décès</button>
+                <button type="button" class="btn btn-warning btnVar" href="#" data-axe="X" data-cat="Décès" data-nb="menu5" id="DécèsX" role="button" aria-haspopup="true" aria-expanded="false">Pays de décès</button>
                 <!-- NombrePrix -->
-                <button type="button" class="btn btn-primary btnVar" href="#" data-axe="X" data-cat="NombrePrix" data-nb="menu6" id="NombrePrixX" role="button" aria-haspopup="true" aria-expanded="false">Nombre de prix Nobel</button>
+                <button type="button" class="btn btn-warning btnVar" href="#" data-axe="X" data-cat="NombrePrix" data-nb="menu6" id="NombrePrixX" role="button" aria-haspopup="true" aria-expanded="false">Nombre de prix Nobel</button>
             </div>
             <div id="varY">
                 <h4 class="titreVariables" id="titreY" >Variables sur Y:</h4>
-                <button type="button" class="btn btn-primary btnVar" data-nb="menu7" data-axe="Y" data-cat="Gender" id="GenderY" href="#" role="button" aria-haspopup="true" aria-expanded="false">Sexe</button>
-                <button type="button" class="btn btn-primary btnVar" data-axe="Y" data-nb="menu8" data-cat="Année" id="AnnéeY" href="#" role="button" aria-haspopup="true" aria-expanded="false">Année</button>
-                <button type="button" class="btn btn-primary btnVar" data-axe="Y" data-nb="menu9" data-cat="Category" id="CategoryY" href="#" role="button" aria-haspopup="true" aria-expanded="false">Catégorie</button>
-                <button type="button" class="btn btn-primary btnVar" data-axe="Y" href="#" data-cat="Naissance" data-nb="menu10" id="NaissanceY" role="button" aria-haspopup="true" aria-expanded="false">Pays de naissance</button>
-                <button type="button" class="btn btn-primary btnVar" data-axe="Y" href="#" data-cat="Décès" data-nb="menu11" id="DécèsY" role="button" aria-haspopup="true" aria-expanded="false">Pays de décès</button>
-                <button type="button" class="btn btn-primary btnVar" data-axe="Y" href="#" data-cat="NombrePrix" data-nb="menu12" id="NombrePrixY" role="button" aria-haspopup="true" aria-expanded="false">Nombre de prix Nobel</button>
-            </div>
-            <div id="activeVar">
-                <h6 id="varSelect">Variables selectionnées:</h6>
-                <div class="activeVar" id="activeX">X:<div id="varActX"></div></div>
-                <div class="activeVar" id="activeY">Y:<div id="varActY"></div></div>
-                <div class="activeVar activeGraph" id=""></div>
+                <button type="button" class="btn btn-warning btnVar" data-nb="menu7" data-axe="Y" data-cat="Gender" id="GenderY" href="#" role="button" aria-haspopup="true" aria-expanded="false">Sexe</button>
+                <button type="button" class="btn btn-warning btnVar" data-axe="Y" data-nb="menu8" data-cat="Année" id="AnnéeY" href="#" role="button" aria-haspopup="true" aria-expanded="false">Année</button>
+                <button type="button" class="btn btn-warning btnVar" data-axe="Y" data-nb="menu9" data-cat="Category" id="CategoryY" href="#" role="button" aria-haspopup="true" aria-expanded="false">Catégorie</button>
+                <button type="button" class="btn btn-warning btnVar" data-axe="Y" href="#" data-cat="Naissance" data-nb="menu10" id="NaissanceY" role="button" aria-haspopup="true" aria-expanded="false">Pays de naissance</button>
+                <button type="button" class="btn btn-warning btnVar" data-axe="Y" href="#" data-cat="Décès" data-nb="menu11" id="DécèsY" role="button" aria-haspopup="true" aria-expanded="false">Pays de décès</button>
+                <button type="button" class="btn btn-warning btnVar" data-axe="Y" href="#" data-cat="NombrePrix" data-nb="menu12" id="NombrePrixY" role="button" aria-haspopup="true" aria-expanded="false">Nombre de prix Nobel</button>
             </div>
         </div>
         <div class="contenu_graphe">
-            <ul>
-                <div>
+                <div id="activeVar">
+                    <h6 id="varSelect">Options selectionnées:</h6>
+                    <div class="activeVar activeGraph">Type de graphique:<div id="activeGraph"></div></div>
+                    <div class="activeVar" id="activeX">X:<div id="varActX"></div></div>
+                    <div class="activeVar" id="activeY">Y:<div id="varActY"></div></div>
+                </div>
+                <div id="divGraphiques">
                     <canvas id="graphs" width="400" height="400"></canvas>
                 </div>
-            </ul>
         </div>
-        
     </div>
     
 

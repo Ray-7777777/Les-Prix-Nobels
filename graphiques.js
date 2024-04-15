@@ -20,7 +20,7 @@ $(document).on("click", ".btnVar", function(e) {
 })
 
 var id;
-$(".typeG").click(function(e) {
+$(document).on("click", ".typeG", function(e) {
     e.preventDefault();
     var $this = $(this);
     id = $this.attr("id");
@@ -76,6 +76,9 @@ $(".typeG").click(function(e) {
 
         $(".activeGraph").attr("id", "scatter");
     }
+    text = id;
+    $("#activeGraph").empty();
+    $("#activeGraph").html("oui");
     updateGraph();
 })
 
@@ -122,8 +125,7 @@ function updateGraph(nb) {
             }
             
             var items = JSON.parse(result);
-            var datasets = [];
-
+        
             if(graphType == "scatter"){
                 var dataX= [];
                 var dataY= [];
@@ -152,18 +154,17 @@ function updateGraph(nb) {
                 var b = Math.floor(Math.random() * 256);
                 return 'rgba(' + r + ', ' + g + ', ' + b + ', ' + alpha + ')';
             }
-
+        
             var backgroundColors = [];
             var borderColors = [];
             for (var i = 0; i < data.length; i++) {
                 backgroundColors.push(generateRandomColor(0.2));
                 borderColors.push(generateRandomColor(1));
             }
-
+        
             var formattedData = {
                 labels: labels,
                 datasets: [{
-                    label: 'Graphique',
                     data: data,
                     backgroundColor: backgroundColors,
                     borderColor: borderColors,
@@ -185,6 +186,9 @@ function updateGraph(nb) {
                         y: {
                             beginAtZero: true
                         }
+                    },
+                    legend: {
+                        display: false
                     }
                 }
             });
