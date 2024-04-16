@@ -3,7 +3,7 @@ $(document).on("click", ".btnVar", function(e) {
     var $this = $(this);
     var axe = $this.data("axe");
     var textP = $(this).text().replace(/\+/g, ' ');
-    var text = "<div class='FiltreCroix'><p class='selectedVar" + axe + "' data-axe='" + axe + "' data-category='" + $(this).data("cat") + "' data-name='" + textP + "'>" + textP + "</p><span class='float-right clickable close-icon'> </span></div>";
+    var text = "<div class='FiltreCroix'><p class='selectedVar" + axe + "' data-axe='" + axe + "' data-category='" + $(this).data("cat") + "' data-name='" + textP + "'>" + axe + ": " + textP + "</p><span class='float-right clickable close-icon'> </span></div>";
     if (axe == "X") {
         $("#varActX").empty();
         $("#varActX").append(text);
@@ -19,7 +19,6 @@ $(document).on("click", ".btnVar", function(e) {
     }
 })
 
-var id;
 $(document).on("click", ".typeG", function(e) {
     e.preventDefault();
     var $this = $(this);
@@ -27,60 +26,56 @@ $(document).on("click", ".typeG", function(e) {
     $(".titreVariables").css("display", "block");
     $("#varActX").empty();
     $("#varActY").empty();
+    var typeName = "";
     if (id == "Barre") {
+        typeName = "Barre";
         $(".btnVar").css("display", "none");
         $(".btnVar").css("display", "inline-block");
-
         $("#activeY").css("display", "block");
         $("#titreY").css("display", "block");
-
         $(".activeGraph").attr("id", "bar");
     } 
     else if (id == "Circulaire") {
+        typeName = "Circulaire";
         $(".btnVar").css("display", "none");
         $("#GenderX").css("display", "inline-block");
         $("#CategoryX").css("display", "inline-block");
         $("#NaissanceX").css("display", "inline-block");
         $("#DécèsX").css("display", "inline-block");
-
         $("#activeY").css("display", "none");
         $("#titreY").css("display", "none");
-
         $(".activeGraph").attr("id", "pie");
     } 
     else if (id == "Linéaire") {
+        typeName = "Linéaire";
         $(".btnVar").css("display", "none");
         $("#AnnéeX").css("display", "inline-block");
-
         $("#GenderY").css("display", "inline-block");
         $("#NaissanceY").css("display", "inline-block");
         $("#DécèsY").css("display", "inline-block");
-
         $(".activeGraph").attr("id", "line");
     } 
     else if (id == "BarreEmp") {
+        typeName = "BarreEmp";
         $(".btnVar").css("display", "none");
         $("#GenderX").css("display", "inline-block");
         $("#CategoryX").css("display", "inline-block");
         $("#NaissanceX").css("display", "inline-block");
         $("#DécèsX").css("display", "inline-block");
         $("#AnnéeX").css("display", "inline-block");
-
         $("#NombrePrixY").css("display", "inline-block");
-
         $(".activeGraph").attr("id", "bar");
     } 
     else if (id == "Nuage") {
+        typeName = "Nuage";
         $(".btnVar").css("display", "none");
         $(".btnVar").css("display", "inline-block");
-
         $(".activeGraph").attr("id", "scatter");
     }
-    text = id;
-    $("#activeGraph").empty();
-    $("#activeGraph").html("oui");
+    $("#activeGraph").text("Type de graphe : " + typeName);
     updateGraph();
 })
+
 
 $("#activeVar").on("click", ".close-icon", function(e) {
     var axe = $(this).prev().data('axe');
