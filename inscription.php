@@ -78,7 +78,7 @@
         </div>
         </div>
         <div class="text-center">
-        <input type="submit" value="S'inscrire" class="btn btn-primary mt-3">
+        <input id="bouton-ins" type="submit" value="S'inscrire" class="btn btn-primary mt-3" style="background-color: #FFFCE9;border:solid black 1px;color:black;font-weight:bold;text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.4);">
         </div>
         </div>
     </form>
