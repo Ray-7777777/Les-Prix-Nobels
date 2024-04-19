@@ -1,6 +1,6 @@
 <?php
     #importation de la base de données
-    require_once "bd.php";
+    require_once "connexion_bd.php";
     $bdd = getBD();
 
     #Si l'action est "menu" on recupère les valeurs différentes des variables en question. Inutilisé pour l'instant, sera utilisé si on ajoute des graphiques plus complexes
@@ -85,6 +85,6 @@
     }
     #Fermeture de la connection à la base de données
     $bdd = null;
-    
+
     echo json_encode($resultat);
 ?>

@@ -1,6 +1,6 @@
 <?php
     //Connection à la base de données
-    require_once "bd.php";
+    require_once "connexion_bd.php";
     $bdd = getBD();
 
     //Si la barre de recherche n'est pas vide
