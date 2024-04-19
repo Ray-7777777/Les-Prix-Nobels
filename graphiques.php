@@ -73,5 +73,6 @@
             $resultat[] = $row;
         }
     }
+    $bdd = null;
     echo json_encode($resultat);
 ?>

@@ -11,5 +11,6 @@
         $req->execute();
     }
     $resultat = $req->fetchAll();
+    $bdd = null;
     echo json_encode($resultat);
 ?>

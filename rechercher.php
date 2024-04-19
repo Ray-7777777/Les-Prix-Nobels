@@ -111,6 +111,8 @@
         usort($resultat, 'comparerScore');
         $resultat = array_slice($resultat, 0, 25);
 
+        $bdd = null;
+
         echo json_encode($resultat);
 
     }
