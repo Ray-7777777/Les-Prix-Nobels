@@ -89,7 +89,11 @@ function updateGraph(nb) {
     if(nb==2){
         var categoryY = $('.selectedVarY').data('category');
         var nameY = $('.selectedVarY').data('name');
-        var namePY = nameY.replace(/\+/g, ' ');
+        if (nameY !== undefined) {
+            namePY = nameY.replace(/\+/g, ' ');
+        } else {
+            namePY = 'defaultName';
+        }
     }
     else{
         namePY = "NombrePrix";

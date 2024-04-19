@@ -33,9 +33,13 @@ $("#boutonRecherche").click(function(e){
         success: function(result) {
             var items = JSON.parse(result);
             var text = "<ul> ";
-            items.forEach(function(element) {
-                text += "<li class='article_recherche' data-id="+element["Id_nominé"]+"><div class='titre_recherche'>"+element["Prénom"]+" "+element["Nom"]+"</div><p class='minibio'>"+element["biographie"]+"</p></li>";
-            });
+            if (items.length === 0) {
+                text += "Aucun résultat correspondant";
+            } else {
+                items.forEach(function(element) {
+                    text += "<li class='article_recherche' data-id="+element["Id_nominé"]+"><div class='titre_recherche'>"+element["Prénom"]+" "+element["Nom"]+"</div><p class='minibio'>"+element["biographie"]+"</p></li>";
+                });
+            }
             text += "</ul>";
             contenu.append(text);
             localStorage.setItem('rechercheResults', JSON.stringify(items));
