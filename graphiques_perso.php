@@ -1,35 +1,9 @@
 <?php
-session_start();
-require_once 'connexion_bd.php';
-$est_connecte = isset($_SESSION['user_id']);
+    session_start();
+    require_once 'connexion_bd.php';
+    $est_connecte = isset($_SESSION['user_id']);
 
-$connexion = getBD();
-
-$sql = "SELECT COUNT(*) AS nombre_hommes FROM nomine WHERE Gender = 'male'";
-$stmt = $connexion->query($sql);
-$resultat = $stmt->fetch(PDO::FETCH_ASSOC);
-$nombre_hommes = $resultat['nombre_hommes'];
-
-$sql = "SELECT COUNT(*) AS nombre_femmes FROM nomine WHERE Gender = 'female'";
-$stmt = $connexion->query($sql);
-$resultat = $stmt->fetch(PDO::FETCH_ASSOC);
-$nombre_femmes = $resultat['nombre_femmes'];
-
-$sqlNationalites = "SELECT Born_Country AS Nationalite, COUNT(*) AS Nombre FROM nomine GROUP BY Born_Country ORDER BY Nombre DESC LIMIT 6";
-$stmtNationalites = $connexion->query($sqlNationalites);
-$nationalites = $stmtNationalites->fetchAll(PDO::FETCH_ASSOC);
-
-$sqlTypeLaureat = "SELECT COUNT(*) AS nombre_organisations FROM prix_nobel p JOIN organisation o ON p.id_organisation = o.id_organisation WHERE o.id_organisation = 0";
-$stmtTypeLaureat = $connexion->query($sqlTypeLaureat);
-$resultatTypeLaureat = $stmtTypeLaureat->fetch(PDO::FETCH_ASSOC);
-$nombre_organisations = $resultatTypeLaureat['nombre_organisations'];
-$nombre_personnes = $nombre_hommes + $nombre_femmes - $nombre_organisations;
-
-$sqlNombrePrixNobelParOrganisation = "SELECT nom_organisation, COUNT(*) AS nombre_prix_nobel FROM organisation GROUP BY nom_organisation ORDER BY COUNT(*) DESC LIMIT 6";
-$stmtNombrePrixNobelParOrganisation = $connexion->query($sqlNombrePrixNobelParOrganisation);
-$resultatsNombrePrixNobelParOrganisation = $stmtNombrePrixNobelParOrganisation->fetchAll(PDO::FETCH_ASSOC);
-
-
+    $connexion = getBD();
 ?>
 
 <!DOCTYPE html>
@@ -128,8 +102,8 @@ $resultatsNombrePrixNobelParOrganisation = $stmtNombrePrixNobelParOrganisation->
                 <button type="button" class="btn btn-warning btnVar" data-axe="Y" href="#" data-cat="NombrePrix" data-nb="menu12" id="NombrePrixY" role="button" aria-haspopup="true" aria-expanded="false">Nombre de prix Nobel</button>
             </div>
         </div>
-        <div class="d-flex justify-content-center"> <!-- Utilisation des classes d-flex et justify-content-center pour centrer horizontalement -->
-    <div class="contenu_graphe" style="display: none; align-items:center;">
+        <div class="d-flex justify-content-center">
+    <div class="contenu_graphe">
         <div id="activeVar">
             <h6 id="varSelect">Options sélectionnées:</h6>
             <div class="activeVar activeGraph"><div id="activeGraph"></div></div>
@@ -141,116 +115,12 @@ $resultatsNombrePrixNobelParOrganisation = $stmtNombrePrixNobelParOrganisation->
         </div>
     </div>
 </div>
+</div>
 
-    </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="graphiques.js"></script> 
 
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="graphiques.js"></script>
-    <script>
-    $(document).ready(function(){
-    // Événement de clic pour le bouton "Barre"
-    $("#Barre").click(function(){
-        // Mettre à jour le texte de l'élément h1 avec "Barre"
-        $("#selectedGraph").text("Type de graphe : Barre");
-        // Ajouter la classe .selected-option à varX et varY
-        $("#varX, #varY").addClass("selected-option");
-    });
-
-    // Événement de clic pour le bouton "Circulaire"
-    $("#Circulaire").click(function(){
-        // Mettre à jour le texte de l'élément h1 avec "Circulaire"
-        $("#selectedGraph").text("Type de graphe : Circulaire");
-        // Ajouter la classe .selected-option à varX
-        $("#varX").addClass("selected-option");
-        // Retirer la classe .selected-option de varY
-        $("#varY").removeClass("selected-option");
-    });
-
-    // Événement de clic pour les boutons dans variables X
-    $("#varX .btnVar").click(function(){
-        // Supprimer la classe .selected de tous les boutons dans variables X
-        $("#varX .btnVar").removeClass("selected");
-        // Ajouter la classe .selected au bouton cliqué
-        $(this).addClass("selected");
-    });
-
-    // Événement de clic pour les boutons dans variables Y
-    $("#varY .btnVar").click(function(){
-        // Supprimer la classe .selected de tous les boutons dans variables Y
-        $("#varY .btnVar").removeClass("selected");
-        // Ajouter la classe .selected au bouton cliqué
-        $(this).addClass("selected");
-    });
-});
-
-</script>
-<script>
-    $(document).ready(function(){
-        // Événement de clic pour le bouton "Barre"
-        $("#Barre").click(function(){
-            // Afficher le contenu de la classe "contenu_graphe"
-            $(".contenu_graphe").show();
-            // Mettre à jour le texte de l'élément h6 avec "Options sélectionnées"
-            $("#varSelect").text("Options sélectionnées:");
-            // Mettre à jour le texte de l'élément h6 avec "Type de graphe : Barre"
-            $("#selectedGraph").text("Type de graphe : Barre");
-            // Ajouter la classe .selected-option à varX et varY
-            $("#varX, #varY").addClass("selected-option");
-        });
-
-        // Événement de clic pour le bouton "Circulaire"
-        $("#Circulaire").click(function(){
-            // Afficher le contenu de la classe "contenu_graphe"
-            $(".contenu_graphe").show();
-            // Mettre à jour le texte de l'élément h6 avec "Options sélectionnées:"
-            $("#varSelect").text("Options sélectionnées:");
-            // Mettre à jour le texte de l'élément h6 avec "Type de graphe : Circulaire"
-            $("#selectedGraph").text("Type de graphe : Circulaire");
-            // Ajouter la classe .selected-option à varX
-            $("#varX").addClass("selected-option");
-            // Retirer la classe .selected-option de varY
-            $("#varY").removeClass("selected-option");
-        });
-    });
-</script>
-
-<script>
-    $(document).ready(function(){
-        // Cacher le contenu de la classe "contenu_graphe" au chargement de la page
-        $(".contenu_graphe").hide();
-
-        // Événement de clic pour le bouton "Barre"
-        $("#Barre").click(function(){
-            // Afficher le contenu de la classe "contenu_graphe"
-            $(".contenu_graphe").show();
-            // Mettre à jour le texte de l'élément h6 avec "Options sélectionnées:"
-            $("#varSelect").text("Options sélectionnées:");
-            // Mettre à jour le texte de l'élément h6 avec "Type de graphe : Barre"
-            $("#selectedGraph").text("Type de graphe : Barre");
-            // Ajouter la classe .selected-option à varX et varY
-            $("#varX, #varY").addClass("selected-option");
-        });
-
-        // Événement de clic pour le bouton "Circulaire"
-        $("#Circulaire").click(function(){
-            // Afficher le contenu de la classe "contenu_graphe"
-            $(".contenu_graphe").show();
-            // Mettre à jour le texte de l'élément h6 avec "Options sélectionnées:"
-            $("#varSelect").text("Options sélectionnées:");
-            // Mettre à jour le texte de l'élément h6 avec "Type de graphe : Circulaire"
-            $("#selectedGraph").text("Type de graphe : Circulaire");
-            // Ajouter la classe .selected-option à varX
-            $("#varX").addClass("selected-option");
-            // Retirer la classe .selected-option de varY
-            $("#varY").removeClass("selected-option");
-        });
-    });
-</script>
-
-
-    
 </body>
 </html>
