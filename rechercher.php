@@ -1,5 +1,5 @@
 <?php
-    require "bd.php";
+    require_once "bd.php";
     $bdd = getBD();
 
     if(isset($_POST["recherche"]) && $_POST["recherche"] != ""){
