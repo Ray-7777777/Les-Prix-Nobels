@@ -73,7 +73,9 @@ $(document).on("click", ".typeG", function(e) {
         $(".activeGraph").attr("id", "scatter");
     }
     $("#activeGraph").text("Type de graphe : " + typeName);
-    updateGraph();
+    if ($('.selectedVarX').length > 0){
+        updateGraph();
+    }
 })
 
 
@@ -107,7 +109,7 @@ function updateGraph(nb) {
             catX: categoryX,
             catY: categoryY,
             nameX: namePX,
-            nameY: namePY,
+            nameY: namePY !== undefined ? namePY : 'defaultName',
             action: "tracer"
         },
         success: function(result) {
