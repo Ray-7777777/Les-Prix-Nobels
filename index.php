@@ -84,7 +84,7 @@
                         $index = 1;
                         while ($row = $result->fetch_assoc()) {
                             echo '<div class="image-title" style="text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);font-weight: bold; font-size: 30px; text-align:center;cursor:default;margin-top:-10px;margin-bottom:10px;">' . $row["titre"] . '</div>';
-									 echo '<a href="article' . $index . '.php"><img class="slide" src="' . $row["image"] . '" style="margin: 0 auto;box-shadow: 0 0 5px rgba(1, 1, 1, 0.4); width: 100%; height: 100%; display: none;margin-left:-1%"></a>';
+									 echo '<a href="article' . $index . '.php"><img class="slide" src="' . $row["image"] . '" style="margin: 0 auto;box-shadow: 0 0 5px rgba(1, 1, 1, 0.4); width: 100%; height: 100%; display: none;"></a>';
 
                             $index++;
                         }
@@ -105,7 +105,9 @@
             </div>
                 <?php
                 if ($est_connecte){
-                    echo  '<p style="text-align:center"> <a href="contacter.php"> Contactez nous </a></p>';
+                    echo '<p style="text-align:center;font-size:20px;font-weight:bold;padding-top:20px;">Pour nous contacter : <a href="contacter.php"><img src="Images/icone_commentaires.png" alt="Pour nous contacter" width="30" height="30" /></a></p>';
+
+
                 }   
                 ?>
         </div>  
@@ -164,12 +166,6 @@
     });
 </script>
 
-
-
-
-
-
- 
     <script src="script_index.js"></script>
 </body>
 </html>

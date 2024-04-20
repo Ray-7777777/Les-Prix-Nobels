@@ -67,7 +67,7 @@
 
                             <label for="Objet" class="form-group col-form-label">Objet :</label>
                             <div class="col-auto">
-                            <textarea id="Objet" name="Objet" rows="2" cols=60 required></textarea><br><br>
+                            <textarea id="Objet" name="Objet" rows="1" cols=70 required></textarea><br><br>
 
                             </div>
                         <div id="email" class="form-group row justify-content-center">
