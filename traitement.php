@@ -19,16 +19,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 session_start();
                 $_SESSION['user_id'] = $row['id_utilisateur']; 
                 $_SESSION['email'] = $email; 
-                header("Location: index.php");
+                echo 'success';
                 exit(); 
             } else {
-                echo "Mot de passe incorrect. Vous serez redirigé vers la page de connexion dans 5 secondes.";
-                header("refresh:5;url=connexion.php");
+                echo 'error';
                 exit();
             }
         } else {
-            echo "Aucun utilisateur trouvé avec cet email. Vous serez redirigé vers la page de connexion dans 5 secondes.";
-            header("refresh:5;url=connexion.php");
+            echo "Aucun utilisateur trouvé avec cet email. Vous serez redirigé vers la page de connexion dans 3 secondes.";
+            header("refresh:3;url=connexion.php");
             exit();
         }
     } else {

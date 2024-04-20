@@ -103,8 +103,15 @@
                 </div>
                 <button class="next">&#10095;</button>
             </div>
-        </div>
+                <?php
+                if ($est_connecte){
+                    echo  '<p style="text-align:center"> <a href="contacter.php"> Contactez nous </a></p>';
+                }   
+                ?>
+        </div>  
+        
     </div>
+    
 
     <script>
         $(document).ready(function() {

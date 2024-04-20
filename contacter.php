@@ -3,7 +3,6 @@
     require_once 'connexion_bd.php';
     $est_connecte = isset($_SESSION['user_id']);
 ?>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -21,42 +20,7 @@
 	 <link href="https://fonts.googleapis.com/css2?family=Reem+Kufi+Fun:wght@400..700&display=swap" rel="stylesheet">	 
 
 </head>
-
 <body>
-<script>
-    $(document).ready(function() {
-    $('#loginForm').submit(function(e) {
-        e.preventDefault();
-
-        var email = $('#emailInput').val();
-        var password = $('#passwordInput').val();
-
-        // Afficher les valeurs pour débogage
-        console.log('Email:', email);
-        console.log('Password:', password);
-
-        // Envoyer la requête AJAX vers le script de traitement PHP
-        $.ajax({
-            type: 'POST',
-            url: 'traitement.php',
-            data: {
-                email: email,
-                password: password
-            },
-            success: function(response) {
-                console.log('Response:', response); // Afficher la réponse du serveur
-                if (response === 'success') {
-                    window.location.href = 'index.php';
-                } else {   
-                $('#message').html('<div style="color: red;">Erreur de connexion. Veuillez réessayer.</div>');
-                }
-            }
-        });
-    });
-});
-
-
-</script>
     <div id="entete">
     <a href="index.php" style="text-decoration: none;">
         <h1 class="oswald-font"><span class="text-stroke" style="color : black;">PRIX NOBEL</span></h1>
@@ -94,48 +58,30 @@
         </div>
     </nav>
 </div>
-    <div class="boite_connexion">
-        <div class="contenu_connexion">
-            <?php
-            if ($est_connecte) {
-                echo "<div id='titre-co'>Connexion</div>";
-                echo "<div id='deja-connecte'>Vous êtes déjà connecté.</div>";
-                echo "<div id='se-deconnecter'><a href='deconnexion.php'>Se déconnecter</a></div>";
-            } else {
-            ?>
-                <form id="loginForm" class="text-center">
-                    <h2 class="titre-connexion">Formulaire de Connexion</h2>
+<div class="boite_connexion">
+        <div class="contenu_connexion"> 
+                <form action="mail.php" method="POST" class="text-center">
+                    <h2 class="titre-connexion">Contactez-nous! </h2>
                     <div id="formu">
-                        <div id="email" class="form-group row justify-content-center">
-                            <label for="emailInput" class="form-group col-form-label">Email :</label>
+                        <div id="Objet" class="form-group row justify-content-center">
+
+                            <label for="Objet" class="form-group col-form-label">Objet :</label>
                             <div class="col-auto">
-                                <input type="email" id="emailInput" name="email" class="form-control form-control-sm custom-input" required autocomplete="email">
+                            <textarea id="Objet" name="Objet" rows="2" cols=60 required></textarea><br><br>
+
                             </div>
+                        <div id="email" class="form-group row justify-content-center">
+
+                            <label for="message" class="form-group col-form-label">Message :</label>
+                            <div class="col-auto">
+                            <textarea id="message" name="message" rows="7" cols=70 required></textarea><br><br>
+
+                            </div>
+
                         </div>
-                        <div id="motdepasse"class="form-group row justify-content-center">
-                            <label for="passwordInput" class="form-group col-form-label">Mot de passe :</label>
-                            <div  class="col-auto">
-                                <input type="password" id="passwordInput" name="password" class="form-control form-control-sm custom-input" required autocomplete="password">
-                            </div>
                         </div>
                         <div class="text-center">
-                            <input id="bouton-co" type="submit" value="Se Connecter" class="btn btn-primary mt-3" style="background-color: #FFFCE9;border:solid black 1px;color:black;font-weight:bold;text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.4);">
+                            <input id="bouton-co" type="submit" value="Envoyer" class="btn btn-primary mt-3" style="background-color: #FFFCE9;border:solid black 1px;color:black;font-weight:bold;text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.4);">
                         </div>
                     </div>
                 </form>
-                <?php
-                    if (!$est_connecte) {
-                        echo '<a id="inscription" href="inscription.php" style="display: block; text-align: center; color: black; text-decoration: underline; padding-top: 10px;">Inscription</a>';
-                    }
-                ?>
-            <?php } ?>
-            </div>
-    <div id="message" style="text-align:center">
-    </div>
-        </div>
-    
-    
-    
-    
-</body>
-</html>
