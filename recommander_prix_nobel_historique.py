@@ -1,6 +1,8 @@
 import sys
 import json
 from recommander_prix_nobel import recommended_prix_nobel
+import os
+
 
 def recommander_prix_nobel_historique(historique):
     recommandations = []
@@ -20,14 +22,16 @@ def recommander_prix_nobel_historique(historique):
     return top_recommendations
 
 if __name__ == "__main__":
+    # Obtenir le répertoire du script Python en cours d'exécution
+    repertoire_script = os.path.dirname(os.path.abspath(__file__))
+
     # Lire l'historique des pages depuis le fichier JSON en argument
-    with open('c:/wamp64/www/Prix_Nobel/historique.json', 'r') as file:
+    with open(os.path.join(repertoire_script, 'historique.json'), 'r') as file:
         historique = json.load(file)
 
     # Appeler la fonction de recommandation avec l'historique en tant qu'argument
     recommandations = recommander_prix_nobel_historique(historique)
 
     # Enregistrer les recommandations dans un fichier JSON de sortie
-    with open('c:/wamp64/www/Prix_Nobel/output_historique.json', 'w') as file:
+    with open(os.path.join(repertoire_script, 'output_historique.json'), 'w') as file:
         json.dump({"recommended_indices": recommandations}, file)
-

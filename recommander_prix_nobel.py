@@ -12,8 +12,16 @@ from sklearn.neighbors import NearestNeighbors
 # Log pour vérifier que le script est bien lancé
 print("Le script Python a été lancé avec succès.")
 
-# Charger les données à partir du fichier CSV
-df = pd.read_csv('c:/wamp64/www/Prix_Nobel/knn/prix_nobel.csv')
+import os
+
+# Obtenir le répertoire du script Python en cours d'exécution
+repertoire_script = os.path.dirname(os.path.abspath(__file__))
+
+# Construire le chemin relatif au fichier CSV
+chemin_relatif = os.path.join(repertoire_script, 'knn', 'prix_nobel.csv')
+
+# Lire le fichier CSV avec pandas en utilisant le chemin relatif
+df = pd.read_csv(chemin_relatif)
 
 # Drop rows with missing values for simplicity
 df.dropna(inplace=True)
@@ -61,8 +69,14 @@ def recommended_prix_nobel(laureate_features):
     recommended_indices = recommended_indices.tolist()
     return recommended_indices
 
+import os
+import json
+
+# Obtenir le répertoire du script Python en cours d'exécution
+repertoire_script = os.path.dirname(os.path.abspath(__file__))
+
 # Lire les données à partir du fichier JSON
-with open('c:/wamp64/www/Prix_Nobel/input.json', 'r') as file:
+with open(os.path.join(repertoire_script, 'input.json'), 'r') as file:
     laureate_features = json.load(file)
 
 # Appel de la fonction pour recommander les lauréats similaires
@@ -70,5 +84,5 @@ recommended_indices = recommended_prix_nobel(laureate_features)
 
 # Écrire les résultats dans un fichier JSON
 output_data = {'recommended_indices': recommended_indices}
-with open('c:/wamp64/www/Prix_Nobel/output.json', 'w') as output_file:
+with open(os.path.join(repertoire_script, 'output.json'), 'w') as output_file:
     json.dump(output_data, output_file)
