@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : dim. 18 fév. 2024 à 18:02
+-- Généré le : sam. 20 avr. 2024 à 18:47
 -- Version du serveur : 8.2.0
 -- Version de PHP : 8.2.13
 
@@ -40,9 +40,9 @@ CREATE TABLE IF NOT EXISTS `article` (
 --
 
 INSERT INTO `article` (`id_article`, `titre`, `image`) VALUES
-(1, 'Prix Nobel 2023', 'Images/image1.png'),
-(2, 'Second Test\r\n', 'Images/image2.png'),
-(3, 'Troisième Test', 'Images/image3.png');
+(1, 'Les lauréats des Prix Nobel 2023', 'Images/image1.png'),
+(2, 'L\'histoire des Prix Nobel\r\n', 'Images/image2.jpg'),
+(3, 'L\'impact historique et social des Prix Nobel de la Paix', 'Images/image3.jpg');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
