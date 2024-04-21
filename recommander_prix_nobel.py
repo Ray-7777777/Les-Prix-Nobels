@@ -1,6 +1,7 @@
 import sys
 import json
 import datetime
+import os
 
 # Importations des bibliothèques
 import pandas as pd
@@ -11,8 +12,6 @@ from sklearn.neighbors import NearestNeighbors
 
 # Log pour vérifier que le script est bien lancé
 print("Le script Python a été lancé avec succès.")
-
-import os
 
 # Obtenir le répertoire du script Python en cours d'exécution
 repertoire_script = os.path.dirname(os.path.abspath(__file__))
@@ -68,9 +67,6 @@ def recommended_prix_nobel(laureate_features):
     recommended_indices = recommended_laureates.index+1
     recommended_indices = recommended_indices.tolist()
     return recommended_indices
-
-import os
-import json
 
 # Obtenir le répertoire du script Python en cours d'exécution
 repertoire_script = os.path.dirname(os.path.abspath(__file__))
