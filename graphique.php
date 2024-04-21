@@ -88,8 +88,11 @@ $resultatsNombrePrixNobelParOrganisation = $stmtNombrePrixNobelParOrganisation->
     </nav>
 </div>
     <div class="boite_graphique">
-	 <p id="lien-graph">Si vous souhaitez faire votre propre graphique : <a id="lien-graphe" href="graphiques_perso.php">cliquez ici</a></p>
-
+    <?php if (!$est_connecte) { ?>
+         <p id="lien-graph">Si vous souhaitez faire votre propre graphique, connectez-vous.</p>
+    <?php } else { ?>
+        <p id="lien-graph">Si vous souhaitez faire votre propre graphique : <a id="lien-graphe" href="graphiques_perso.php">cliquez ici</a></p>
+    <?php } ?>
    
     
     <h2 class="titre_graphique_prefait">Exemples de graphiques</h2>

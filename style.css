@@ -154,6 +154,7 @@ body{
     background-color: #FFFCE9;
     color: black;
     font-weight: bold;
+    border: solid 1px black;
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
     box-shadow: 0 0 5px rgba(1, 1, 1, 0.4);
 }

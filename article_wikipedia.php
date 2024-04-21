@@ -75,6 +75,7 @@
             try {
                 $connexion = getBD();
 
+            # Affichage des données de la base de données sur la personne
             $sql = "SELECT Prénom, Biographie, Photos, Nom, Date_de_naissance, `Date_de_mort`, `Born_country`, `Born_city`, `Died_country`, `Died_city`, Gender, Nom_catégorie FROM nomine, categorie WHERE `Id_nominé` = :id";
             $sqlan = "SELECT Année, Motivation, categorie.Nom_catégorie, 'Overall motivation' FROM prix_nobel INNER JOIN categorie ON prix_nobel.id_category = categorie.Id_catégorie WHERE prix_nobel.`id_prix_nobels` = :id";
             $sqlo = "SELECT nom_organisation, ville_organisation, pays_organisation FROM organisation INNER JOIN prix_nobel ON organisation.id_organisation = prix_nobel.id_organisation WHERE prix_nobel.`id_prix_nobels` = :id";
@@ -94,36 +95,31 @@
             $resultat = $stmt->fetch(PDO::FETCH_ASSOC);
             $resultat2 = $stmt2->fetch(PDO::FETCH_ASSOC);
             $resultato = $stmto->fetch(PDO::FETCH_ASSOC);
-
+                # Si aucune image n'est trouvée dans la base de données alors affichage de l'image placeholder.jpg
                 $photo_url = $resultat['Photos'] ? $resultat['Photos'] : 'placeholder.jpg'; 
-                
+                # Affichage de la biographie de la personne
                 $biographie = $resultat['Biographie'];
-              
-                
+                # Suppression des titres dans la biographie vides
                 function supprimerTitresVides($texte) {
                     $lignes = explode("\n", $texte);
                     $nouveauTexte = ''; 
                     $i = 0;
                     while ($i < count($lignes)) {
                         $ligne = trim($lignes[$i]);
-                    
                         if (strpos($ligne, '==') === 0 && isset($lignes[$i + 1]) && isset($lignes[$i + 2]) && trim($lignes[$i + 1]) === '' && trim($lignes[$i + 2]) === '') {
                             $i += 2;
                         } else {
                             $nouveauTexte .= $ligne . "\n";
                         }
-                    
                         $i++;
                     }
                     
                     
                     return $nouveauTexte;
                 }
-                
-                // Exemple d'utilisation
                 $biographie = supprimerTitresVides($biographie);
                
-                
+                # Ancrage des titres
                 $formatted_biography = preg_replace_callback('/====(.*?)====/', function($matches) {
                     return "<p class='biography-heading'><strong class='biographie-texte biographie-titre3'>" . trim($matches[1]) . "</strong></p>";
                 }, $biographie);
@@ -164,7 +160,7 @@
                 echo "<img src='$photo_url' id='image_wiki' alt='Photo' style='cursor: pointer;box-shadow: 0 0 5px rgba(1, 1, 1, 0.4);max-width: 300px; max-height: 200px; margin: auto;border:1.5px solid black;'>"; 
                
                 
-          
+                # Verification de l'existence de toutes les informations de la personne dans la bdd
                 if ($resultat['Prénom'] !== "NULL") {
                     echo "<p style='font-weight:normal;text-align: left;padding-left:5%;margin-top:2%'><strong>Prénom :</strong> {$resultat['Prénom']}</p>";
                 }      

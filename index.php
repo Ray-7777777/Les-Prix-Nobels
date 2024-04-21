@@ -1,4 +1,5 @@
 <?php
+    # Vérifier si l'utilisateur est connecté
     session_start();
     require_once 'connexion_bd.php';
     $est_connecte = isset($_SESSION['user_id']);
@@ -22,13 +23,15 @@
 
 </head>
 <body>
+    <!-- Ajout du titre de site en haut de la page -->
     <div id="entete">
     <a href="index.php" style="text-decoration: none;">
         <h1 class="oswald-font"><span class="text-stroke" style="color : black;">PRIX NOBEL</span></h1>
     </a>
 	</div>
 
-<div class="menu" style="width: 100%;">
+    <!-- Ajout du menu avec bootstrap -->
+    <div class="menu" style="width: 100%;">
     <nav class="navbar navbar-expand-lg navbar-light justify-content-start px-0">
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,19 +61,18 @@
             </div>
         </div>
     </nav>
-</div>
-
+    </div>
     <div class="boite_index">
         <div class="contenu">
             <div class="slider-container">
                 <button class="prev">&#10094;</button>
+                <!-- Affichage des images d'article dans la base de données articles.sql -->
                 <div id="images-container">
                     <?php
                     $servername = "localhost";
                     $username = "root";
                     $password = "";
                     $dbname = "articles";
-
                     $conn = new mysqli($servername, $username, $password, $dbname);
 
                     if ($conn->connect_error) {
@@ -83,6 +85,7 @@
                     if ($result->num_rows > 0) {
                         $index = 1;
                         while ($row = $result->fetch_assoc()) {
+                            # Affichage du titre de l'article associé
                             echo '<div class="image-title" style="text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);font-weight: bold; font-size: 30px; text-align:center;cursor:default;margin-top:-10px;margin-bottom:10px;">' . $row["titre"] . '</div>';
 									 echo '<a href="article' . $index . '.php"><img class="slide" src="' . $row["image"] . '" style="margin: 0 auto;box-shadow: 0 0 5px rgba(1, 1, 1, 0.4); width: 100%; height: 100%; display: none;"></a>';
 
@@ -94,6 +97,7 @@
                     $conn->close();
                     ?>
                 </div>
+                <!-- Défilement des images grâce aux flèches -->
                 <div class="image-selector">
                     <?php
                     for ($i = 0; $i < $result->num_rows; $i++) {
@@ -103,18 +107,16 @@
                 </div>
                 <button class="next">&#10095;</button>
             </div>
+                <!-- Affichage de l'image pour contacter l'utilisateur si il est connecté -->
                 <?php
                 if ($est_connecte){
                     echo '<p style="text-align:center;font-size:20px;font-weight:bold;padding-top:20px;">Pour nous contacter : <a href="contacter.php"><img src="Images/icone_commentaires.png" alt="Pour nous contacter" width="30" height="30" /></a></p>';
-
-
                 }   
                 ?>
-        </div>  
-        
+        </div>   
     </div>
     
-
+    <!-- Fonctionnement des flèches -->
     <script>
         $(document).ready(function() {
             let currentImage = 0;
@@ -154,17 +156,17 @@
             }
         });
     </script>
-<script>
-    $(document).ready(function() {
-       
 
-        $(".slide").hover(function() {
-            $(this).css({"transform": "scale(1.01)", "transition": "transform 0.3s"}); 
-        }, function() {
-            $(this).css({"transform": "scale(1)", "transition": "transform 0.3s"}); 
+    <!-- Agrandissement de l'image d'article quand l'utilisateur passe sa souris dessus -->
+    <script>
+        $(document).ready(function() {
+            $(".slide").hover(function() {
+                $(this).css({"transform": "scale(1.01)", "transition": "transform 0.3s"}); 
+            }, function() {
+                $(this).css({"transform": "scale(1)", "transition": "transform 0.3s"}); 
+            });
         });
-    });
-</script>
+    </script>
 
     <script src="script_index.js"></script>
 </body>
