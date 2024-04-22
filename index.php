@@ -68,10 +68,10 @@
                 <!-- Affichage des images d'article dans la base de données articles.sql -->
                 <div id="images-container">
                     <?php
-                   $servername = "sv6.byethost6.org";
-                    $username = "prixnobel";
-                    $password = "30zs0UULHk.]r7";
-                    $dbname = "prixnobel_articl";
+                   $servername = "localhost";
+                    $username = "root";
+                    $password = "";
+                    $dbname = "prix_nobel";
                     $conn = new mysqli($servername, $username, $password, $dbname);
 
                     if ($conn->connect_error) {
