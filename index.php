@@ -64,15 +64,14 @@
     </div>
     <div class="boite_index">
         <div class="contenu">
-            <div class="slider-container">
                 <button class="prev">&#10094;</button>
                 <!-- Affichage des images d'article dans la base de données articles.sql -->
                 <div id="images-container">
                     <?php
-                    $servername = "localhost";
-                    $username = "root";
-                    $password = "";
-                    $dbname = "articles";
+                   $servername = "sv6.byethost6.org";
+                    $username = "prixnobel";
+                    $password = "30zs0UULHk.]r7";
+                    $dbname = "prixnobel_articl";
                     $conn = new mysqli($servername, $username, $password, $dbname);
 
                     if ($conn->connect_error) {
@@ -85,12 +84,17 @@
                     if ($result->num_rows > 0) {
                         $index = 1;
                         while ($row = $result->fetch_assoc()) {
-                            # Affichage du titre de l'article associé
-                            echo '<div class="image-title" style="text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);font-weight: bold; font-size: 30px; text-align:center;cursor:default;margin-top:-10px;margin-bottom:10px;">' . $row["titre"] . '</div>';
-									 echo '<a href="article' . $index . '.php"><img class="slide" src="' . $row["image"] . '" style="margin: 0 auto;box-shadow: 0 0 5px rgba(1, 1, 1, 0.4); width: 100%; height: 100%; display: none;"></a>';
+                    // Affichage du titre de l'article associé
+                    echo '<div class="slide-container">';
+                    echo '<div class="image-title" style="text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2); font-weight: bold; font-size: 30px; text-align: center; cursor: default; margin-bottom: 10px;">' . $row["titre"] . '</div>';
+                    echo '<a href="article' . $index . '.php">';
+                    echo '<img class="slide" src="' . $row["image"] . '">';
+                    echo '</a>';
+                    echo '</div>';
 
-                            $index++;
-                        }
+                    $index++;
+                }
+
                     } else {
                         echo "0 résultats";
                     }
@@ -106,14 +110,15 @@
                     ?>
                 </div>
                 <button class="next">&#10095;</button>
-            </div>
                 <!-- Affichage de l'image pour contacter l'utilisateur si il est connecté -->
                 <?php
                 if ($est_connecte){
-                    echo '<p style="text-align:center;font-size:20px;font-weight:bold;padding-top:20px;">Pour nous contacter : <a href="contacter.php"><img src="Images/icone_commentaires.png" alt="Pour nous contacter" width="30" height="30" /></a></p>';
+                    echo '<p style="text-align:center;font-size:20px;font-weight:bold;margin-top:6%;">Pour nous contacter : <a href="contacter.php"><img src="Images/icone_commentaires.png" alt="Pour nous contacter" width="30" height="30" /></a></p>';
                 }   
                 ?>
-        </div>   
+            </div>
+                
+        </div> 
     </div>
     
     <!-- Fonctionnement des flèches -->
